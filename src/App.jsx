@@ -1,4 +1,4 @@
-import Container from "./components/Container.jsx";
+import Container from "./components/Container/Container.jsx";
 
 function App() {
     return (

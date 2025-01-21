@@ -1,0 +1,11 @@
+.container {
+    border: 2px solid rgba(224, 224, 224, 0.349);
+    border-radius: 5px;
+    width: 60%;
+    height: 100vh;
+    margin: auto;
+    background-color: var(--MainPageBackColor);
+    backdrop-filter: blur(12px);
+    font-weight: bold;
+    overflow: auto;
+}

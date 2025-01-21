@@ -1,0 +1,35 @@
+.table {
+    margin-top: 50px;
+    margin-left: auto;
+    margin-right: auto;
+    width: 100%;
+    border-collapse: collapse;
+    overflow: scroll;
+    color: rgb(32, 32, 32);
+}
+
+.table thead tr {
+    text-align: left;
+    font-size: 1.1rem;
+}
+.table thead tr:last-child,
+.table tbody td {
+    text-align: center;
+}
+
+.table th,
+.table td {
+    padding: 10px 5px 10px 5px;
+}
+
+.table tbody tr {
+    border-bottom: 1px solid rgb(27, 27, 27);
+}
+
+.table tbody tr:hover {
+    background-color: rgba(255, 255, 255, 0.137);
+}
+
+.table tbody tr button {
+    width: 150px;
+}

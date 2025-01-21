@@ -1,4 +1,5 @@
 import { useState } from "react";
+import "../components/ExpandedContainer.css";
 
 export default function ExpapandedContainer({ item, closeRow }) {
     const [content, setContent] = useState("repairs");
@@ -12,11 +13,27 @@ export default function ExpapandedContainer({ item, closeRow }) {
     }
 
     return (
-        <td colSpan="7" className="expanded-row">
+        <div className="expanded-row modal">
             <div className="row-menu">
                 <div>
-                    <button onClick={handleSetRepairs}> Repairs</button>
-                    <button onClick={handleSetInformation}>Infomation</button>
+                    <button
+                        className={
+                            content === "repairs" ? "selected-btn" : undefined
+                        }
+                        onClick={handleSetRepairs}
+                    >
+                        Repairs
+                    </button>
+                    <button
+                        className={
+                            content === "information"
+                                ? "selected-btn"
+                                : undefined
+                        }
+                        onClick={handleSetInformation}
+                    >
+                        Infomation
+                    </button>
                 </div>
                 <button
                     className="close-btn close-repair-modal"
@@ -28,7 +45,7 @@ export default function ExpapandedContainer({ item, closeRow }) {
                 </button>
             </div>
             {content === "repairs" && (
-                <div className="repair-modal modal">
+                <div className="modal-container">
                     <div className="header-container">
                         <h2>Информация за ремонти:</h2>
                         <div>
@@ -42,20 +59,18 @@ export default function ExpapandedContainer({ item, closeRow }) {
                             </button>
                         </div>
                     </div>
-                    <div className="render-repair-modal">
-                        <div className="info-container repair-info-container">
-                            <div>
-                                <div>{item.brand}</div>
-                                <div>{item.model}</div>
-                            </div>
-                            <div>
-                                <div>Сериен Номер:</div>
-                                <div>{item.serialNumber}</div>
-                            </div>
-                            <div>
-                                <div>Последна профилактика:</div>
-                                <div>{item.movevment}</div>
-                            </div>
+                    <div className="repairs-container">
+                        <div>
+                            <div>{item.brand}</div>
+                            <div>{item.model}</div>
+                        </div>
+                        <p>
+                            <div>Сериен Номер:</div>
+                            <div>{item.serialNumber}</div>
+                        </p>
+                        <div>
+                            <div>Последна профилактика:</div>
+                            <div>{item.movevment}</div>
                         </div>
                     </div>
                     <h3>Информация за предишни ремонти и сменени части</h3>
@@ -97,7 +112,7 @@ export default function ExpapandedContainer({ item, closeRow }) {
                 </div>
             )}
             {content === "information" && (
-                <div className="information-modal modal">
+                <div className=" repair-container-css">
                     <div className="header-container">
                         <h2>Текущо местоположение:</h2>
                         <div className="history-nav">
@@ -168,6 +183,6 @@ export default function ExpapandedContainer({ item, closeRow }) {
                     </div>
                 </div>
             )}
-        </td>
+        </div>
     );
 }

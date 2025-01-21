@@ -1,0 +1,56 @@
+.modal {
+    font-weight: bold;
+    font-size: 0.9rem;
+    padding: 0.625rem;
+    position: absolute;
+    width: 45%;
+    height: 100vh;
+    z-index: 15;
+    background-color: rgb(220, 221, 180);
+}
+
+.row-menu {
+    display: flex;
+    justify-content: space-between;
+}
+
+.row-menu button {
+    border-radius: 5px 5px 0 0;
+}
+
+.selected-btn {
+    background-color: rgb(12, 126, 101);
+}
+
+.repair-container-css {
+    background-color: rgb(247, 247, 247);
+}
+
+.modal table {
+    margin-left: auto;
+    margin-right: auto;
+    width: 100%;
+    border-collapse: collapse;
+    border-radius: 8px 8px 6px 6px;
+}
+
+.modal table thead th {
+    text-align: left;
+    font-size: 1.3rem;
+    position: sticky;
+    top: 0;
+}
+
+.modal table th,
+.modal table td {
+    font-size: 1rem;
+    padding: 10px;
+}
+
+.modal table tbody tr {
+    border-bottom: 1px solid rgb(27, 27, 27);
+}
+
+.close-btn {
+    background-color: var(--CloseBtnColor);
+}
