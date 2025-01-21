@@ -3,7 +3,7 @@ import { createPortal } from "react-dom";
 
 import classes from "./MachineTable.module.css";
 
-import ExpapandedContainer from "../ExpandedContainer";
+import ExpapandedContainer from "../ExpandedContainer/ExpandedContainer.jsx";
 import MACHINESDATA from "../../util/machineData";
 
 const machines = MACHINESDATA;

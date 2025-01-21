@@ -1,5 +1,5 @@
 import { useState } from "react";
-import "../components/ExpandedContainer.css";
+import "../ExpandedContainer/ExpandedContainer.css";
 
 export default function ExpapandedContainer({ item, closeRow }) {
     const [content, setContent] = useState("repairs");
