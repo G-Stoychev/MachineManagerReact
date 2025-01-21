@@ -13,7 +13,65 @@ export default function ExpapandedContainer({ item, closeRow }) {
     }
 
     return (
-        <div className="expanded-row modal">
+        <div className="modal">
+            <div className="information-modal">
+                <div className="modal-menu">
+                    <h2>Инфорамция за машина :</h2>
+                    <button
+                        className="close-btn"
+                        onClick={() => {
+                            closeRow(item.id);
+                        }}
+                    >
+                        X
+                    </button>
+                </div>
+
+                <div className="machine-information-table">
+                    <div>
+                        <div className="section">
+                            ${item.brand} ${item.model}
+                        </div>
+                        <div className="section">
+                            <div>Сериен Номер: ${item.serialNumber}</div>
+                        </div>
+                        <div className="section">
+                            <div>Дата на закупуване:</div>
+                            <div>$data.buyDate</div>
+                        </div>
+
+                        <div className="section">
+                            <div>Местоположение:</div>
+                            <div>$partner.address</div>
+                        </div>
+                    </div>
+
+                    <div>
+                        <div className="section">
+                            <div>Дата на монтаж:</div>
+                            <div>$partner.lastMovementDate</div>
+                        </div>
+
+                        <div className="section">
+                            <div>Парньор:</div>
+                            <div>$partner.company</div>
+                        </div>
+                        <div className="section">
+                            <div>Обект:</div>
+                            <div>$partner.object</div>
+                        </div>
+                        <div className="section">
+                            <div>Лице за контакт:</div>
+                            <div>$partner.name</div>
+                        </div>
+                        <div className="section">
+                            <div>Телефон:</div>
+                            <div>$partner.phone</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             <div className="row-menu">
                 <div>
                     <button
@@ -22,7 +80,7 @@ export default function ExpapandedContainer({ item, closeRow }) {
                         }
                         onClick={handleSetRepairs}
                     >
-                        Repairs
+                        Ремонти
                     </button>
                     <button
                         className={
@@ -32,48 +90,21 @@ export default function ExpapandedContainer({ item, closeRow }) {
                         }
                         onClick={handleSetInformation}
                     >
-                        Infomation
+                        Движения
                     </button>
                 </div>
-                <button
-                    className="close-btn close-repair-modal"
-                    onClick={() => {
-                        closeRow(item.id);
-                    }}
-                >
-                    X
-                </button>
             </div>
             {content === "repairs" && (
-                <div className="modal-container">
-                    <div className="header-container">
-                        <h2>Информация за ремонти:</h2>
+                <div className="responsive-modal">
+                    <div className="modal-menu">
+                        <h3>Информация за ремонти:</h3>
                         <div>
-                            <button className="save-changes">
-                                <i className="fa-solid fa-floppy-disk"></i>
-                                Запази
-                            </button>
                             <button className="add-new-repair">
                                 <i className="fa-solid fa-pen-to-square"></i>
                                 Добави ремонт
                             </button>
                         </div>
                     </div>
-                    <div className="repairs-container">
-                        <div>
-                            <div>{item.brand}</div>
-                            <div>{item.model}</div>
-                        </div>
-                        <p>
-                            <div>Сериен Номер:</div>
-                            <div>{item.serialNumber}</div>
-                        </p>
-                        <div>
-                            <div>Последна профилактика:</div>
-                            <div>{item.movevment}</div>
-                        </div>
-                    </div>
-                    <h3>Информация за предишни ремонти и сменени части</h3>
                     <div className="previous-repairs">
                         <table className="repair-table">
                             <thead>
@@ -102,7 +133,47 @@ export default function ExpapandedContainer({ item, closeRow }) {
                                             className="edit-repair-item"
                                             data-repair-id="${item.repairId}"
                                         >
-                                            <i className="fa-solid fa-pen-to-square"></i>
+                                            edit
+                                        </button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td className="date-of-repair">
+                                        repair date
+                                    </td>
+                                    <td className="person">Name</td>
+                                    <td className="previous-replaced-parts">
+                                        parts
+                                    </td>
+                                    <td className="date-of-repair">
+                                        prevention
+                                    </td>
+                                    <td>
+                                        <button
+                                            className="edit-repair-item"
+                                            data-repair-id="${item.repairId}"
+                                        >
+                                            edit
+                                        </button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td className="date-of-repair">
+                                        repair date
+                                    </td>
+                                    <td className="person">Name</td>
+                                    <td className="previous-replaced-parts">
+                                        parts
+                                    </td>
+                                    <td className="date-of-repair">
+                                        prevention
+                                    </td>
+                                    <td>
+                                        <button
+                                            className="edit-repair-item"
+                                            data-repair-id="${item.repairId}"
+                                        >
+                                            edit
                                         </button>
                                     </td>
                                 </tr>
@@ -111,62 +182,18 @@ export default function ExpapandedContainer({ item, closeRow }) {
                     </div>
                 </div>
             )}
-            {content === "information" && (
-                <div className=" repair-container-css">
-                    <div className="header-container">
-                        <h2>Текущо местоположение:</h2>
-                        <div className="history-nav">
-                            <button className="item-button create-protocol-button">
-                                <i className="fa-solid fa-pen-to-square"></i>
-                                Създай протокол
-                            </button>
-                            <button className="item-button create-protocol-and-contract-button">
-                                <i className="fa-solid fa-pen-to-square"></i>
-                                Създай протокол и договор
-                            </button>
-                        </div>
-                    </div>
-                    <div className="info-container information-info-container">
-                        <div>
-                            <div>
-                                ${item.brand} ${item.model}
-                            </div>
-                        </div>
-                        <div>
-                            <div>Сериен Номер: ${item.serialNumber}</div>
-                        </div>
-                        <div>
-                            <div>Дата на закупуване:</div>
-                            <div>$data.buyDate</div>
-                        </div>
-                        <div>
-                            <div>Местоположение:</div>
-                            <div>$partner.address</div>
-                        </div>
-                        <div>
-                            <div>Дата на монтаж:</div>
-                            <div>$partner.lastMovementDate</div>
-                        </div>
 
+            {content === "information" && (
+                <div className="responsive-modal">
+                    <div className="modal-menu">
+                        <h3>История на последни движения:</h3>
                         <div>
-                            <div>Парньор:</div>
-                            <div>$partner.company</div>
-                        </div>
-                        <div>
-                            <div>Обект:</div>
-                            <div>$partner.object</div>
-                        </div>
-                        <div>
-                            <div>Лице за контакт:</div>
-                            <div>$partner.name</div>
-                        </div>
-                        <div>
-                            <div>Телефон:</div>
-                            <div>$partner.phone</div>
+                            <button>Създай протокол</button>
+                            <button>Създай протокол и договор</button>
                         </div>
                     </div>
-                    <h2>История на последни движения:</h2>
-                    <div className="last-movements-container">
+
+                    <div>
                         <table>
                             <thead>
                                 <tr className="info-row">
@@ -178,7 +205,32 @@ export default function ExpapandedContainer({ item, closeRow }) {
                                     <th>Телефон</th>
                                 </tr>
                             </thead>
-                            <tbody className="info-table-rows"></tbody>
+                            <tbody className="info-table-rows">
+                                <tr className="info-row">
+                                    <th>15.01.2025</th>
+                                    <th>Бургас Янко Комитов 8</th>
+                                    <th>КСБ ООД</th>
+                                    <th>СКЛАД</th>
+                                    <th>Дария Тюлиева</th>
+                                    <th>08666 444 666</th>
+                                </tr>
+                                <tr className="info-row">
+                                    <th>18.01.2025</th>
+                                    <th>Бургас ул ОДрин 5</th>
+                                    <th>М фокс ООД</th>
+                                    <th>СКЛАД</th>
+                                    <th>Таня Петрова</th>
+                                    <th>08566 765 687</th>
+                                </tr>
+                                <tr className="info-row">
+                                    <th>21.01.2025</th>
+                                    <th>Бургас опера</th>
+                                    <th>Тришър ЕООД</th>
+                                    <th>Магазин</th>
+                                    <th>Илия Илиев</th>
+                                    <th>0893 6123 097</th>
+                                </tr>
+                            </tbody>
                         </table>
                     </div>
                 </div>
