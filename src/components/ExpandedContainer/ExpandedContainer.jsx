@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useImperativeHandle } from "react";
 import "../ExpandedContainer/ExpandedContainer.css";
 
 export default function ExpapandedContainer({ item, closeRow }) {
@@ -30,10 +30,10 @@ export default function ExpapandedContainer({ item, closeRow }) {
                 <div className="machine-information-table">
                     <div>
                         <div className="section">
-                            ${item.brand} ${item.model}
+                            {item.brand} {item.model}
                         </div>
                         <div className="section">
-                            <div>Сериен Номер: ${item.serialNumber}</div>
+                            <div>Сериен Номер: {item.serialNumber}</div>
                         </div>
                         <div className="section">
                             <div>Дата на закупуване:</div>
@@ -94,6 +94,7 @@ export default function ExpapandedContainer({ item, closeRow }) {
                     </button>
                 </div>
             </div>
+
             {content === "repairs" && (
                 <div className="responsive-modal">
                     <div className="modal-menu">

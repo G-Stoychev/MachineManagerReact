@@ -9,10 +9,10 @@ import MACHINESDATA from "../../util/machineData";
 const machines = MACHINESDATA;
 
 export default function MachineTable() {
-    const [expandedRow, setExpandedRow] = useState(null);
+    const [expandedModal, setExpandedModal] = useState(null);
 
-    function toggleRow(id) {
-        setExpandedRow(expandedRow === id ? null : id);
+    function toggleModal(id) {
+        setExpandedModal(expandedModal === id ? null : id);
         return id;
     }
 
@@ -21,12 +21,12 @@ export default function MachineTable() {
             <table className={classes.table}>
                 <thead>
                     <tr className="info-row">
-                        <th>Model</th>
-                        <th>Brand</th>
-                        <th>Serial number</th>
-                        <th>Movments</th>
-                        <th>Location</th>
-                        <th>Partner</th>
+                        <th>Модел</th>
+                        <th>Марка</th>
+                        <th>Сериен номер</th>
+                        <th>Движение</th>
+                        <th>Местоположение</th>
+                        <th>Фирма</th>
                     </tr>
                 </thead>
                 <tbody className="table-body">
@@ -34,7 +34,7 @@ export default function MachineTable() {
                         <Fragment key={machine.id}>
                             <tr
                                 onClick={() => {
-                                    toggleRow(machine.id);
+                                    toggleModal(machine.id);
                                 }}
                             >
                                 <td>{machine.model}</td>
@@ -44,11 +44,11 @@ export default function MachineTable() {
                                 <td>{machine.location}</td>
                                 <td>{machine.partner}</td>
                             </tr>
-                            {expandedRow === machine.id &&
+                            {expandedModal === machine.id &&
                                 createPortal(
                                     <ExpapandedContainer
                                         item={machine}
-                                        closeRow={toggleRow}
+                                        closeRow={toggleModal}
                                     />,
                                     document.getElementById("portal")
                                 )}
