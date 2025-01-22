@@ -1,6 +1,8 @@
 import { useState, useImperativeHandle } from "react";
 import "../ExpandedContainer/ExpandedContainer.css";
 
+import RepairModal from "../RepairModal/RepairModal.jsx";
+
 export default function ExpapandedContainer({ item, closeRow }) {
     const [content, setContent] = useState("repairs");
 
@@ -10,6 +12,10 @@ export default function ExpapandedContainer({ item, closeRow }) {
 
     function handleSetInformation() {
         setContent("information");
+    }
+
+    function handleSetNewRepair() {
+        setContent("newRepair");
     }
 
     return (
@@ -28,43 +34,43 @@ export default function ExpapandedContainer({ item, closeRow }) {
                 </div>
 
                 <div className="machine-information-table">
-                    <div>
-                        <div className="section">
+                    <div className="left-section-wrapper">
+                        <div className="section-wrapper">
                             {item.brand} {item.model}
                         </div>
-                        <div className="section">
+                        <div className="section-wrapper">
                             <div>Сериен Номер: {item.serialNumber}</div>
                         </div>
-                        <div className="section">
+                        <div className="section-wrapper">
                             <div>Дата на закупуване:</div>
                             <div>$data.buyDate</div>
                         </div>
 
-                        <div className="section">
+                        <div className="section-wrapper">
                             <div>Местоположение:</div>
                             <div>$partner.address</div>
                         </div>
                     </div>
 
                     <div>
-                        <div className="section">
+                        <div className="section-wrapper">
                             <div>Дата на монтаж:</div>
                             <div>$partner.lastMovementDate</div>
                         </div>
 
-                        <div className="section">
+                        <div className="section-wrapper">
                             <div>Парньор:</div>
                             <div>$partner.company</div>
                         </div>
-                        <div className="section">
+                        <div className="section-wrapper">
                             <div>Обект:</div>
                             <div>$partner.object</div>
                         </div>
-                        <div className="section">
+                        <div className="section-wrapper">
                             <div>Лице за контакт:</div>
                             <div>$partner.name</div>
                         </div>
-                        <div className="section">
+                        <div className="section-wrapper">
                             <div>Телефон:</div>
                             <div>$partner.phone</div>
                         </div>
@@ -100,8 +106,10 @@ export default function ExpapandedContainer({ item, closeRow }) {
                     <div className="modal-menu">
                         <h3>Информация за ремонти:</h3>
                         <div>
-                            <button className="add-new-repair">
-                                <i className="fa-solid fa-pen-to-square"></i>
+                            <button
+                                className="add-new-repair"
+                                onClick={handleSetNewRepair}
+                            >
                                 Добави ремонт
                             </button>
                         </div>
@@ -236,6 +244,8 @@ export default function ExpapandedContainer({ item, closeRow }) {
                     </div>
                 </div>
             )}
+
+            {content === "newRepair" && <RepairModal />}
         </div>
     );
 }

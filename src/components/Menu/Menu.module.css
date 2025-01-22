@@ -41,7 +41,7 @@
 
 .menuButton {
     border: none;
-    background-color: rgb(159, 160, 135);
+    background-color: rgb(234, 235, 216);
     border-radius: 5px;
     padding: 10px 25px;
     font-size: 1rem;
@@ -55,4 +55,5 @@
 
 .searchButton:hover {
     color: #fcf2f2;
+    background-color: unset;
 }
