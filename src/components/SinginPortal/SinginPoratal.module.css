@@ -1,0 +1,57 @@
+.wrapper {
+    font-family: inherit;
+    font-weight: bold;
+    font-size: 0.9rem;
+    padding: 0.625rem;
+    gap: 10px;
+    background-color: rgba(234, 229, 229, 0.961);
+    border-radius: 5px;
+    position: absolute;
+    width: 25%;
+    height: 25%;
+    z-index: 15;
+    top: 22%;
+    left: 45%;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+h2 {
+    margin: 10px 10px 30px;
+}
+
+.sectionWrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 5px;
+    font-size: 1rem;
+    margin-top: 10px;
+}
+
+.sectionWrapper input {
+    border-radius: 5px;
+    border: 1px;
+    width: 70%;
+    height: 30px;
+    font-size: 1.1rem;
+}
+
+.buttonsWrapper {
+    margin-top: 10%;
+    margin-left: 41%;
+}
+
+.resetBtn {
+    background-color: unset;
+    color: rgb(0, 0, 0);
+    font-weight: bold;
+    font-size: 12px;
+}
+
+.resetBtn:hover {
+    background-color: unset;
+    color: rgb(226, 0, 0);
+    font-weight: bold;
+    scale: 1.1;
+    cursor: pointer;
+}
