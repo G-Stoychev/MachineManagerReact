@@ -11,7 +11,7 @@
     height: 25%;
     z-index: 15;
     top: 22%;
-    left: 45%;
+    left: 35%;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
@@ -37,8 +37,8 @@ h2 {
 }
 
 .buttonsWrapper {
-    margin-top: 10%;
-    margin-left: 41%;
+    margin-top: 2rem;
+    margin-left: 15rem;
 }
 
 .resetBtn {

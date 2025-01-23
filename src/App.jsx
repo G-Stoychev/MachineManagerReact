@@ -1,6 +1,7 @@
 import { useState } from "react";
 import Container from "./components/Container/Container.jsx";
-import SinginPortal from "./components/SinginPortal/SinginPoratal.jsx";
+import SinginPortal from "./components/LoginPortal/LoginPortal.jsx";
+import LoginPortal from "./components/LoginPortal/LoginPortal.jsx";
 
 function App() {
     const [isValid, setIsvaled] = useState(false);
@@ -19,7 +20,7 @@ function App() {
                     <Container />
                 </>
             ) : (
-                <SinginPortal validLog={handleCheckLogInfo} />
+                <LoginPortal validLog={handleCheckLogInfo} />
             )}
         </>
     );

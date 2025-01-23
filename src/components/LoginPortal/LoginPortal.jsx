@@ -1,8 +1,8 @@
 import { useRef, useState } from "react";
 
-import styles from "./SinginPoratal.module.css";
+import styles from "./LoginPortal.module.css";
 
-export default function SinginPortal({ validLog }) {
+export default function LoginPortal({ validLog }) {
     const name = useRef();
     const password = useRef();
 
@@ -15,6 +15,7 @@ export default function SinginPortal({ validLog }) {
             alert("Enter name and  password");
             return;
         }
+
         validLog(enteredName, enteredPassword);
     }
 

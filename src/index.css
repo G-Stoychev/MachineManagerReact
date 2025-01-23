@@ -2,12 +2,6 @@
     margin: 0;
     padding: 0;
 }
-:root {
-    --MainPageBackColor: rgba(255, 255, 255, 0.247);
-    --ButtonColor: rgba(219, 217, 206, 0.151);
-    --CloseBtnColor: rgba(175, 30, 30, 0.793);
-    --HoverBtnColor: rgba(36, 36, 36, 0.11);
-}
 
 body {
     font-family: Arial, sans-serif;
