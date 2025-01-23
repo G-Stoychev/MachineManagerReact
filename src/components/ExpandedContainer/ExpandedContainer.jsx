@@ -18,6 +18,14 @@ export default function ExpapandedContainer({ item, closeRow }) {
         setContent("newRepair");
     }
 
+    function handleCloseModal(id) {
+        if (content === "newRepair") {
+            alert("Please first finish new repars ");
+            return;
+        }
+        closeRow(id);
+    }
+
     return (
         <div className="modal">
             <div className="information-modal">
@@ -26,7 +34,7 @@ export default function ExpapandedContainer({ item, closeRow }) {
                     <button
                         className="close-btn"
                         onClick={() => {
-                            closeRow(item.id);
+                            handleCloseModal(item.id);
                         }}
                     >
                         X
@@ -110,6 +118,7 @@ export default function ExpapandedContainer({ item, closeRow }) {
                                 className="add-new-repair"
                                 onClick={handleSetNewRepair}
                             >
+                                <i class="fa-solid fa-pen-to-square"></i>
                                 Добави ремонт
                             </button>
                         </div>
@@ -142,7 +151,7 @@ export default function ExpapandedContainer({ item, closeRow }) {
                                             className="edit-repair-item"
                                             data-repair-id="${item.repairId}"
                                         >
-                                            edit
+                                            <i class="fa-solid fa-pen-to-square"></i>
                                         </button>
                                     </td>
                                 </tr>
@@ -162,7 +171,7 @@ export default function ExpapandedContainer({ item, closeRow }) {
                                             className="edit-repair-item"
                                             data-repair-id="${item.repairId}"
                                         >
-                                            edit
+                                            <i class="fa-solid fa-pen-to-square"></i>
                                         </button>
                                     </td>
                                 </tr>
@@ -182,7 +191,7 @@ export default function ExpapandedContainer({ item, closeRow }) {
                                             className="edit-repair-item"
                                             data-repair-id="${item.repairId}"
                                         >
-                                            edit
+                                            <i class="fa-solid fa-pen-to-square"></i>
                                         </button>
                                     </td>
                                 </tr>
@@ -197,8 +206,14 @@ export default function ExpapandedContainer({ item, closeRow }) {
                     <div className="modal-menu">
                         <h3>История на последни движения:</h3>
                         <div>
-                            <button>Създай протокол</button>
-                            <button>Създай протокол и договор</button>
+                            <button>
+                                <i class="fa-solid fa-pen-to-square"></i>Създай
+                                протокол
+                            </button>
+                            <button>
+                                <i class="fa-solid fa-pen-to-square"></i>Създай
+                                протокол и договор
+                            </button>
                         </div>
                     </div>
 
@@ -245,7 +260,9 @@ export default function ExpapandedContainer({ item, closeRow }) {
                 </div>
             )}
 
-            {content === "newRepair" && <RepairModal />}
+            {content === "newRepair" && (
+                <RepairModal closeRepairModal={handleSetRepairs} />
+            )}
         </div>
     );
 }

@@ -35,7 +35,9 @@ export default function LoginPortal({ validLog }) {
                 <button type="reset" className={styles.resetBtn}>
                     Reset
                 </button>
-                <button>Login</button>
+                <button>
+                    <i class="fa-solid fa-lock-open"></i>Login
+                </button>
             </div>
         </form>
     );

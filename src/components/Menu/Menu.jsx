@@ -8,7 +8,7 @@ export default function Menu() {
                 <button
                     className={` ${classes.searchInput} ${classes.searchButton} `}
                 >
-                    edit
+                    <i class="fa-solid fa-pen-to-square"></i>
                 </button>
             </div>
             <div className={classes.searchContainer}>
@@ -20,16 +20,19 @@ export default function Menu() {
                 <button
                     className={`${classes.searchInput} ${classes.searchButton}`}
                 >
-                    Намери
+                    <i class="fa-solid fa-magnifying-glass"></i>
                 </button>
                 <button
                     className={`${classes.searchInput} ${classes.searchButton} `}
                 >
-                    reset
+                    <i class="fa-solid fa-arrows-rotate"></i>
                 </button>
             </div>
             <nav>
-                <button className={classes.menuButton}>Добави</button>
+                <button className={classes.menuButton}>
+                    <i class="fa-solid fa-pen-to-square"></i>
+                    Добави
+                </button>
                 <button className={classes.menuButton}>Филтър</button>
             </nav>
         </div>

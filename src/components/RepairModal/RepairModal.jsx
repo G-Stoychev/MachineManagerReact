@@ -1,6 +1,6 @@
 import classes from "./RepairModal.module.css";
 
-export default function RepairModal() {
+export default function RepairModal({ closeRepairModal }) {
     return (
         <div>
             <h2>Добави ремонт:</h2>
@@ -23,7 +23,7 @@ export default function RepairModal() {
 
             <div>
                 <button>Запази</button>
-                <button>Излез</button>
+                <button onClick={closeRepairModal}>Излез</button>
             </div>
         </div>
     );
