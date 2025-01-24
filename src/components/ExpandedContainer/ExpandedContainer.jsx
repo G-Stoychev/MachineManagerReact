@@ -20,7 +20,7 @@ export default function ExpapandedContainer({ item, closeRow }) {
 
     function handleCloseModal(id) {
         if (content === "newRepair") {
-            alert("Please first finish new repars ");
+            alert("Добавете нов ремонт или затворете секцията за нови ремонти");
             return;
         }
         closeRow(id);
@@ -85,29 +85,34 @@ export default function ExpapandedContainer({ item, closeRow }) {
                     </div>
                 </div>
             </div>
-
-            <div className="row-menu">
-                <div>
-                    <button
-                        className={
-                            content === "repairs" ? "selected-btn" : undefined
-                        }
-                        onClick={handleSetRepairs}
-                    >
-                        Ремонти
-                    </button>
-                    <button
-                        className={
-                            content === "information"
-                                ? "selected-btn"
-                                : undefined
-                        }
-                        onClick={handleSetInformation}
-                    >
-                        Движения
-                    </button>
+            {content === "newRepair" ? (
+                <RepairModal closeRepairModal={handleSetRepairs} />
+            ) : (
+                <div className="row-menu">
+                    <div>
+                        <button
+                            className={
+                                content === "repairs"
+                                    ? "selected-btn"
+                                    : undefined
+                            }
+                            onClick={handleSetRepairs}
+                        >
+                            Ремонти
+                        </button>
+                        <button
+                            className={
+                                content === "information"
+                                    ? "selected-btn"
+                                    : undefined
+                            }
+                            onClick={handleSetInformation}
+                        >
+                            Движения
+                        </button>
+                    </div>
                 </div>
-            </div>
+            )}
 
             {content === "repairs" && (
                 <div className="responsive-modal">
@@ -258,10 +263,6 @@ export default function ExpapandedContainer({ item, closeRow }) {
                         </table>
                     </div>
                 </div>
-            )}
-
-            {content === "newRepair" && (
-                <RepairModal closeRepairModal={handleSetRepairs} />
             )}
         </div>
     );
