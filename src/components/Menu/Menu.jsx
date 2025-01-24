@@ -1,6 +1,15 @@
+import { useRef } from "react";
+
+import AddItemModal from "../AddItemModal/AddItemModal.jsx";
+
 import classes from "./Menu.module.css";
 
 export default function Menu() {
+    const dialog = useRef();
+
+    function handleOpenAddItemModal() {
+        dialog.current.open();
+    }
     return (
         <div className={classes.container}>
             <div className={classes.title}>
@@ -8,7 +17,7 @@ export default function Menu() {
                 <button
                     className={` ${classes.searchInput} ${classes.searchButton} `}
                 >
-                    <i class="fa-solid fa-pen-to-square"></i>
+                    <i className="fa-solid fa-pen-to-square"></i>
                 </button>
             </div>
             <div className={classes.searchContainer}>
@@ -20,21 +29,25 @@ export default function Menu() {
                 <button
                     className={`${classes.searchInput} ${classes.searchButton}`}
                 >
-                    <i class="fa-solid fa-magnifying-glass"></i>
+                    <i className="fa-solid fa-magnifying-glass"></i>
                 </button>
                 <button
                     className={`${classes.searchInput} ${classes.searchButton} `}
                 >
-                    <i class="fa-solid fa-arrows-rotate"></i>
+                    <i className="fa-solid fa-arrows-rotate"></i>
                 </button>
             </div>
             <nav>
-                <button className={classes.menuButton}>
-                    <i class="fa-solid fa-pen-to-square"></i>
+                <button
+                    className={classes.menuButton}
+                    onClick={handleOpenAddItemModal}
+                >
+                    <i className="fa-solid fa-pen-to-square"></i>
                     Добави
                 </button>
                 <button className={classes.menuButton}>Филтър</button>
             </nav>
+            <AddItemModal ref={dialog} />
         </div>
     );
 }

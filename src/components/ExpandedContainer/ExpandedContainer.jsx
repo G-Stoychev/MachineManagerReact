@@ -123,7 +123,7 @@ export default function ExpapandedContainer({ item, closeRow }) {
                                 className="add-new-repair"
                                 onClick={handleSetNewRepair}
                             >
-                                <i class="fa-solid fa-pen-to-square"></i>
+                                <i className="fa-solid fa-pen-to-square"></i>
                                 Добави ремонт
                             </button>
                         </div>
@@ -156,7 +156,7 @@ export default function ExpapandedContainer({ item, closeRow }) {
                                             className="edit-repair-item"
                                             data-repair-id="${item.repairId}"
                                         >
-                                            <i class="fa-solid fa-pen-to-square"></i>
+                                            <i className="fa-solid fa-pen-to-square"></i>
                                         </button>
                                     </td>
                                 </tr>
@@ -176,7 +176,7 @@ export default function ExpapandedContainer({ item, closeRow }) {
                                             className="edit-repair-item"
                                             data-repair-id="${item.repairId}"
                                         >
-                                            <i class="fa-solid fa-pen-to-square"></i>
+                                            <i className="fa-solid fa-pen-to-square"></i>
                                         </button>
                                     </td>
                                 </tr>
@@ -196,7 +196,7 @@ export default function ExpapandedContainer({ item, closeRow }) {
                                             className="edit-repair-item"
                                             data-repair-id="${item.repairId}"
                                         >
-                                            <i class="fa-solid fa-pen-to-square"></i>
+                                            <i className="fa-solid fa-pen-to-square"></i>
                                         </button>
                                     </td>
                                 </tr>
@@ -212,12 +212,12 @@ export default function ExpapandedContainer({ item, closeRow }) {
                         <h3>История на последни движения:</h3>
                         <div>
                             <button>
-                                <i class="fa-solid fa-pen-to-square"></i>Създай
-                                протокол
+                                <i className="fa-solid fa-pen-to-square"></i>
+                                Създай протокол
                             </button>
                             <button>
-                                <i class="fa-solid fa-pen-to-square"></i>Създай
-                                протокол и договор
+                                <i className="fa-solid fa-pen-to-square"></i>
+                                Създай протокол и договор
                             </button>
                         </div>
                     </div>

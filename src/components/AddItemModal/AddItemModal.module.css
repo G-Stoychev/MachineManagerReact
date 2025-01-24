@@ -1,0 +1,54 @@
+dialog {
+    font-family: inherit;
+    font-weight: bold;
+    font-size: 1rem;
+    padding: 0.625rem;
+    gap: 10px;
+    background-color: rgba(234, 229, 229, 0.961);
+    border-radius: 5px;
+    border: unset;
+    position: absolute;
+    width: 25%;
+    height: fit-content;
+    z-index: 15;
+    top: 22%;
+    left: 35%;
+    box-shadow: 0 0 5px 5px rgba(0, 0, 0, 0.11);
+}
+dialog::backdrop {
+    /* background-color: rgba(68, 132, 148, 0.712); */
+    background-color: rgba(152, 154, 155, 0.781);
+}
+
+.dialogMenu {
+    display: flex;
+    justify-content: space-between;
+}
+
+.dialogMenu button {
+    color: rgb(223, 6, 6);
+    background-color: unset;
+    font-weight: 800;
+}
+
+.dialogMenu button:hover {
+    color: white;
+    background-color: rgb(223, 6, 6);
+    cursor: pointer;
+}
+
+.sectionWrapper {
+    margin-top: 10px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.sectionWrapper input {
+    width: 70%;
+    height: 1.4rem;
+}
+
+.btnSection {
+    display: flex;
+    justify-content: center;
+}

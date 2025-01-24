@@ -20,7 +20,7 @@ export default function LoginPortal({ validLog }) {
     }
 
     return (
-        <form className={styles.wrapper} onSubmit={handleSubmit}>
+        <form className={styles.form} onSubmit={handleSubmit}>
             <h2>Login :</h2>
             <div className={styles.sectionWrapper}>
                 <label>Name :</label>
@@ -36,7 +36,7 @@ export default function LoginPortal({ validLog }) {
                     Reset
                 </button>
                 <button>
-                    <i class="fa-solid fa-lock-open"></i>Login
+                    <i className="fa-solid fa-lock-open"></i>Login
                 </button>
             </div>
         </form>
