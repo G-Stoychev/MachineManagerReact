@@ -72,7 +72,7 @@ button:hover {
 }
 
 .modal table thead th {
-    background-color: rgb(219, 219, 218);
+    background-color: rgb(255, 255, 254);
     text-align: left;
     font-size: 1.1rem;
     position: sticky;

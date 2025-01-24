@@ -14,6 +14,18 @@
     align-items: center;
 }
 
+.logoutBtn {
+    padding: 0;
+    background-color: unset;
+    box-shadow: unset;
+    color: white;
+}
+
+.logoutBtn:hover {
+    color: red;
+    background-color: unset;
+}
+
 .searchInput {
     border: none;
     outline: none;
@@ -64,7 +76,7 @@
         justify-content: center;
     }
     .container h3 {
-        font-size: 1.2rem;
+        font-size: 1rem;
     }
     .searchInput {
         border: none;

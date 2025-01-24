@@ -21,9 +21,9 @@ export default function LoginPortal({ validLog }) {
 
     return (
         <form className={styles.form} onSubmit={handleSubmit}>
-            <h2>Login :</h2>
+            <h2>Login</h2>
             <div className={styles.sectionWrapper}>
-                <label>Name :</label>
+                <label>Name:</label>
                 <input type="text" ref={name} />
             </div>
             <div className={styles.sectionWrapper}>

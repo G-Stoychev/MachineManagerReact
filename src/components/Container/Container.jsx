@@ -3,10 +3,10 @@ import MachineTable from "../MachineTable/MachineTable.jsx";
 
 import classes from "./Container.module.css";
 
-export default function Container() {
+export default function Container({ userName, logout }) {
     return (
         <div className={classes.container}>
-            <Menu />
+            <Menu userName={userName} logout={logout} />
             <MachineTable />
         </div>
     );

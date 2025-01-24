@@ -4,7 +4,7 @@ import AddItemModal from "../AddItemModal/AddItemModal.jsx";
 
 import classes from "./Menu.module.css";
 
-export default function Menu() {
+export default function Menu({ userName, logout }) {
     const dialog = useRef();
 
     function handleOpenAddItemModal() {
@@ -13,7 +13,15 @@ export default function Menu() {
     return (
         <div className={classes.container}>
             <div className={classes.title}>
-                <h3>Coffee Service Burgas LTD</h3>
+                <div>
+                    <h3>Coffee Service Burgas LTD</h3>
+                    <p>
+                        Welcome {userName}{" "}
+                        <button className={classes.logoutBtn} onClick={logout}>
+                            Logout
+                        </button>
+                    </p>
+                </div>
                 <button
                     className={` ${classes.searchInput} ${classes.searchButton} `}
                 >
