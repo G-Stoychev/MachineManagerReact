@@ -13,7 +13,7 @@ dialog {
     z-index: 15;
     top: 22%;
     left: 35%;
-    box-shadow: 0 0 5px 5px rgba(0, 0, 0, 0.11);
+    box-shadow: 5px 5px 5px rgba(26, 25, 25, 0.774);
 }
 dialog::backdrop {
     /* background-color: rgba(68, 132, 148, 0.712); */
@@ -26,6 +26,7 @@ dialog::backdrop {
 }
 
 .dialogMenu button {
+    box-shadow: unset;
     color: rgb(223, 6, 6);
     background-color: unset;
     font-weight: 800;

@@ -4,8 +4,6 @@
     flex-wrap: wrap;
     justify-content: space-between;
     align-items: center;
-    /* border: 1px solid rgba(234, 234, 234, 0.744);
-    border-radius: 5px; */
 }
 
 .title {
@@ -29,6 +27,7 @@
 
 .searchButton {
     border: none;
+    box-shadow: unset;
 }
 
 .searchContainer {
@@ -46,6 +45,7 @@
     font-size: 1rem;
     margin: 5px;
     font-weight: bold;
+    box-shadow: 3px 3px 3px rgba(26, 25, 25, 0.774);
 }
 
 .menuButton:hover {

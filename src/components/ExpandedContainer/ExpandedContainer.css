@@ -38,11 +38,11 @@
 
 button {
     border: none;
-
     border-radius: 5px;
     padding: 10px 25px;
     margin: 5px;
     font-weight: bold;
+    box-shadow: 3px 3px 3px rgba(26, 25, 25, 0.774);
 }
 button:hover {
     background-color: rgb(203, 222, 238);
@@ -50,6 +50,7 @@ button:hover {
 }
 
 .row-menu button {
+    box-shadow: unset;
     margin: 0 0 0 5px;
     border-radius: 5px 5px 0 0;
 }
@@ -89,6 +90,7 @@ button:hover {
 }
 
 .modal .close-btn {
+    box-shadow: unset;
     color: rgb(223, 6, 6);
     background-color: unset;
     font-weight: 800;
