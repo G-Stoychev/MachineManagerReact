@@ -56,3 +56,11 @@ h2 {
     scale: 1.1;
     cursor: pointer;
 }
+
+@media only screen and (max-width: 600px) {
+    .form {
+        width: 70%;
+        height: fit-content;
+        left: 15%;
+    }
+}

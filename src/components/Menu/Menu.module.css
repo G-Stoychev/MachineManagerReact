@@ -56,3 +56,21 @@
     color: #fcf2f2;
     background-color: unset;
 }
+
+@media only screen and (max-width: 600px) {
+    .container {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    .container h3 {
+        font-size: 1.2rem;
+    }
+    .searchInput {
+        border: none;
+        outline: none;
+        background-color: inherit;
+        margin: 0;
+        padding: 5px;
+    }
+}

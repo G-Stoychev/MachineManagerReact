@@ -42,14 +42,25 @@ dialog::backdrop {
     margin-top: 10px;
     display: flex;
     justify-content: space-between;
+    align-items: center;
 }
 
 .sectionWrapper input {
-    width: 70%;
+    width: 60%;
     height: 1.4rem;
 }
 
 .btnSection {
     display: flex;
     justify-content: center;
+}
+
+@media only screen and (max-width: 600px) {
+    dialog {
+        width: 70%;
+    }
+
+    dialog h2 {
+        font-size: 1rem;
+    }
 }
