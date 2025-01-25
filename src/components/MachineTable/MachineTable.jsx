@@ -4,9 +4,7 @@ import { createPortal } from "react-dom";
 import classes from "./MachineTable.module.css";
 
 import ExpandedContainer from "../ExpandedContainer/ExpandedContainer.jsx";
-import { getMachines } from "../../services/dataService.js";
-
-export default function MachineTable() {
+export default function MachineTable({ machines }) {
     const [expandedModal, setExpandedModal] = useState(null);
 
     function toggleModal(id) {
@@ -28,7 +26,7 @@ export default function MachineTable() {
                     </tr>
                 </thead>
                 <tbody className="table-body">
-                    {getMachines().map((machine) => (
+                    {machines.map((machine) => (
                         <Fragment key={machine.id}>
                             <tr
                                 onClick={() => {

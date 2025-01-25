@@ -32,7 +32,7 @@ export default function ExpandedContainer({ machine, closeRow }) {
     };
 
     const handleOnCreate = (newRepair) => {
-        newRepair.id = Math.random();
+        newRepair.id = Date.now().toString();
         newRepair.machineId = machine.id;
         setRepairsList([...repairsList, newRepair]);
         handleSetRepairs();

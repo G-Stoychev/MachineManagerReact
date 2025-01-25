@@ -2,7 +2,7 @@ import { useRef, useImperativeHandle } from "react";
 
 import classes from "./AddItemModal.module.css";
 
-export default function AddItemModal({ ref }) {
+export default function AddItemModal({ onAddNewMachine, ref }) {
     const dialog = useRef();
 
     useImperativeHandle(ref, () => {
@@ -13,12 +13,26 @@ export default function AddItemModal({ ref }) {
         };
     });
 
-    function handleCloseDialog() {
-        dialog.current.close();
-    }
+    const handleCloseDialog = () => dialog.current.close();
+
+    const handleSubmit = (formData) => {
+        const newMachineData = {
+            id: Date.now().toString(),
+            model: formData.get("model"),
+            brand: formData.get("brand"),
+            serialNumber: formData.get("serialNumber"),
+            buyDate: formData.get("buyDate"),
+            movement: new Date().toISOString().split("T")[0],
+            location: "Бургас",
+            partner: "Кофи Сървис Бургас ООД",
+        };
+        onAddNewMachine(newMachineData);
+        handleCloseDialog();
+    };
+
     return (
         <dialog ref={dialog} className={classes.dialog}>
-            <form>
+            <form action={handleSubmit}>
                 <div className={classes.dialogMenu}>
                     <h2>Добави машина:</h2>
                     <button type="button" onClick={handleCloseDialog}>
@@ -27,23 +41,35 @@ export default function AddItemModal({ ref }) {
                 </div>
                 <div className={classes.sectionWrapper}>
                     <label>Дата на покупка:</label>
-                    <input type="date" />
+                    <input type="date" name="buyDate" />
                 </div>
                 <div className={classes.sectionWrapper}>
                     <label>Модел:</label>
-                    <input type="text" placeholder="Въведи модел" />
+                    <input
+                        type="text"
+                        placeholder="Въведи модел"
+                        name="model"
+                    />
                 </div>
                 <div className={classes.sectionWrapper}>
                     <label>Марка:</label>
-                    <input type="text" placeholder="Въведи марка" />
+                    <input
+                        type="text"
+                        placeholder="Въведи марка"
+                        name="brand"
+                    />
                 </div>
                 <div className={classes.sectionWrapper}>
                     <label>Сериен номер:</label>
-                    <input type="text" placeholder="Сериен номер"></input>
+                    <input
+                        type="text"
+                        placeholder="Сериен номер"
+                        name="serialNumber"
+                    ></input>
                 </div>
 
                 <div className={classes.btnSection}>
-                    <button type="button">Добави</button>
+                    <button>Добави</button>
                 </div>
             </form>
         </dialog>
