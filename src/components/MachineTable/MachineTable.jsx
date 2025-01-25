@@ -3,7 +3,7 @@ import { createPortal } from "react-dom";
 
 import classes from "./MachineTable.module.css";
 
-import ExpapandedContainer from "../ExpandedContainer/ExpandedContainer.jsx";
+import ExpandedContainer from "../ExpandedContainer/ExpandedContainer.jsx";
 import { getMachines } from "../../services/dataService.js";
 
 export default function MachineTable() {
@@ -44,8 +44,8 @@ export default function MachineTable() {
                             </tr>
                             {expandedModal === machine.id &&
                                 createPortal(
-                                    <ExpapandedContainer
-                                        item={machine}
+                                    <ExpandedContainer
+                                        machine={machine}
                                         closeRow={toggleModal}
                                     />,
                                     document.getElementById("portal")

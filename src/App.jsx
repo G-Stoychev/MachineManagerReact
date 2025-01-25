@@ -3,7 +3,7 @@ import Container from "./components/Container/Container.jsx";
 import LoginPortal from "./components/LoginPortal/LoginPortal.jsx";
 
 function App() {
-    const [isValid, setIsvaled] = useState(false);
+    const [isValid, setIsvaled] = useState(true);
     const [userName, setUserName] = useState("");
 
     function handleCheckLogInfo(name, password) {

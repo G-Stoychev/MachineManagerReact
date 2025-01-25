@@ -1,31 +1,51 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "../ExpandedContainer/ExpandedContainer.css";
 
 import RepairModal from "../RepairModal/RepairModal.jsx";
 import { getRepairsByMachineId } from "../../services/dataService.js";
 
-export default function ExpapandedContainer({ item, closeRow }) {
+export default function ExpandedContainer({ machine, closeRow }) {
     const [content, setContent] = useState("repairs");
+    const [selectedRepair, setSelectedRepair] = useState();
+    const [repairsList, setRepairsList] = useState(
+        getRepairsByMachineId(machine.id)
+    );
 
-    function handleSetRepairs() {
+    const handleSetRepairs = () => {
         setContent("repairs");
-    }
-
-    function handleSetInformation() {
-        setContent("information");
-    }
-
-    function handleSetNewRepair() {
-        setContent("newRepair");
-    }
-
-    function handleCloseModal(id) {
-        if (content === "newRepair") {
+        setSelectedRepair(undefined);
+    };
+    const handleSetInformation = () => setContent("information");
+    const handleSetNewRepair = () => setContent("repairModal");
+    const handleCloseModal = (id) => {
+        if (content === "repairModal") {
             alert("Добавете нов ремонт или затворете секцията за нови ремонти");
             return;
         }
+        setSelectedRepair(undefined);
         closeRow(id);
-    }
+    };
+
+    const handleSetUpdateRepair = (repair) => {
+        handleSetNewRepair();
+        setSelectedRepair(repair);
+    };
+
+    const handleOnCreate = (newRepair) => {
+        newRepair.id = Math.random();
+        newRepair.machineId = machine.id;
+        setRepairsList([...repairsList, newRepair]);
+        handleSetRepairs();
+        console.log("OnCreate called", newRepair);
+    };
+    const handleOnUpdate = (updatedRepair) => {
+        const index = repairsList.findIndex((r) => r.id === updatedRepair.id);
+        const copiedRepairsList = [...repairsList];
+        copiedRepairsList.splice(index, 1, updatedRepair);
+        setRepairsList(copiedRepairsList);
+        handleSetRepairs();
+        console.log("OnUpdate called", updatedRepair);
+    };
 
     return (
         <div className="modal">
@@ -34,9 +54,7 @@ export default function ExpapandedContainer({ item, closeRow }) {
                     <h2>Инфорамция за машина :</h2>
                     <button
                         className="close-btn"
-                        onClick={() => {
-                            handleCloseModal(item.id);
-                        }}
+                        onClick={() => handleCloseModal(machine.id)}
                     >
                         X
                     </button>
@@ -45,10 +63,10 @@ export default function ExpapandedContainer({ item, closeRow }) {
                 <div className="machine-information-table">
                     <div className="left-section-wrapper">
                         <div className="section-wrapper">
-                            {item.brand} {item.model}
+                            {machine.brand} {machine.model}
                         </div>
                         <div className="section-wrapper">
-                            <div>Сериен Номер: {item.serialNumber}</div>
+                            <div>Сериен Номер: {machine.serialNumber}</div>
                         </div>
                         <div className="section-wrapper">
                             <div>Дата на закупуване:</div>
@@ -86,8 +104,13 @@ export default function ExpapandedContainer({ item, closeRow }) {
                     </div>
                 </div>
             </div>
-            {content === "newRepair" ? (
-                <RepairModal closeRepairModal={handleSetRepairs} />
+            {content === "repairModal" ? (
+                <RepairModal
+                    closeRepairModal={handleSetRepairs}
+                    repair={selectedRepair}
+                    onCreate={handleOnCreate}
+                    onUpdate={handleOnUpdate}
+                />
             ) : (
                 <div className="row-menu">
                     <div>
@@ -141,31 +164,34 @@ export default function ExpapandedContainer({ item, closeRow }) {
                                 </tr>
                             </thead>
                             <tbody className="table-rows">
-                                {getRepairsByMachineId(item.id).map(
-                                    (repair) => (
-                                        <tr key={repair.repairId}>
-                                            <td className="date-of-repair">
-                                                {repair.dateOfRepair}
-                                            </td>
-                                            <td className="person">
-                                                {repair.repairByPerson}
-                                            </td>
-                                            <td className="previous-replaced-parts">
-                                                {repair.replacedParts}
-                                            </td>
-                                            <td className="date-of-repair">
-                                                {repair.prevention
-                                                    ? "Yes"
-                                                    : "No"}
-                                            </td>
-                                            <td>
-                                                <button className="edit-repair-item">
-                                                    <i className="fa-solid fa-pen-to-square"></i>
-                                                </button>
-                                            </td>
-                                        </tr>
-                                    )
-                                )}
+                                {repairsList.map((repair) => (
+                                    <tr key={repair.id}>
+                                        <td className="date-of-repair">
+                                            {repair.date}
+                                        </td>
+                                        <td className="person">
+                                            {repair.person}
+                                        </td>
+                                        <td className="previous-replaced-parts">
+                                            {repair.parts}
+                                        </td>
+                                        <td className="date-of-repair">
+                                            {repair.prevention ? "Yes" : "No"}
+                                        </td>
+                                        <td>
+                                            <button
+                                                className="edit-repair-machine"
+                                                onClick={() =>
+                                                    handleSetUpdateRepair(
+                                                        repair
+                                                    )
+                                                }
+                                            >
+                                                <i className="fa-solid fa-pen-to-square"></i>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                ))}
                             </tbody>
                         </table>
                     </div>
