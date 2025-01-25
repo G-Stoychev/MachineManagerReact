@@ -2,12 +2,9 @@ import { useState } from "react";
 import "../ExpandedContainer/ExpandedContainer.css";
 
 import RepairModal from "../RepairModal/RepairModal.jsx";
-import REPAIRS from "../../util/repairsByMachine.js";
+import { getRepairsByMachineId } from "../../services/dataService.js";
 
 export default function ExpapandedContainer({ item, closeRow }) {
-    const currentMachineRepair = REPAIRS.filter(
-        (repair) => repair.machineId === item.id
-    );
     const [content, setContent] = useState("repairs");
 
     function handleSetRepairs() {
@@ -144,27 +141,31 @@ export default function ExpapandedContainer({ item, closeRow }) {
                                 </tr>
                             </thead>
                             <tbody className="table-rows">
-                                {currentMachineRepair.map((repair) => (
-                                    <tr key={repair.repairId}>
-                                        <td className="date-of-repair">
-                                            {repair.dateOfRepair}
-                                        </td>
-                                        <td className="person">
-                                            {repair.repairByPerson}
-                                        </td>
-                                        <td className="previous-replaced-parts">
-                                            {repair.replacedParts}
-                                        </td>
-                                        <td className="date-of-repair">
-                                            {repair.prevention ? "Yes" : "No"}
-                                        </td>
-                                        <td>
-                                            <button className="edit-repair-item">
-                                                <i className="fa-solid fa-pen-to-square"></i>
-                                            </button>
-                                        </td>
-                                    </tr>
-                                ))}
+                                {getRepairsByMachineId(item.id).map(
+                                    (repair) => (
+                                        <tr key={repair.repairId}>
+                                            <td className="date-of-repair">
+                                                {repair.dateOfRepair}
+                                            </td>
+                                            <td className="person">
+                                                {repair.repairByPerson}
+                                            </td>
+                                            <td className="previous-replaced-parts">
+                                                {repair.replacedParts}
+                                            </td>
+                                            <td className="date-of-repair">
+                                                {repair.prevention
+                                                    ? "Yes"
+                                                    : "No"}
+                                            </td>
+                                            <td>
+                                                <button className="edit-repair-item">
+                                                    <i className="fa-solid fa-pen-to-square"></i>
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    )
+                                )}
                             </tbody>
                         </table>
                     </div>

@@ -4,9 +4,7 @@ import { createPortal } from "react-dom";
 import classes from "./MachineTable.module.css";
 
 import ExpapandedContainer from "../ExpandedContainer/ExpandedContainer.jsx";
-import MACHINESDATA from "../../util/machineData";
-
-const machines = MACHINESDATA;
+import { getMachines } from "../../services/dataService.js";
 
 export default function MachineTable() {
     const [expandedModal, setExpandedModal] = useState(null);
@@ -30,7 +28,7 @@ export default function MachineTable() {
                     </tr>
                 </thead>
                 <tbody className="table-body">
-                    {machines.map((machine) => (
+                    {getMachines().map((machine) => (
                         <Fragment key={machine.id}>
                             <tr
                                 onClick={() => {
