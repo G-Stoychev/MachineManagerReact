@@ -22,6 +22,7 @@ export default function PartnerModal({ lastmove, ref, onCreate }) {
             contact: formData.get("contact"),
             location: formData.get("location"),
             phone: formData.get("phone"),
+            object: formData.get("object"),
         };
         if (
             inputPartnerIfno.partner === "" ||
@@ -72,6 +73,15 @@ export default function PartnerModal({ lastmove, ref, onCreate }) {
                         placeholder="Адрес на регистрация"
                         name="location"
                         defaultValue={formState?.location}
+                    ></input>
+                </div>
+                <div className={classes.sectionWrapper}>
+                    <label>Адрес:</label>
+                    <input
+                        type="text"
+                        placeholder="Тип обект"
+                        name="object"
+                        defaultValue={formState?.object}
                     ></input>
                 </div>
                 <div className={classes.sectionWrapper}>
