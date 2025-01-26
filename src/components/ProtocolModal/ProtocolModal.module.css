@@ -1,0 +1,156 @@
+.protocolModal {
+    font-weight: bold;
+    background-image: radial-gradient(
+        circle,
+        rgba(203, 222, 238, 0.938),
+        white
+    );
+    font-size: 1rem;
+    position: absolute;
+    width: 100%;
+    height: 99vh;
+    z-index: 15;
+    color: rgb(26, 23, 23);
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 20px;
+    background-color: #f4f4f4;
+}
+
+.protocolNav {
+    display: flex;
+    justify-content: end;
+    margin-bottom: 5px;
+}
+s
+
+/* button {
+    border: none;
+    border-radius: 5px;
+    font-size: 0.9rem;
+    font-weight: bold;
+    margin-left: 10px;
+    padding: 5px;
+} */
+
+.closeBtn {
+    background-color: rgba(175, 30, 30, 0.793);
+}
+
+.protocolModal .wrapper {
+    display: flex;
+    justify-content: space-between; /* Поставяме двата екземпляра един до друг */
+    gap: 20px;
+}
+
+.protocolContainer {
+    width: 48%; /* Ширината на всеки екземпляр е 48%, за да се поберат на една страница */
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.protocolModal h1 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.protocolModal .section {
+    margin-bottom: 30px;
+}
+
+.partyInfo {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+}
+
+.party {
+    width: 45%;
+}
+
+.protocolModal table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+}
+
+.protocolModal table,
+.protocolModal th,
+.protocolModal td {
+    border: 1px solid #ddd;
+}
+
+.protocolModal th,
+.protocolModal td {
+    padding: 8px;
+    text-align: left;
+}
+
+.signatures {
+    display: flex;
+    justify-content: space-between;
+}
+
+.signatures div {
+    width: 45%;
+}
+
+.printButton {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    background-color: #4caf50;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.printButton:hover {
+    background-color: #45a049;
+    scale: 1;
+}
+
+.movementInfo {
+    border: none;
+    font-size: inherit;
+}
+
+.employee {
+    border: none;
+    font-size: inherit;
+}
+
+.protocolModal input {
+    display: block;
+    border: none;
+    margin-bottom: 12px;
+    font-size: inherit;
+}
+
+/* Стилове за печат */
+@media print {
+    body {
+        margin: 0;
+        padding: 0;
+    }
+    @page {
+        size: A4 landscape; /* Задаваме формат A4 и хоризонтален изглед */
+        margin: 10mm; /* Малък отстъп за печат */
+    }
+
+    .print-button,
+    .protocol-nav {
+        display: none; /* Скриваме бутона при печат */
+    }
+
+    .protocol-container {
+        box-shadow: none; /* Премахваме сенките при печат */
+    }
+    .protocolNav {
+        display: none;
+    }
+}
