@@ -8,6 +8,7 @@ export default function Menu({
     openModal,
     onFilter,
     onReset,
+    openCompanyModal,
 }) {
     const searchInput = useRef();
 
@@ -35,6 +36,7 @@ export default function Menu({
                 </div>
                 <button
                     className={` ${classes.searchInput} ${classes.searchButton} `}
+                    onClick={openCompanyModal}
                 >
                     <i className="fa-solid fa-pen-to-square"></i>
                 </button>
