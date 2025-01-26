@@ -23,6 +23,16 @@ export default function CompanyInfoModal({ ref, onCompanyEdit, company }) {
             adress: formData.get("adress"),
             phone: formData.get("phone"),
         };
+        if (
+            inputCompanyValues.name === "" ||
+            inputCompanyValues.bulstat === "" ||
+            inputCompanyValues.mol === "" ||
+            inputCompanyValues.adress === "" ||
+            inputCompanyValues.phone === ""
+        ) {
+            alert("Моля попълнете всички поледата");
+            return;
+        }
         console.log(inputCompanyValues);
         handleCloseDialog();
         onCompanyEdit(inputCompanyValues);

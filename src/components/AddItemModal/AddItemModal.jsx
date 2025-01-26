@@ -26,6 +26,15 @@ export default function AddItemModal({ onAddNewMachine, ref, company }) {
             location: company.adress,
             partner: company.name,
         };
+        if (
+            newMachineData.model === "" ||
+            newMachineData.brand === "" ||
+            newMachineData.serialNumber === "" ||
+            newMachineData.buyDate === ""
+        ) {
+            alert("Няма въведен номер");
+            return;
+        }
         onAddNewMachine(newMachineData);
         handleCloseDialog();
     };

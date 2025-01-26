@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { useRef, useState } from "react";
 
 import classes from "./Menu.module.css";
 
@@ -12,9 +12,15 @@ export default function Menu({
     company,
 }) {
     const searchInput = useRef();
+    const [searching, setSearching] = useState(false);
 
     const handleSearchInput = () => {
         const inputSerialNumber = searchInput.current.value;
+        if (inputSerialNumber === "") {
+            alert("Няма въведен номер");
+            return;
+        }
+        setSearching(true);
         onFilter(inputSerialNumber);
     };
 
@@ -55,7 +61,7 @@ export default function Menu({
                 >
                     <i className="fa-solid fa-magnifying-glass"></i>
                 </button>
-                {searchInput.current.value !== "" && (
+                {searching && (
                     <button
                         className={`${classes.searchInput} ${classes.searchButton} `}
                         onClick={handleResetInput}
