@@ -54,7 +54,14 @@ export default function ExpandedContainer({ machine, closeRow }) {
         S;
     };
 
-    const handOnCreteMovement = () => {};
+    const handOnSaveMovement = (lastmove) => {
+        lastmove.id = Date.now().toString();
+        lastmove.machineId = machine.id;
+        lastmove.date = new Date().toLocaleDateString("en-GB");
+        setMovements([...movemetns, lastmove]);
+        handleSetInformation();
+        console.log(movemetns);
+    };
 
     return (
         <>
@@ -62,6 +69,8 @@ export default function ExpandedContainer({ machine, closeRow }) {
                 <ProtocolModal
                     machine={machine}
                     lastmove={movemetns[movemetns.length - 1]}
+                    closeProtocolmodal={handleSetInformation}
+                    onSaveMove={handOnSaveMovement}
                 />
             ) : (
                 <div className="modal">

@@ -7,20 +7,20 @@
     );
     font-size: 1rem;
     position: absolute;
-    width: 100%;
-    height: 99vh;
+    width: 99.9%;
+    height: 100vh;
     z-index: 15;
     color: rgb(26, 23, 23);
     font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 20px;
     background-color: #f4f4f4;
 }
 
 .protocolNav {
     display: flex;
     justify-content: end;
-    margin-bottom: 5px;
+    position: absolute;
+    left: 75%;
+    top: 7%;
 }
 s
 
@@ -34,17 +34,18 @@ s
 } */
 
 .closeBtn {
-    background-color: rgba(175, 30, 30, 0.793);
+    color: red;
 }
 
 .protocolModal .wrapper {
     display: flex;
     justify-content: space-between; /* Поставяме двата екземпляра един до друг */
     gap: 20px;
+    height: 90%;
 }
 
 .protocolContainer {
-    width: 48%; /* Ширината на всеки екземпляр е 48%, за да се поберат на една страница */
+    width: 48%;
     background-color: #fff;
     padding: 20px;
     border-radius: 8px;
@@ -53,21 +54,25 @@ s
 
 .protocolModal h1 {
     text-align: center;
-    margin-bottom: 20px;
+    margin-bottom: 40px;
 }
 
-.protocolModal .section {
-    margin-bottom: 30px;
+.section {
+    margin-bottom: 20px;
 }
 
 .partyInfo {
     display: flex;
     justify-content: space-between;
-    margin-top: 10px;
 }
 
 .party {
     width: 45%;
+    padding-top: 15px;
+}
+
+.party p {
+    padding-bottom: 25px;
 }
 
 .protocolModal table {
@@ -87,6 +92,9 @@ s
     padding: 8px;
     text-align: left;
 }
+.signaturesSection {
+    margin-top: 60px;
+}
 
 .signatures {
     display: flex;
@@ -97,6 +105,9 @@ s
     width: 45%;
 }
 
+.signatures p {
+    margin-top: 10px;
+}
 .printButton {
     display: block;
     width: 100%;
@@ -142,15 +153,12 @@ s
         margin: 10mm; /* Малък отстъп за печат */
     }
 
-    .print-button,
-    .protocol-nav {
+    .printButton,
+    .protocolNav {
         display: none; /* Скриваме бутона при печат */
     }
 
-    .protocol-container {
+    .protocolCntainer {
         box-shadow: none; /* Премахваме сенките при печат */
-    }
-    .protocolNav {
-        display: none;
     }
 }
