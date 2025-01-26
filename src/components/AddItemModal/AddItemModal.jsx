@@ -2,7 +2,7 @@ import { useRef, useImperativeHandle } from "react";
 
 import classes from "./AddItemModal.module.css";
 
-export default function AddItemModal({ onAddNewMachine, ref }) {
+export default function AddItemModal({ onAddNewMachine, ref, company }) {
     const dialog = useRef();
 
     useImperativeHandle(ref, () => {
@@ -23,8 +23,8 @@ export default function AddItemModal({ onAddNewMachine, ref }) {
             serialNumber: formData.get("serialNumber"),
             buyDate: formData.get("buyDate"),
             movement: new Date().toISOString().split("T")[0],
-            location: "Бургас",
-            partner: "Кофи Сървис Бургас ООД",
+            location: company.adress,
+            partner: company.name,
         };
         onAddNewMachine(newMachineData);
         handleCloseDialog();

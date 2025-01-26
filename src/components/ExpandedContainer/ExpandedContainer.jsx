@@ -2,13 +2,19 @@ import { useState } from "react";
 import "../ExpandedContainer/ExpandedContainer.css";
 
 import RepairModal from "../RepairModal/RepairModal.jsx";
-import { getRepairsByMachineId } from "../../services/dataService.js";
+import {
+    getRepairsByMachineId,
+    getMovementsByMachineId,
+} from "../../services/dataService.js";
 
 export default function ExpandedContainer({ machine, closeRow }) {
     const [content, setContent] = useState("repairs");
     const [selectedRepair, setSelectedRepair] = useState();
     const [repairsList, setRepairsList] = useState(
         getRepairsByMachineId(machine.id)
+    );
+    const [movemetns, setMovements] = useState(
+        getMovementsByMachineId(machine.id)
     );
 
     const handleSetRepairs = () => {
@@ -226,30 +232,16 @@ export default function ExpandedContainer({ machine, closeRow }) {
                                 </tr>
                             </thead>
                             <tbody className="info-table-rows">
-                                <tr className="info-row">
-                                    <th>15.01.2025</th>
-                                    <th>Бургас Янко Комитов 8</th>
-                                    <th>КСБ ООД</th>
-                                    <th>СКЛАД</th>
-                                    <th>Дария Тюлиева</th>
-                                    <th>08666 444 666</th>
-                                </tr>
-                                <tr className="info-row">
-                                    <th>18.01.2025</th>
-                                    <th>Бургас ул ОДрин 5</th>
-                                    <th>М фокс ООД</th>
-                                    <th>СКЛАД</th>
-                                    <th>Таня Петрова</th>
-                                    <th>08566 765 687</th>
-                                </tr>
-                                <tr className="info-row">
-                                    <th>21.01.2025</th>
-                                    <th>Бургас опера</th>
-                                    <th>Тришър ЕООД</th>
-                                    <th>Магазин</th>
-                                    <th>Илия Илиев</th>
-                                    <th>0893 6123 097</th>
-                                </tr>
+                                {movemetns.map((move) => (
+                                    <tr className="info-row">
+                                        <th>{move.date}</th>
+                                        <th>{move.location}</th>
+                                        <th>{move.partner}</th>
+                                        <th>{move.object}</th>
+                                        <th>{move.contact}</th>
+                                        <th>{move.phone}</th>
+                                    </tr>
+                                ))}
                             </tbody>
                         </table>
                     </div>

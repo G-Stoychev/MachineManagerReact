@@ -9,6 +9,7 @@ export default function Menu({
     onFilter,
     onReset,
     openCompanyModal,
+    company,
 }) {
     const searchInput = useRef();
 
@@ -26,9 +27,9 @@ export default function Menu({
         <div className={classes.container}>
             <div className={classes.title}>
                 <div>
-                    <h3>Coffee Service Burgas LTD</h3>
+                    <h3>{company.name}</h3>
                     <p>
-                        Welcome {userName}{" "}
+                        Welcome {userName}
                         <button className={classes.logoutBtn} onClick={logout}>
                             Logout
                         </button>
@@ -54,12 +55,14 @@ export default function Menu({
                 >
                     <i className="fa-solid fa-magnifying-glass"></i>
                 </button>
-                <button
-                    className={`${classes.searchInput} ${classes.searchButton} `}
-                    onClick={handleResetInput}
-                >
-                    <i className="fa-solid fa-arrows-rotate"></i>
-                </button>
+                {searchInput.current.value !== "" && (
+                    <button
+                        className={`${classes.searchInput} ${classes.searchButton} `}
+                        onClick={handleResetInput}
+                    >
+                        <i className="fa-solid fa-arrows-rotate"></i>
+                    </button>
+                )}
             </div>
             <nav>
                 <button

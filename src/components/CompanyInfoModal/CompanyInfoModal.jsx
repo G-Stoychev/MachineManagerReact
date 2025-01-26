@@ -1,8 +1,8 @@
-import { useRef, useImperativeHandle } from "react";
+import { useRef, useImperativeHandle, useActionState } from "react";
 
 import classes from "./CompanyInfoModal.module.css";
 
-export default function CompanyInfoModal({ ref }) {
+export default function CompanyInfoModal({ ref, onCompanyEdit, company }) {
     const CompanyDialog = useRef();
 
     useImperativeHandle(ref, () => {
@@ -15,9 +15,22 @@ export default function CompanyInfoModal({ ref }) {
 
     const handleCloseDialog = () => CompanyDialog.current.close();
 
+    const handleSubmit = (prevState, formData) => {
+        const inputCompanyValues = {
+            name: formData.get("name"),
+            bulstat: formData.get("bulstat"),
+            mol: formData.get("mol"),
+            adress: formData.get("adress"),
+            phone: formData.get("phone"),
+        };
+        console.log(inputCompanyValues);
+        handleCloseDialog();
+        onCompanyEdit(inputCompanyValues);
+    };
+    const [formState, formAction] = useActionState(handleSubmit, company);
     return (
         <dialog ref={CompanyDialog} className={classes.dialog}>
-            <form>
+            <form action={formAction}>
                 <div className={classes.dialogMenu}>
                     <h2>Добави фирма:</h2>
                     <button type="button" onClick={handleCloseDialog}>
@@ -28,8 +41,9 @@ export default function CompanyInfoModal({ ref }) {
                     <label>Име:</label>
                     <input
                         type="text"
-                        name="companyName"
+                        name="name"
                         placeholder="Въведи име на фирмата"
+                        defaultValue={formState?.name}
                     />
                 </div>
                 <div className={classes.sectionWrapper}>
@@ -38,6 +52,7 @@ export default function CompanyInfoModal({ ref }) {
                         type="text"
                         placeholder="Булстат ако е по ДДС с BG"
                         name="bulstat"
+                        defaultValue={formState?.bulstat}
                     />
                 </div>
                 <div className={classes.sectionWrapper}>
@@ -46,6 +61,7 @@ export default function CompanyInfoModal({ ref }) {
                         type="text"
                         placeholder="Материално отговорно лице"
                         name="mol"
+                        defaultValue={formState?.mol}
                     />
                 </div>
                 <div className={classes.sectionWrapper}>
@@ -53,7 +69,8 @@ export default function CompanyInfoModal({ ref }) {
                     <input
                         type="text"
                         placeholder="Адрес на регистрация"
-                        name="companyAdress"
+                        name="adress"
+                        defaultValue={formState?.adress}
                     ></input>
                 </div>
                 <div className={classes.sectionWrapper}>
@@ -61,7 +78,8 @@ export default function CompanyInfoModal({ ref }) {
                     <input
                         type="text"
                         placeholder="Телефон за контакт"
-                        name="ContactPhone"
+                        name="phone"
+                        defaultValue={formState?.phone}
                     ></input>
                 </div>
 
