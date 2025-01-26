@@ -1,6 +1,26 @@
+import { useRef } from "react";
+
 import classes from "./Menu.module.css";
 
-export default function Menu({ userName, logout, openModal }) {
+export default function Menu({
+    userName,
+    logout,
+    openModal,
+    onFilter,
+    onReset,
+}) {
+    const searchInput = useRef();
+
+    const handleSearchInput = () => {
+        const inputSerialNumber = searchInput.current.value;
+        onFilter(inputSerialNumber);
+    };
+
+    const handleResetInput = () => {
+        searchInput.current.value = "";
+        onReset();
+    };
+
     return (
         <div className={classes.container}>
             <div className={classes.title}>
@@ -24,14 +44,17 @@ export default function Menu({ userName, logout, openModal }) {
                     className={classes.searchInput}
                     type="text"
                     placeholder="Въведи сериен номер"
+                    ref={searchInput}
                 />
                 <button
                     className={`${classes.searchInput} ${classes.searchButton}`}
+                    onClick={handleSearchInput}
                 >
                     <i className="fa-solid fa-magnifying-glass"></i>
                 </button>
                 <button
                     className={`${classes.searchInput} ${classes.searchButton} `}
+                    onClick={handleResetInput}
                 >
                     <i className="fa-solid fa-arrows-rotate"></i>
                 </button>

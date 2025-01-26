@@ -3,7 +3,7 @@ const MACHINESDATA = [
         id: 1,
         model: "LB951",
         brand: "Lavazza",
-        serialNumber: 1012023,
+        serialNumber: 10120232,
         movement: "12-12-2024",
         location: " Burgas",
         partner: "1-Bulgaria OOD",

@@ -15,7 +15,17 @@ export default function Container({ userName, logout }) {
 
     const handleAddNewMachine = (newMachineData) => {
         setListOfMachines([...listOfMachines, newMachineData]);
-        console.log(newMachineData);
+    };
+
+    const handleSearchMachine = (filterInput) => {
+        const findedMachine = listOfMachines.filter(
+            (m) => m.serialNumber === parseInt(filterInput)
+        );
+        setListOfMachines(findedMachine);
+    };
+
+    const handleResetTable = () => {
+        setListOfMachines(getMachines());
     };
 
     return (
@@ -24,6 +34,8 @@ export default function Container({ userName, logout }) {
                 userName={userName}
                 logout={logout}
                 openModal={handleOpenAddItemModal}
+                onFilter={handleSearchMachine}
+                onReset={handleResetTable}
             />
             <AddItemModal ref={dialog} onAddNewMachine={handleAddNewMachine} />
             <MachineTable machines={listOfMachines} />

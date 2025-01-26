@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import "../ExpandedContainer/ExpandedContainer.css";
 
 import RepairModal from "../RepairModal/RepairModal.jsx";
@@ -36,7 +36,6 @@ export default function ExpandedContainer({ machine, closeRow }) {
         newRepair.machineId = machine.id;
         setRepairsList([...repairsList, newRepair]);
         handleSetRepairs();
-        console.log("OnCreate called", newRepair);
     };
     const handleOnUpdate = (updatedRepair) => {
         const index = repairsList.findIndex((r) => r.id === updatedRepair.id);
@@ -44,7 +43,7 @@ export default function ExpandedContainer({ machine, closeRow }) {
         copiedRepairsList.splice(index, 1, updatedRepair);
         setRepairsList(copiedRepairsList);
         handleSetRepairs();
-        console.log("OnUpdate called", updatedRepair);
+        S;
     };
 
     return (
