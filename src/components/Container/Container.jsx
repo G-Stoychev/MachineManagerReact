@@ -22,7 +22,7 @@ export default function Container({ userName, logout }) {
     };
 
     const handleSearchMachine = (filterInput) => {
-        const findedMachine = listOfMachines.filter(
+        const findedMachine = getMachines().filter(
             (m) => m.serialNumber === parseInt(filterInput)
         );
         setListOfMachines(findedMachine);

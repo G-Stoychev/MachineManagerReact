@@ -5,6 +5,7 @@ import RepairModal from "../RepairModal/RepairModal.jsx";
 import {
     getRepairsByMachineId,
     getMovementsByMachineId,
+    getCompany,
 } from "../../services/dataService.js";
 import ProtocolModal from "../ProtocolModal/ProtocolModal.jsx";
 
@@ -17,6 +18,7 @@ export default function ExpandedContainer({ machine, closeRow }) {
     const [movemetns, setMovements] = useState(
         getMovementsByMachineId(machine.id)
     );
+    const comapny = getCompany();
 
     const handleSetRepairs = () => {
         setContent("repairs");
@@ -60,15 +62,15 @@ export default function ExpandedContainer({ machine, closeRow }) {
         lastmove.date = new Date().toLocaleDateString("en-GB");
         setMovements([...movemetns, lastmove]);
         handleSetInformation();
-        console.log(movemetns);
     };
 
+    const lastmove = movemetns[movemetns.length - 1];
     return (
         <>
             {content === "protocolModal" ? (
                 <ProtocolModal
                     machine={machine}
-                    lastmove={movemetns[movemetns.length - 1]}
+                    lastmove={lastmove ? lastmove : {}}
                     closeProtocolmodal={handleSetInformation}
                     onSaveMove={handOnSaveMovement}
                 />
@@ -97,36 +99,62 @@ export default function ExpandedContainer({ machine, closeRow }) {
                                 </div>
                                 <div className="section-wrapper">
                                     <div>Дата на закупуване:</div>
-                                    <div>$data.buyDate</div>
+                                    <div>{machine.buyDate}</div>
                                 </div>
 
                                 <div className="section-wrapper">
                                     <div>Местоположение:</div>
-                                    <div>$partner.address</div>
+                                    <div>
+                                        {lastmove
+                                            ? lastmove.location
+                                            : comapny.adress}
+                                    </div>
                                 </div>
                             </div>
 
                             <div>
                                 <div className="section-wrapper">
                                     <div>Дата на монтаж:</div>
-                                    <div>$partner.lastMovementDate</div>
+                                    <div>
+                                        {lastmove
+                                            ? lastmove.date
+                                            : machine.buyDate}
+                                    </div>
                                 </div>
 
                                 <div className="section-wrapper">
                                     <div>Парньор:</div>
-                                    <div>$partner.company</div>
+                                    <div>
+                                        {lastmove
+                                            ? lastmove.partner
+                                            : comapny.name}
+                                    </div>
                                 </div>
                                 <div className="section-wrapper">
                                     <div>Обект:</div>
-                                    <div>$partner.object</div>
+                                    <div>
+                                        {lastmove
+                                            ? lastmove.object
+                                            : comapny.object}
+                                    </div>
                                 </div>
                                 <div className="section-wrapper">
                                     <div>Лице за контакт:</div>
-                                    <div>$partner.name</div>
+                                    <div>
+                                        {" "}
+                                        {lastmove
+                                            ? lastmove.contact
+                                            : comapny.mol}
+                                    </div>
                                 </div>
                                 <div className="section-wrapper">
                                     <div>Телефон:</div>
-                                    <div>$partner.phone</div>
+                                    <div>
+                                        {" "}
+                                        {lastmove
+                                            ? lastmove.phone
+                                            : comapny.phone}
+                                    </div>
                                 </div>
                             </div>
                         </div>
