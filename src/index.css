@@ -2,9 +2,18 @@
     margin: 0;
     padding: 0;
 }
+:root {
+    --winterColor: rgb(203, 222, 238);
+    --springColor: rgb(213, 238, 203);
+    --summerColor: rgb(203, 238, 235);
+    --autumnColor: rgb(238, 217, 203);
+
+    --seasonColor: var(--winterColor);
+}
 
 body {
     font-family: Arial, sans-serif;
+    /* background-image: url(/src/assets/winter-bg.jpg); */
     background-image: url(/src/assets/winter-bg.jpg);
     background-repeat: no-repeat;
     background-size: cover;
@@ -12,6 +21,19 @@ body {
 
 .fa-solid {
     margin-right: 5px;
+}
+
+button {
+    border: none;
+    border-radius: 5px;
+    padding: 10px 25px;
+    margin: 5px;
+    font-weight: bold;
+    box-shadow: 3px 3px 3px rgba(26, 25, 25, 0.774);
+}
+button:hover {
+    background-color: var(--seasonColor);
+    cursor: pointer;
 }
 
 @media only screen and (max-width: 1780px) {

@@ -27,6 +27,7 @@ export default function Menu({
     const handleResetInput = () => {
         searchInput.current.value = "";
         onReset();
+        setSearching(false);
     };
 
     return (
@@ -61,14 +62,14 @@ export default function Menu({
                 >
                     <i className="fa-solid fa-magnifying-glass"></i>
                 </button>
-                {searching && (
+                {searching ? (
                     <button
                         className={`${classes.searchInput} ${classes.searchButton} `}
                         onClick={handleResetInput}
                     >
                         <i className="fa-solid fa-arrows-rotate"></i>
                     </button>
-                )}
+                ) : undefined}
             </div>
             <nav>
                 <button

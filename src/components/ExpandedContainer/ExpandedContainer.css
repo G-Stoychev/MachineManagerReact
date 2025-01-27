@@ -1,10 +1,6 @@
 .modal {
     font-weight: bold;
-    background-image: radial-gradient(
-        circle,
-        rgba(203, 222, 238, 0.938),
-        white
-    );
+    background-image: radial-gradient(circle, var(--seasonColor), white);
     font-size: 1rem;
     padding: 5px 10px;
     position: absolute;
@@ -36,19 +32,6 @@
     align-items: center;
 }
 
-button {
-    border: none;
-    border-radius: 5px;
-    padding: 10px 25px;
-    margin: 5px;
-    font-weight: bold;
-    box-shadow: 3px 3px 3px rgba(26, 25, 25, 0.774);
-}
-button:hover {
-    background-color: rgb(203, 222, 238);
-    cursor: pointer;
-}
-
 .row-menu button {
     box-shadow: unset;
     margin: 0 0 0 5px;
@@ -62,7 +45,7 @@ button:hover {
 }
 
 .selected-btn {
-    background-color: rgb(203, 222, 238);
+    background-color: var(--seasonColor);
 }
 
 .modal table {

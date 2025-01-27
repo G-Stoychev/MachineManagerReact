@@ -60,10 +60,6 @@
     box-shadow: 3px 3px 3px rgba(26, 25, 25, 0.774);
 }
 
-.menuButton:hover {
-    background-color: rgb(203, 222, 238);
-}
-
 .searchButton:hover {
     color: #fcf2f2;
     background-color: unset;
