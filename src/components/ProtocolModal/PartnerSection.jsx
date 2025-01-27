@@ -38,9 +38,9 @@ export default function PartnerSection({ machine, lastmove, company }) {
                         </thead>
                         <tbody>
                             <tr>
-                                <td>${machine.model}</td>
-                                <td>${machine.brand}</td>
-                                <td>${machine.serialNumber}</td>
+                                <td>{machine.model}</td>
+                                <td>{machine.brand}</td>
+                                <td>{machine.serialNumber}</td>
                                 <td>
                                     <select className={classes.movementInfo}>
                                         <option>Монтаж</option>
