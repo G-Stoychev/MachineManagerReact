@@ -37,7 +37,11 @@ export default function ExpandedContainer({
             return;
         }
         setSelectedRepair(undefined);
+<<<<<<< HEAD
         onUpdateMovement(currentMove);
+=======
+        onUpdateMovement(lastmove);
+>>>>>>> 8943b10 (spread machineTable components and move states i row component)
         closeRow(id);
     };
 
@@ -61,16 +65,29 @@ export default function ExpandedContainer({
         S;
     };
 
+<<<<<<< HEAD
     const handOnSaveMovement = (currentMove) => {
         currentMove.machineId = machine.id;
         currentMove.id = Date.now().toString();
         currentMove.date = new Date().toLocaleDateString("en-GB");
         setMovements(...movemetns, currentMove);
+=======
+    const handOnSaveMovement = (lastmove) => {
+        lastmove.machineId = machine.id;
+        lastmove.id = Date.now().toString();
+        lastmove.date = new Date().toLocaleDateString("en-GB");
+        setMovements((m) => [...m, lastmove]);
+>>>>>>> 8943b10 (spread machineTable components and move states i row component)
         handleSetInformation();
+        console.log(movemetns);
     };
 
+<<<<<<< HEAD
     console.log(movemetns);
     const currentMove = movemetns[movemetns.length - 1];
+=======
+    const lastmove = movemetns[movemetns.length - 1];
+>>>>>>> 8943b10 (spread machineTable components and move states i row component)
 
     return (
         <>
