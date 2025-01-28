@@ -22,7 +22,7 @@ export default function ExpandedContainer({
     const [movemetns, setMovements] = useState(
         getMovementsByMachineId(machine.id)
     );
-    const comapny = getCompany();
+    const company = getCompany();
 
     const handleSetRepairs = () => {
         setContent("repairs");
@@ -37,7 +37,7 @@ export default function ExpandedContainer({
             return;
         }
         setSelectedRepair(undefined);
-        onUpdateMovement(lastmove);
+        onUpdateMovement(currentMove);
         closeRow(id);
     };
 
@@ -61,23 +61,23 @@ export default function ExpandedContainer({
         S;
     };
 
-    const handOnSaveMovement = (lastmove) => {
-        lastmove.machineId = machine.id;
-        lastmove.id = Date.now().toString();
-        lastmove.date = new Date().toLocaleDateString("en-GB");
-        setMovements((m) => [...m, lastmove]);
+    const handOnSaveMovement = (currentMove) => {
+        currentMove.machineId = machine.id;
+        currentMove.id = Date.now().toString();
+        currentMove.date = new Date().toLocaleDateString("en-GB");
+        setMovements(...movemetns, currentMove);
         handleSetInformation();
-        console.log(movemetns);
     };
 
-    const lastmove = movemetns[movemetns.length - 1];
+    console.log(movemetns);
+    const currentMove = movemetns[movemetns.length - 1];
 
     return (
         <>
             {content === "protocolModal" ? (
                 <ProtocolModal
                     machine={machine}
-                    lastmove={lastmove ? lastmove : {}}
+                    currentMove={currentMove ? currentMove : {}}
                     closeProtocolmodal={handleSetInformation}
                     onSaveMove={handOnSaveMovement}
                 />
@@ -112,9 +112,9 @@ export default function ExpandedContainer({
                                 <div className="section-wrapper">
                                     <div>Местоположение:</div>
                                     <div>
-                                        {lastmove
-                                            ? lastmove.location
-                                            : comapny.adress}
+                                        {currentMove
+                                            ? currentMove.location
+                                            : company.adress}
                                     </div>
                                 </div>
                             </div>
@@ -123,8 +123,8 @@ export default function ExpandedContainer({
                                 <div className="section-wrapper">
                                     <div>Дата на монтаж:</div>
                                     <div>
-                                        {lastmove
-                                            ? lastmove.date
+                                        {currentMove
+                                            ? currentMove.date
                                             : machine.buyDate}
                                     </div>
                                 </div>
@@ -132,35 +132,35 @@ export default function ExpandedContainer({
                                 <div className="section-wrapper">
                                     <div>Парньор:</div>
                                     <div>
-                                        {lastmove
-                                            ? lastmove.partner
-                                            : comapny.name}
+                                        {currentMove
+                                            ? currentMove.partner
+                                            : company.name}
                                     </div>
                                 </div>
                                 <div className="section-wrapper">
                                     <div>Обект:</div>
                                     <div>
-                                        {lastmove
-                                            ? lastmove.object
-                                            : comapny.object}
+                                        {currentMove
+                                            ? currentMove.object
+                                            : company.object}
                                     </div>
                                 </div>
                                 <div className="section-wrapper">
                                     <div>Лице за контакт:</div>
                                     <div>
                                         {" "}
-                                        {lastmove
-                                            ? lastmove.contact
-                                            : comapny.mol}
+                                        {currentMove
+                                            ? currentMove.contact
+                                            : company.mol}
                                     </div>
                                 </div>
                                 <div className="section-wrapper">
                                     <div>Телефон:</div>
                                     <div>
                                         {" "}
-                                        {lastmove
-                                            ? lastmove.phone
-                                            : comapny.phone}
+                                        {currentMove
+                                            ? currentMove.phone
+                                            : company.phone}
                                     </div>
                                 </div>
                             </div>
