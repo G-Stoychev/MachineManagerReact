@@ -9,7 +9,11 @@ import {
 } from "../../services/dataService.js";
 import ProtocolModal from "../ProtocolModal/ProtocolModal.jsx";
 
-export default function ExpandedContainer({ machine, closeRow }) {
+export default function ExpandedContainer({
+    machine,
+    closeRow,
+    onUpdateMovement,
+}) {
     const [content, setContent] = useState("repairs");
     const [selectedRepair, setSelectedRepair] = useState();
     const [repairsList, setRepairsList] = useState(
@@ -33,6 +37,7 @@ export default function ExpandedContainer({ machine, closeRow }) {
             return;
         }
         setSelectedRepair(undefined);
+        onUpdateMovement(lastmove);
         closeRow(id);
     };
 
@@ -57,14 +62,16 @@ export default function ExpandedContainer({ machine, closeRow }) {
     };
 
     const handOnSaveMovement = (lastmove) => {
-        lastmove.id = Date.now().toString();
         lastmove.machineId = machine.id;
+        lastmove.id = Date.now().toString();
         lastmove.date = new Date().toLocaleDateString("en-GB");
-        setMovements([...movemetns, lastmove]);
+        setMovements((m) => [...m, lastmove]);
         handleSetInformation();
+        console.log(movemetns);
     };
 
     const lastmove = movemetns[movemetns.length - 1];
+
     return (
         <>
             {content === "protocolModal" ? (

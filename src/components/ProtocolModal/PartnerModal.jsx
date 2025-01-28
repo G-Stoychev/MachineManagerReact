@@ -18,6 +18,7 @@ export default function PartnerModal({ lastmove, ref, onCreate }) {
 
     const handleSubmit = (prevState, formData) => {
         const inputPartnerIfno = {
+            id: Date.now().toString(),
             partner: formData.get("partner"),
             contact: formData.get("contact"),
             location: formData.get("location"),
