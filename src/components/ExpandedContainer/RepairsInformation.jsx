@@ -1,61 +1,52 @@
+import classes from "./ExpandedContainer.module.css";
+
 export default function RepairsInformation({
     handleSetNewRepair,
     repairsList,
     handleSetUpdateRepair,
 }) {
     return (
-        <div className="responsive-modal">
-            <div className="modal-menu">
+        <div className={classes.responsiveModal}>
+            <div className={classes.modalMenu}>
                 <h3>Информация за ремонти:</h3>
                 <div>
-                    <button
-                        className="add-new-repair"
-                        onClick={handleSetNewRepair}
-                    >
+                    <button onClick={handleSetNewRepair}>
                         <i className="fa-solid fa-pen-to-square"></i>
                         Добави ремонт
                     </button>
                 </div>
             </div>
-            <div className="previous-repairs">
-                <table className="repair-table">
-                    <thead>
-                        <tr className="info-row-repairs">
-                            <th>Дата</th>
-                            <th>Извършил</th>
-                            <th>Сменени части</th>
-                            <th>Профилактика</th>
-                            <th>Промени</th>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Дата</th>
+                        <th>Извършил</th>
+                        <th>Сменени части</th>
+                        <th>Профилактика</th>
+                        <th>Промени</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {repairsList.map((repair) => (
+                        <tr key={repair.id}>
+                            <td> {repair.date}</td>
+                            <td>{repair.person}</td>
+                            <td>{repair.parts}</td>
+                            <td>{repair.prevention ? "Yes" : "No"}</td>
+                            <td>
+                                <button
+                                    onClick={() =>
+                                        handleSetUpdateRepair(repair)
+                                    }
+                                >
+                                    <i className="fa-solid fa-pen-to-square"></i>
+                                </button>
+                            </td>
                         </tr>
-                    </thead>
-                    <tbody className="table-rows">
-                        {repairsList.map((repair) => (
-                            <tr key={repair.id}>
-                                <td className="date-of-repair">
-                                    {repair.date}
-                                </td>
-                                <td className="person">{repair.person}</td>
-                                <td className="previous-replaced-parts">
-                                    {repair.parts}
-                                </td>
-                                <td className="date-of-repair">
-                                    {repair.prevention ? "Yes" : "No"}
-                                </td>
-                                <td>
-                                    <button
-                                        className="edit-repair-machine"
-                                        onClick={() =>
-                                            handleSetUpdateRepair(repair)
-                                        }
-                                    >
-                                        <i className="fa-solid fa-pen-to-square"></i>
-                                    </button>
-                                </td>
-                            </tr>
-                        ))}
-                    </tbody>
-                </table>
-            </div>
+                    ))}
+                </tbody>
+            </table>
         </div>
     );
 }

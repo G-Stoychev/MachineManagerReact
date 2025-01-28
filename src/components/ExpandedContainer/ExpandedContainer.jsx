@@ -1,5 +1,5 @@
 import { useState } from "react";
-import "./ExpandedContainer.css";
+import classes from "./ExpandedContainer.module.css";
 
 import RepairModal from "../RepairModal/RepairModal.jsx";
 import {
@@ -85,7 +85,7 @@ export default function ExpandedContainer({
                     onSaveMove={handOnSaveMovement}
                 />
             ) : (
-                <div className="modal">
+                <div className={classes.modal}>
                     <MachineInformation
                         onClose={handleCloseModal}
                         company={company}
@@ -100,12 +100,12 @@ export default function ExpandedContainer({
                             onUpdate={handleOnUpdate}
                         />
                     ) : (
-                        <div className="row-menu">
+                        <div className={classes.rowMenu}>
                             <div>
                                 <button
                                     className={
                                         content === "repairs"
-                                            ? "selected-btn"
+                                            ? classes.selectedBtn
                                             : undefined
                                     }
                                     onClick={handleSetRepairs}
@@ -115,7 +115,7 @@ export default function ExpandedContainer({
                                 <button
                                     className={
                                         content === "information"
-                                            ? "selected-btn"
+                                            ? classes.selectedBtn
                                             : undefined
                                     }
                                     onClick={handleSetInformation}

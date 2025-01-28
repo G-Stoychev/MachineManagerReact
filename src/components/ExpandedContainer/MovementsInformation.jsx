@@ -1,10 +1,12 @@
+import classes from "./ExpandedContainer.module.css";
+
 export default function MovementsInformation({
     movemetns,
     handleSetProtocolModal,
 }) {
     return (
-        <div className="responsive-modal">
-            <div className="modal-menu">
+        <div className={classes.responsiveModal}>
+            <div className={classes.modalMenu}>
                 <h3>История на последни движения:</h3>
                 <div>
                     <button onClick={handleSetProtocolModal}>
@@ -21,7 +23,7 @@ export default function MovementsInformation({
             <div>
                 <table>
                     <thead>
-                        <tr className="info-row">
+                        <tr>
                             <th>Дата</th>
                             <th>Местоположение</th>
                             <th>Парньор</th>
@@ -30,9 +32,9 @@ export default function MovementsInformation({
                             <th>Телефон</th>
                         </tr>
                     </thead>
-                    <tbody className="info-table-rows">
+                    <tbody>
                         {movemetns.map((move) => (
-                            <tr key={move.id} className="info-row">
+                            <tr key={move.id}>
                                 <th>{move.date}</th>
                                 <th>{move.location}</th>
                                 <th>{move.partner}</th>
