@@ -5,14 +5,15 @@ import ExpandedContainer from "../ExpandedContainer/ExpandedContainer.jsx";
 
 import { getCompany } from "../../services/dataService.js";
 
-export default function Row({ machine }) {
-    const [expandedModal, setExpandedModal] = useState(null);
+export default function Row({ machine, setModalIsOpen, modalIsOpen }) {
+    const [expandedModal, setExpandedModal] = useState(false);
     const [move, setMove] = useState(null);
     const company = getCompany();
 
-    function toggleModal(id) {
-        setExpandedModal(expandedModal === id ? null : id);
-        return id;
+    function toggleModal() {
+        const nextState = !expandedModal;
+        setExpandedModal(nextState);
+        setModalIsOpen(nextState);
     }
 
     const updateMovements = (lastmove) => {
@@ -22,7 +23,7 @@ export default function Row({ machine }) {
         <>
             <tr
                 onClick={() => {
-                    toggleModal(machine.id);
+                    if (!modalIsOpen) toggleModal();
                 }}
             >
                 <td>{machine.model}</td>
@@ -32,7 +33,7 @@ export default function Row({ machine }) {
                 <td>{move ? move.location : company.adress}</td>
                 <td>{move ? move.partner : company.name}</td>
             </tr>
-            {expandedModal === machine.id &&
+            {expandedModal &&
                 createPortal(
                     <ExpandedContainer
                         machine={machine}

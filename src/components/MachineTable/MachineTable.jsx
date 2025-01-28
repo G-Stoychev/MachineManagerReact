@@ -1,15 +1,9 @@
 import { useState } from "react";
-
 import classes from "./MachineTable.module.css";
 
 import Row from "./Row.jsx";
 export default function MachineTable({ machines }) {
-    const [expandedModal, setExpandedModal] = useState(null);
-
-    function toggleModal(id) {
-        setExpandedModal(expandedModal === id ? null : id);
-        return id;
-    }
+    const [modalIsOpen, setModalIsOpen] = useState(false);
 
     return (
         <>
@@ -28,8 +22,9 @@ export default function MachineTable({ machines }) {
                     {machines.map((machine) => (
                         <Row
                             key={machine.id}
-                            openModal={toggleModal}
                             machine={machine}
+                            modalIsOpen={modalIsOpen}
+                            setModalIsOpen={setModalIsOpen}
                         />
                     ))}
                 </tbody>
