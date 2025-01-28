@@ -37,11 +37,7 @@ export default function ExpandedContainer({
             return;
         }
         setSelectedRepair(undefined);
-<<<<<<< HEAD
-        onUpdateMovement(currentMove);
-=======
         onUpdateMovement(lastmove);
->>>>>>> 8943b10 (spread machineTable components and move states i row component)
         closeRow(id);
     };
 
@@ -65,36 +61,23 @@ export default function ExpandedContainer({
         S;
     };
 
-<<<<<<< HEAD
-    const handOnSaveMovement = (currentMove) => {
-        currentMove.machineId = machine.id;
-        currentMove.id = Date.now().toString();
-        currentMove.date = new Date().toLocaleDateString("en-GB");
-        setMovements(...movemetns, currentMove);
-=======
     const handOnSaveMovement = (lastmove) => {
         lastmove.machineId = machine.id;
         lastmove.id = Date.now().toString();
         lastmove.date = new Date().toLocaleDateString("en-GB");
         setMovements((m) => [...m, lastmove]);
->>>>>>> 8943b10 (spread machineTable components and move states i row component)
         handleSetInformation();
         console.log(movemetns);
     };
 
-<<<<<<< HEAD
-    console.log(movemetns);
-    const currentMove = movemetns[movemetns.length - 1];
-=======
     const lastmove = movemetns[movemetns.length - 1];
->>>>>>> 8943b10 (spread machineTable components and move states i row component)
 
     return (
         <>
             {content === "protocolModal" ? (
                 <ProtocolModal
                     machine={machine}
-                    currentMove={currentMove ? currentMove : {}}
+                    lastmove={lastmove ? lastmove : {}}
                     closeProtocolmodal={handleSetInformation}
                     onSaveMove={handOnSaveMovement}
                 />
@@ -129,8 +112,8 @@ export default function ExpandedContainer({
                                 <div className="section-wrapper">
                                     <div>Местоположение:</div>
                                     <div>
-                                        {currentMove
-                                            ? currentMove.location
+                                        {lastmove
+                                            ? lastmove.location
                                             : company.adress}
                                     </div>
                                 </div>
@@ -140,8 +123,8 @@ export default function ExpandedContainer({
                                 <div className="section-wrapper">
                                     <div>Дата на монтаж:</div>
                                     <div>
-                                        {currentMove
-                                            ? currentMove.date
+                                        {lastmove
+                                            ? lastmove.date
                                             : machine.buyDate}
                                     </div>
                                 </div>
@@ -149,16 +132,16 @@ export default function ExpandedContainer({
                                 <div className="section-wrapper">
                                     <div>Парньор:</div>
                                     <div>
-                                        {currentMove
-                                            ? currentMove.partner
+                                        {lastmove
+                                            ? lastmove.partner
                                             : company.name}
                                     </div>
                                 </div>
                                 <div className="section-wrapper">
                                     <div>Обект:</div>
                                     <div>
-                                        {currentMove
-                                            ? currentMove.object
+                                        {lastmove
+                                            ? lastmove.object
                                             : company.object}
                                     </div>
                                 </div>
@@ -166,8 +149,8 @@ export default function ExpandedContainer({
                                     <div>Лице за контакт:</div>
                                     <div>
                                         {" "}
-                                        {currentMove
-                                            ? currentMove.contact
+                                        {lastmove
+                                            ? lastmove.contact
                                             : company.mol}
                                     </div>
                                 </div>
@@ -175,8 +158,8 @@ export default function ExpandedContainer({
                                     <div>Телефон:</div>
                                     <div>
                                         {" "}
-                                        {currentMove
-                                            ? currentMove.phone
+                                        {lastmove
+                                            ? lastmove.phone
                                             : company.phone}
                                     </div>
                                 </div>
