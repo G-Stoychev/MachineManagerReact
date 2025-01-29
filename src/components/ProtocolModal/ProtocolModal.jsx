@@ -2,10 +2,12 @@ import { useRef, useState } from "react";
 
 import PartnerSection from "./PartnerSection.jsx";
 import PartnerModal from "./PartnerModal.jsx";
+import Menu from "./ProtocolMenu.jsx";
 
 import { getCompany } from "../../services/dataService.js";
 
 import classes from "./ProtocolModal.module.css";
+
 export default function ProtocolModal({
     machine,
     lastmove,
@@ -34,27 +36,11 @@ export default function ProtocolModal({
                 ref={dialog}
                 onCreate={handleCreateMove}
             />
-            <div className={classes.protocolNav}>
-                <button
-                    className="partner-ifno-btn protocol-menu-button"
-                    onClick={handleOpenPratnerModal}
-                >
-                    <i className="fa-solid fa-pen-to-square"></i> Попълни данни
-                    за клиент
-                </button>
-                <button
-                    className="protocol-menu-button save-protocol-button"
-                    onClick={handleSaveNewMove}
-                >
-                    <i className="fa-solid fa-floppy-disk"></i> Запази
-                </button>
-                <button
-                    className={classes.closeBtn}
-                    onClick={closeProtocolmodal}
-                >
-                    Х
-                </button>
-            </div>
+            <Menu
+                closeProtocolmodal={closeProtocolmodal}
+                handleOpenPratnerModal={handleOpenPratnerModal}
+                handleSaveNewMove={handleSaveNewMove}
+            />
             <div className={classes.wrapper}>
                 <PartnerSection
                     machine={machine}
