@@ -94,7 +94,7 @@ export default function ExpandedContainer({
         <>
             {error && (
                 <ErrorModal
-                    title="Не позволено затваряне на модал!"
+                    title="Не позволено затваряне на секцията!"
                     text={
                         "Добавете нов ремонт или затворете секцията за нови ремонти, преди да продължите!"
                     }
@@ -123,6 +123,7 @@ export default function ExpandedContainer({
                             repair={selectedRepair}
                             onCreate={handleOnCreate}
                             onUpdate={handleOnUpdate}
+                            setError={setError}
                         />
                     ) : (
                         <div className={classes.rowMenu}>

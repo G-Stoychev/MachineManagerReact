@@ -6,6 +6,7 @@ export default function RepairModal({
     repair,
     onCreate,
     onUpdate,
+    setError,
 }) {
     const isEdit = repair !== undefined;
     const handleSubmit = (prevState, formData) => {
@@ -15,6 +16,10 @@ export default function RepairModal({
             person: formData.get("person"),
             parts: formData.get("parts"),
         };
+        if (repairData.date.trim() === "" || repairData.person.trim() === "") {
+            setError(true);
+            return;
+        }
         if (isEdit) {
             onUpdate({ ...repair, ...repairData });
             return;
