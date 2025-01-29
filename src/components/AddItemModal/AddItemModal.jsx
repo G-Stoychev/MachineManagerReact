@@ -5,9 +5,14 @@ import ErrorModal from "../ErrorModal/ErrorModal.jsx";
 import classes from "./AddItemModal.module.css";
 
 export default function AddItemModal({ onAddNewMachine, ref, company }) {
-    const [error, setError] = useState(false);
     const dialog = useRef();
+    const [error, setError] = useState(false);
     const errorModal = useRef();
+    useEffect(() => {
+        if (error && errorModal.current) {
+            errorModal.current.open();
+        }
+    }, [error]);
 
     useImperativeHandle(ref, () => {
         return {
@@ -16,12 +21,6 @@ export default function AddItemModal({ onAddNewMachine, ref, company }) {
             },
         };
     });
-
-    useEffect(() => {
-        if (error && errorModal.current) {
-            errorModal.current.open();
-        }
-    }, [error]);
 
     const handleCloseDialog = () => dialog.current.close();
 
@@ -37,10 +36,7 @@ export default function AddItemModal({ onAddNewMachine, ref, company }) {
             partner: company.name,
         };
         if (
-            newMachineData.model === "" ||
-            newMachineData.brand === "" ||
-            newMachineData.serialNumber === "" ||
-            newMachineData.buyDate === ""
+            Object.values(newMachineData).some((value) => value.trim() === "")
         ) {
             setError(true);
             return;
