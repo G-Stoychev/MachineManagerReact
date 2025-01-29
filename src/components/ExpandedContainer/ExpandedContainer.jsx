@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import classes from "./ExpandedContainer.module.css";
 
 import RepairModal from "../RepairModal/RepairModal.jsx";
@@ -11,38 +11,47 @@ import ProtocolModal from "../ProtocolModal/ProtocolModal.jsx";
 import MachineInformation from "./MachineInformation.jsx";
 import RepairsInformation from "./RepairsInformation.jsx";
 import MovementsInformation from "./MovementsInformation.jsx";
+import ErrorModal from "../ErrorModal/ErrorModal.jsx";
 
 export default function ExpandedContainer({
     machine,
     closeRow,
     onUpdateMovement,
 }) {
+    const [error, setError] = useState(false);
     const [content, setContent] = useState("repairs");
     const [selectedRepair, setSelectedRepair] = useState();
     const [repairsList, setRepairsList] = useState(
         getRepairsByMachineId(machine.id)
     );
-    const [movemetns, setMovements] = useState(
+    const [movements, setMovements] = useState(
         getMovementsByMachineId(machine.id)
     );
     const company = getCompany();
+    const errorModal = useRef();
 
     const handleSetRepairs = () => {
         setContent("repairs");
         setSelectedRepair(undefined);
     };
+
     const handleSetInformation = () => setContent("information");
     const handleSetNewRepair = () => setContent("repairModal");
     const handleSetProtocolModal = () => setContent("protocolModal");
     const handleCloseModal = (id) => {
         if (content === "repairModal") {
-            alert("Добавете нов ремонт или затворете секцията за нови ремонти");
+            setError(true);
             return;
         }
         setSelectedRepair(undefined);
         onUpdateMovement(lastmove);
         closeRow(id);
     };
+    useEffect(() => {
+        if (error && errorModal.current) {
+            errorModal.current.open();
+        }
+    }, [error]);
 
     const handleSetUpdateRepair = (repair) => {
         handleSetNewRepair();
@@ -50,9 +59,13 @@ export default function ExpandedContainer({
     };
 
     const handleOnCreate = (newRepair) => {
+        const newRep = {
+            ...newRepair,
+            id: Date.now().toString(),
+            machineId: machine.id,
+        };
         newRepair.id = Date.now().toString();
-        newRepair.machineId = machine.id;
-        setRepairsList([...repairsList, newRepair]);
+        setRepairsList([...repairsList, newRep]);
         handleSetRepairs();
     };
     const handleOnUpdate = (updatedRepair) => {
@@ -65,18 +78,30 @@ export default function ExpandedContainer({
     };
 
     const handOnSaveMovement = (lastmove) => {
-        lastmove.machineId = machine.id;
-        lastmove.id = Date.now().toString();
-        lastmove.date = new Date().toLocaleDateString("en-GB");
-        setMovements((m) => [...m, lastmove]);
+        const newMove = {
+            ...lastmove,
+            machineId: machine.id,
+            id: Date.now().toString(),
+            date: new Date().toLocaleDateString("en-GB"),
+        };
+        setMovements((m) => [...m, newMove]);
         handleSetInformation();
-        console.log(movemetns);
     };
 
-    const lastmove = movemetns[movemetns.length - 1];
+    const lastmove = movements[movements.length - 1];
 
     return (
         <>
+            {error && (
+                <ErrorModal
+                    title="Не позволено затваряне на модал!"
+                    text={
+                        "Добавете нов ремонт или затворете секцията за нови ремонти, преди да продължите!"
+                    }
+                    setError={setError}
+                    ref={errorModal}
+                />
+            )}
             {content === "protocolModal" ? (
                 <ProtocolModal
                     machine={machine}
@@ -136,7 +161,7 @@ export default function ExpandedContainer({
 
                     {content === "information" && (
                         <MovementsInformation
-                            movemetns={movemetns}
+                            movements={movements}
                             handleSetProtocolModal={handleSetProtocolModal}
                         />
                     )}

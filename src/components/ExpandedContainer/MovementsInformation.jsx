@@ -1,7 +1,7 @@
 import classes from "./ExpandedContainer.module.css";
 
 export default function MovementsInformation({
-    movemetns,
+    movements,
     handleSetProtocolModal,
 }) {
     return (
@@ -33,7 +33,7 @@ export default function MovementsInformation({
                         </tr>
                     </thead>
                     <tbody>
-                        {movemetns.map((move) => (
+                        {movements.map((move) => (
                             <tr key={move.id}>
                                 <th>{move.date}</th>
                                 <th>{move.location}</th>
