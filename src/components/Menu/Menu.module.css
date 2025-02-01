@@ -65,6 +65,37 @@
     background-color: unset;
 }
 
+.dropdown {
+    position: relative;
+    display: block;
+}
+
+.dropDownMenu {
+    display: none;
+    position: absolute;
+    background-color: #f1f1f1;
+    width: 200px;
+    border-radius: 5px;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+}
+
+.dropdown:hover .dropDownMenu {
+    display: flex;
+}
+
+.dropdown .dropOpenBtn:hover {
+    color: #fcf2f2;
+    background-color: unset;
+}
+
+.dropdown button:hover {
+    background-color: var(--seasonColor);
+    color: black;
+}
+
+/* Change the background color of the dropdown button when the dropdown content is shown */
+
 @media only screen and (max-width: 600px) {
     .container {
         display: flex;

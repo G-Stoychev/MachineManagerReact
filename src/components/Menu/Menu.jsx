@@ -34,7 +34,26 @@ export default function Menu({
         <div className={classes.container}>
             <div className={classes.title}>
                 <div>
-                    <h3>{company.name}</h3>
+                    <div className={classes.title}>
+                        <h3>{company.name}</h3>
+
+                        <div className={classes.dropdown}>
+                            <button
+                                className={` ${classes.searchInput} ${classes.searchButton} ${classes.dropOpenBtn}`}
+                            >
+                                <i className="fa-solid fa-gear"></i>
+                            </button>
+                            <div className={classes.dropDownMenu}>
+                                <button
+                                    className={` ${classes.searchInput} ${classes.searchButton} ${classes.dropDownBtn}`}
+                                    onClick={openCompanyModal}
+                                >
+                                    <i className="fa-solid fa-pen-to-square"></i>{" "}
+                                    Промени данни за фирма
+                                </button>
+                            </div>
+                        </div>
+                    </div>
                     <p>
                         Welcome {userName}
                         <button className={classes.logoutBtn} onClick={logout}>
@@ -42,12 +61,6 @@ export default function Menu({
                         </button>
                     </p>
                 </div>
-                <button
-                    className={` ${classes.searchInput} ${classes.searchButton} `}
-                    onClick={openCompanyModal}
-                >
-                    <i className="fa-solid fa-pen-to-square"></i>
-                </button>
             </div>
             <div className={classes.searchContainer}>
                 <input
