@@ -4,7 +4,7 @@ dialog {
     font-size: 1rem;
     padding: 0.625rem;
     gap: 10px;
-    background-color: rgba(234, 229, 229, 0.961);
+    background-color: rgb(255, 255, 255);
     border-radius: 5px;
     border: unset;
     position: absolute;

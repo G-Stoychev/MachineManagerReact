@@ -36,7 +36,6 @@ export default function Menu({
                 <div>
                     <div className={classes.title}>
                         <h3>{company.name}</h3>
-
                         <div className={classes.dropdown}>
                             <button
                                 className={` ${classes.searchInput} ${classes.searchButton} ${classes.dropOpenBtn}`}
@@ -48,18 +47,26 @@ export default function Menu({
                                     className={` ${classes.searchInput} ${classes.searchButton} ${classes.dropDownBtn}`}
                                     onClick={openCompanyModal}
                                 >
-                                    <i className="fa-solid fa-pen-to-square"></i>{" "}
+                                    <i className="fa-solid fa-pen-to-square"></i>
                                     Промени данни за фирма
+                                </button>
+                                <button
+                                    className={` ${classes.searchInput} ${classes.searchButton} ${classes.dropDownBtn}`}
+                                >
+                                    <i className="fa-solid fa-palette"></i>
+                                    Смени тема
+                                </button>
+                                <button
+                                    className={` ${classes.searchInput} ${classes.searchButton} ${classes.dropDownBtn}`}
+                                    onClick={logout}
+                                >
+                                    <i className="fa-solid fa-right-from-bracket"></i>
+                                    Излез
                                 </button>
                             </div>
                         </div>
                     </div>
-                    <p>
-                        Welcome {userName}
-                        <button className={classes.logoutBtn} onClick={logout}>
-                            Logout
-                        </button>
-                    </p>
+                    <p>Welcome {userName}</p>
                 </div>
             </div>
             <div className={classes.searchContainer}>

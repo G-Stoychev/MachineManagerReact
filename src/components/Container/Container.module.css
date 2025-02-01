@@ -1,6 +1,7 @@
 .container {
     border: 2px solid rgba(224, 224, 224, 0.349);
     border-radius: 5px;
+    min-width: 50%;
     width: fit-content;
     height: 99vh;
     margin: auto;
