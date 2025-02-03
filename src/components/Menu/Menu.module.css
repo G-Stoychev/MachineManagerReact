@@ -64,6 +64,10 @@
     color: #fcf2f2;
     background-color: unset;
 }
+nav {
+    display: flex;
+    align-items: start;
+}
 
 .dropdown {
     position: block;

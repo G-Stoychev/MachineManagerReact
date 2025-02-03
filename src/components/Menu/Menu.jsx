@@ -1,4 +1,5 @@
 import { useRef, useState } from "react";
+import Filter from "./Filter.jsx";
 
 import classes from "./Menu.module.css";
 
@@ -10,6 +11,7 @@ export default function Menu({
     onReset,
     openCompanyModal,
     company,
+    machines,
 }) {
     const searchInput = useRef();
     const [searching, setSearching] = useState(false);
@@ -101,7 +103,10 @@ export default function Menu({
                     <i className="fa-solid fa-pen-to-square"></i>
                     Добави
                 </button>
-                <button className={classes.menuButton}>Филтър</button>
+                <div>
+                    <Filter machines={machines} />
+                </div>
+                {/* <button className={classes.menuButton}>Филтър</button> */}
             </nav>
         </div>
     );

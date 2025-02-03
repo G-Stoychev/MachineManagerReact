@@ -46,6 +46,7 @@ export default function Container({ userName, logout }) {
                 onFilter={handleSearchMachine}
                 onReset={handleResetTable}
                 company={companyInfo}
+                machines={listOfMachines}
             />
             <AddItemModal
                 ref={dialog}
