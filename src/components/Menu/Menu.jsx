@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Filter from "./Filter.jsx";
 
 import classes from "./Menu.module.css";
@@ -15,6 +15,37 @@ export default function Menu({
 }) {
     const searchInput = useRef();
     const [searching, setSearching] = useState(false);
+    const themeSets = [
+        {
+            name: "Spring",
+            hoverColor: "--springColor",
+            bgImg: " url(/src/assets/spring-bg.jpg)",
+        },
+        {
+            name: "Summer",
+            hoverColor: "--summerColor",
+            bgImg: " url(/src/assets/summer-bg.jpg)",
+        },
+        {
+            name: "Autumn",
+            hoverColor: "--autumnColor",
+            bgImg: " url(/src/assets/autumn-bg.jpg)",
+        },
+        {
+            name: "Winter",
+            hoverColor: "--winterColor",
+            bgImg: " url(/src/assets/winter-bg.jpg)",
+        },
+    ];
+    const [currentIndex, setCurrentIndex] = useState(0);
+
+    useEffect(() => {
+        document.documentElement.style.setProperty(
+            "--seasonColor",
+            `var(${themeSets[currentIndex].hoverColor})`
+        );
+        document.body.style.backgroundImage = themeSets[currentIndex].bgImg;
+    }, [currentIndex]);
 
     const handleSearchInput = () => {
         const inputSerialNumber = searchInput.current.value;
@@ -30,6 +61,10 @@ export default function Menu({
         searchInput.current.value = "";
         onReset();
         setSearching(false);
+    };
+
+    const handleChangeTheme = () => {
+        setCurrentIndex((prevIndex) => (prevIndex + 1) % themeSets.length);
     };
 
     return (
@@ -54,9 +89,10 @@ export default function Menu({
                                 </button>
                                 <button
                                     className={` ${classes.searchInput} ${classes.searchButton} ${classes.dropDownBtn}`}
+                                    onClick={handleChangeTheme}
                                 >
                                     <i className="fa-solid fa-palette"></i>
-                                    Смени тема
+                                    Смени тема ({themeSets[currentIndex].name})
                                 </button>
                                 <button
                                     className={` ${classes.searchInput} ${classes.searchButton} ${classes.dropDownBtn}`}
