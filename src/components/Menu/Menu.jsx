@@ -19,22 +19,22 @@ export default function Menu({
 
     const themeSets = [
         {
-            name: "Winter",
+            name: "Зима",
             hoverColor: "--winterColor",
             bgImg: " url(/src/assets/winter-bg.jpg)",
         },
         {
-            name: "Spring",
+            name: "Пролет",
             hoverColor: "--springColor",
             bgImg: " url(/src/assets/spring-bg.jpg)",
         },
         {
-            name: "Summer",
+            name: "Лято",
             hoverColor: "--summerColor",
             bgImg: " url(/src/assets/summer-bg.jpg)",
         },
         {
-            name: "Autumn",
+            name: "Есен",
             hoverColor: "--autumnColor",
             bgImg: " url(/src/assets/autumn-bg.jpg)",
         },

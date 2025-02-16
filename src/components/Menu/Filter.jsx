@@ -21,7 +21,7 @@ export default function Filter({ machines, onSelect }) {
     return (
         <div>
             <select onChange={selectFilterItem}>
-                <option value="">-- Филтър --</option>
+                <option value="">Всички машини</option>
 
                 {Object.entries(groupedByBrand).map(([brand, models]) => (
                     <optgroup key={brand} label={brand}>
