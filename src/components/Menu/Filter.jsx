@@ -1,6 +1,6 @@
 import classes from "./Filter.module.css";
 
-export default function Filter({ machines }) {
+export default function Filter({ machines, onSelect }) {
     const groupedByBrand = machines.reduce((acc, item) => {
         if (!acc[item.brand]) {
             acc[item.brand] = new Set();
@@ -13,31 +13,30 @@ export default function Filter({ machines }) {
         groupedByBrand[brand] = Array.from(groupedByBrand[brand]);
     });
 
+    const selectFilterItem = (event) => {
+        const brand = event.target.value;
+        console.log(brand);
+        onSelect(brand);
+    };
+
     console.log(groupedByBrand);
 
     return (
         <div className={classes.dropDownFilter}>
-            <button className={`${classes.menuButton} `}>
-                <i className="fa-solid fa-filter"></i>Филтър
-            </button>
-            <div>
-                <div className={classes.listMenu}>
-                    <ul>
-                        {Object.entries(groupedByBrand).map(
-                            ([brand, models]) => (
-                                <li key={brand}>
-                                    {brand}
-                                    <ul className={classes.modelList}>
-                                        {models.map((model) => (
-                                            <li key={model}> - {model}</li>
-                                        ))}
-                                    </ul>
-                                </li>
-                            )
-                        )}
-                    </ul>
-                </div>
-            </div>
+            <select onChange={selectFilterItem}>
+                <option value="">-- Филтър --</option>
+
+                {Object.entries(groupedByBrand).map(([brand, models]) => (
+                    <optgroup key={brand} label={brand}>
+                        <option value={brand}>{brand} (Всички модели)</option>
+                        {models.map((model) => (
+                            <option key={model} value={model}>
+                                {model}
+                            </option>
+                        ))}
+                    </optgroup>
+                ))}
+            </select>
         </div>
     );
 }

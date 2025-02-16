@@ -24,13 +24,6 @@
     width: 100%;
 }
 
-.listMenu li :first-of-type:hover {
-    background-color: var(--seasonColor);
-}
-.listMenu ul :first-child:hover {
-    background-color: var(--seasonColor);
-}
-
 .modelList {
     margin-top: 3px;
     padding-left: 10px;

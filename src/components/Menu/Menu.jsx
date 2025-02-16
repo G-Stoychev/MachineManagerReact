@@ -1,13 +1,13 @@
 import { useEffect, useRef, useState } from "react";
 import Filter from "./Filter.jsx";
-
+import Test from "./Test.jsx";
 import classes from "./Menu.module.css";
 
 export default function Menu({
     userName,
     logout,
     openModal,
-    onFilter,
+    onSearch,
     onReset,
     openCompanyModal,
     company,
@@ -15,7 +15,14 @@ export default function Menu({
 }) {
     const searchInput = useRef();
     const [searching, setSearching] = useState(false);
+    const [currentIndex, setCurrentIndex] = useState(0);
+
     const themeSets = [
+        {
+            name: "Winter",
+            hoverColor: "--winterColor",
+            bgImg: " url(/src/assets/winter-bg.jpg)",
+        },
         {
             name: "Spring",
             hoverColor: "--springColor",
@@ -31,13 +38,7 @@ export default function Menu({
             hoverColor: "--autumnColor",
             bgImg: " url(/src/assets/autumn-bg.jpg)",
         },
-        {
-            name: "Winter",
-            hoverColor: "--winterColor",
-            bgImg: " url(/src/assets/winter-bg.jpg)",
-        },
     ];
-    const [currentIndex, setCurrentIndex] = useState(0);
 
     useEffect(() => {
         document.documentElement.style.setProperty(
@@ -54,7 +55,7 @@ export default function Menu({
             return;
         }
         setSearching(true);
-        onFilter(inputSerialNumber);
+        onSearch(inputSerialNumber);
     };
 
     const handleResetInput = () => {
@@ -66,6 +67,8 @@ export default function Menu({
     const handleChangeTheme = () => {
         setCurrentIndex((prevIndex) => (prevIndex + 1) % themeSets.length);
     };
+
+    const handleFilterSelect = (selectedItem) => {};
 
     return (
         <div className={classes.container}>
@@ -140,7 +143,7 @@ export default function Menu({
                     Добави
                 </button>
                 <div>
-                    <Filter machines={machines} />
+                    <Filter machines={machines} onSelect={handleFilterSelect} />
                 </div>
                 {/* <button className={classes.menuButton}>Филтър</button> */}
             </nav>

@@ -28,6 +28,13 @@ export default function Container({ userName, logout }) {
         setListOfMachines(findedMachine);
     };
 
+    const handleFilterMachineByBrand = (selectedBrand) => {
+        const findedBrand = getMachines().filter(
+            (m) => m.brand === selectedBrand
+        );
+        setListOfMachines(findedBrand);
+    };
+
     const handleResetTable = () => {
         setListOfMachines(getMachines());
     };
@@ -43,7 +50,7 @@ export default function Container({ userName, logout }) {
                 logout={logout}
                 openModal={handleOpenAddItemModal}
                 openCompanyModal={handleOpenCompanyModal}
-                onFilter={handleSearchMachine}
+                onSearch={handleSearchMachine}
                 onReset={handleResetTable}
                 company={companyInfo}
                 machines={listOfMachines}
