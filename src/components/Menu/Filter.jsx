@@ -18,8 +18,6 @@ export default function Filter({ machines, onSelect }) {
         onSelect(item);
     };
 
-    console.log(groupedByBrand);
-
     return (
         <div>
             <select onChange={selectFilterItem}>

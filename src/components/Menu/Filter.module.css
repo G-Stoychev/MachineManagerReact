@@ -1,35 +1,10 @@
-.menu {
-    position: relative;
-    display: inline-block;
-}
-
-.listMenu {
-    padding-left: 10px;
-    display: none;
-    position: absolute;
-    padding-top: 2px;
+select {
+    width: 200px;
+    border: none;
     border-radius: 5px;
-    font-size: 1.2rem;
-    width: 120px;
-    height: fit-content;
-    justify-content: start;
-    align-items: start;
-    box-shadow: 1px 1px 1px 1px;
-
-    background-color: aliceblue;
-}
-.listMenu ul li {
-    list-style-type: none;
-    padding: 5px;
-    width: 100%;
-}
-
-.modelList {
-    margin-top: 3px;
-    padding-left: 10px;
-    font-size: 0.9rem;
-}
-
-.dropDownFilter:hover .listMenu {
-    display: flex;
+    padding: 10px 25px;
+    font-size: 1rem;
+    margin: 5px;
+    font-weight: bold;
+    box-shadow: 3px 3px 3px rgba(26, 25, 25, 0.774);
 }
