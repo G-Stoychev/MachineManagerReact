@@ -125,6 +125,13 @@ const MACHINESDATA = [
         serialNumber: 60043320,
         buyDate: "10.01.2025",
     },
+    {
+        id: 2111,
+        model: "LB1000",
+        brand: "Lavazza",
+        serialNumber: 101202123,
+        buyDate: "10.01.2025",
+    },
 ];
 
 export default MACHINESDATA;

@@ -28,11 +28,22 @@ export default function Container({ userName, logout }) {
         setListOfMachines(findedMachine);
     };
 
-    const handleFilterMachineByBrand = (selectedBrand) => {
-        const findedBrand = getMachines().filter(
-            (m) => m.brand === selectedBrand
-        );
-        setListOfMachines(findedBrand);
+    const handleSelectMachine = (selectedMachine) => {
+        if (selectedMachine !== "") {
+            const findedMachineByBrand = getMachines().filter(
+                (m) => m.brand === selectedMachine
+            );
+            if (findedMachineByBrand.length > 0) {
+                setListOfMachines(findedMachineByBrand);
+            } else {
+                const findedMachineByModel = getMachines().filter(
+                    (m) => m.model === selectedMachine
+                );
+                setListOfMachines(findedMachineByModel);
+            }
+        } else {
+            setListOfMachines(getMachines());
+        }
     };
 
     const handleResetTable = () => {
@@ -54,6 +65,7 @@ export default function Container({ userName, logout }) {
                 onReset={handleResetTable}
                 company={companyInfo}
                 machines={listOfMachines}
+                onSelect={handleSelectMachine}
             />
             <AddItemModal
                 ref={dialog}

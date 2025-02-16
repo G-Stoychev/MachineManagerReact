@@ -1,6 +1,5 @@
 import { useEffect, useRef, useState } from "react";
 import Filter from "./Filter.jsx";
-import Test from "./Test.jsx";
 import classes from "./Menu.module.css";
 
 export default function Menu({
@@ -12,6 +11,7 @@ export default function Menu({
     openCompanyModal,
     company,
     machines,
+    onSelect,
 }) {
     const searchInput = useRef();
     const [searching, setSearching] = useState(false);
@@ -67,8 +67,6 @@ export default function Menu({
     const handleChangeTheme = () => {
         setCurrentIndex((prevIndex) => (prevIndex + 1) % themeSets.length);
     };
-
-    const handleFilterSelect = (selectedItem) => {};
 
     return (
         <div className={classes.container}>
@@ -143,7 +141,11 @@ export default function Menu({
                     Добави
                 </button>
                 <div>
-                    <Filter machines={machines} onSelect={handleFilterSelect} />
+                    <Filter
+                        machines={machines}
+                        onSelect={onSelect}
+                        onReset={onReset}
+                    />
                 </div>
                 {/* <button className={classes.menuButton}>Филтър</button> */}
             </nav>

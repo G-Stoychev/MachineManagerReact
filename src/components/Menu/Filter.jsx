@@ -14,15 +14,14 @@ export default function Filter({ machines, onSelect }) {
     });
 
     const selectFilterItem = (event) => {
-        const brand = event.target.value;
-        console.log(brand);
-        onSelect(brand);
+        const item = event.target.value;
+        onSelect(item);
     };
 
     console.log(groupedByBrand);
 
     return (
-        <div className={classes.dropDownFilter}>
+        <div>
             <select onChange={selectFilterItem}>
                 <option value="">-- Филтър --</option>
 
