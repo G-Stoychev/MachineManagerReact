@@ -4,10 +4,10 @@
     font-size: 1rem;
     padding: 5px 10px;
     position: absolute;
-    width: fit-content;
     height: 99vh;
     z-index: 15;
     color: rgb(26, 23, 23);
+    animation: animateModal 0.1s;
 }
 
 .modal::backdrop {
@@ -88,4 +88,14 @@
     color: white;
     background-color: rgb(223, 6, 6);
     cursor: pointer;
+}
+
+@keyframes animateModal {
+    0% {
+        width: 0%;
+    }
+
+    100% {
+        width: fit-content;
+    }
 }

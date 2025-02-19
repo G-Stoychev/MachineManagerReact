@@ -13,6 +13,7 @@
     top: 22%;
     left: 35%;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    animation: showModal 1s;
 }
 
 .form h2 {
@@ -78,5 +79,18 @@
         width: 90%;
         height: fit-content;
         left: 2%;
+    }
+}
+
+@keyframes showModal {
+    0% {
+        scale: 0;
+    }
+    10% {
+        width: 0.4;
+    }
+
+    25% {
+        width: 1;
     }
 }

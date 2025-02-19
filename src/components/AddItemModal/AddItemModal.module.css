@@ -14,6 +14,7 @@ dialog {
     top: 22%;
     left: 35%;
     box-shadow: 5px 5px 5px rgba(26, 25, 25, 0.774);
+    animation: showModal 1s;
 }
 dialog::backdrop {
     /* background-color: rgba(68, 132, 148, 0.712); */
@@ -62,5 +63,31 @@ dialog::backdrop {
 
     dialog h2 {
         font-size: 1rem;
+    }
+}
+
+@keyframes showModal {
+    0% {
+        scale: 0;
+    }
+    10% {
+        width: 0.4;
+    }
+
+    25% {
+        width: 1;
+    }
+}
+
+@keyframes hideModal {
+    0% {
+        scale: 1;
+    }
+    10% {
+        width: 0.4;
+    }
+
+    25% {
+        width: 0;
     }
 }
