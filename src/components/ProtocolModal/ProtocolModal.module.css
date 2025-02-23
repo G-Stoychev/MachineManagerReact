@@ -22,18 +22,7 @@
     left: 75%;
     top: 7%;
 }
-s
-
-/* button {
-    border: none;
-    border-radius: 5px;
-    font-size: 0.9rem;
-    font-weight: bold;
-    margin-left: 10px;
-    padding: 5px;
-} */
-
-.closeBtn {
+s .closeBtn {
     color: red;
 }
 
@@ -142,23 +131,29 @@ s
     font-size: inherit;
 }
 
-/* Стилове за печат */
 @media print {
     body {
         margin: 0;
         padding: 0;
     }
     @page {
-        size: A4 landscape; /* Задаваме формат A4 и хоризонтален изглед */
-        margin: 10mm; /* Малък отстъп за печат */
+        size: A4 landscape;
+        margin: 10mm;
     }
 
     .printButton,
     .protocolNav {
-        display: none; /* Скриваме бутона при печат */
+        display: none;
     }
 
-    .protocolCntainer {
-        box-shadow: none; /* Премахваме сенките при печат */
+    .protocolModal {
+        box-shadow: none;
+    }
+
+    select {
+        box-shadow: none;
+        appearance: none;
+        -webkit-appearance: none;
+        -moz-appearance: none;
     }
 }
