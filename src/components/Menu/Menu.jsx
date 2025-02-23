@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import Filter from "./Filter.jsx";
+import ErrorModal from "../ErrorModal/ErrorModal.jsx";
 import classes from "./Menu.module.css";
 
 export default function Menu({
@@ -16,6 +17,13 @@ export default function Menu({
     const searchInput = useRef();
     const [searching, setSearching] = useState(false);
     const [currentIndex, setCurrentIndex] = useState(0);
+    const [error, setError] = useState(false);
+    const errorModal = useRef();
+    useEffect(() => {
+        if (error && errorModal.current) {
+            errorModal.current.open();
+        }
+    }, [error]);
 
     const themeSets = [
         {
@@ -51,7 +59,7 @@ export default function Menu({
     const handleSearchInput = () => {
         const inputSerialNumber = searchInput.current.value;
         if (inputSerialNumber === "") {
-            alert("Няма въведен номер");
+            setError(true);
             return;
         }
         setSearching(true);
@@ -69,86 +77,97 @@ export default function Menu({
     };
 
     return (
-        <div className={classes.container}>
-            <div className={classes.title}>
-                <div>
-                    <div className={classes.title}>
-                        <h3>{company.name}</h3>
-                        <div className={classes.dropdown}>
-                            <button
-                                className={` ${classes.searchInput} ${classes.searchButton} ${classes.dropOpenBtn}`}
-                            >
-                                <i className="fa-solid fa-gear"></i>
-                            </button>
-                            <div className={classes.dropDownMenu}>
+        <>
+            {error && (
+                <ErrorModal
+                    title="Няма въведен номер !"
+                    text={"Моля въвеведете номер в полетоло!"}
+                    setError={setError}
+                    ref={errorModal}
+                />
+            )}{" "}
+            <div className={classes.container}>
+                <div className={classes.title}>
+                    <div>
+                        <div className={classes.title}>
+                            <h3>{company.name}</h3>
+                            <div className={classes.dropdown}>
                                 <button
-                                    className={` ${classes.searchInput} ${classes.searchButton} ${classes.dropDownBtn}`}
-                                    onClick={openCompanyModal}
+                                    className={` ${classes.searchInput} ${classes.searchButton} ${classes.dropOpenBtn}`}
                                 >
-                                    <i className="fa-solid fa-pen-to-square"></i>
-                                    Промени данни за фирма
+                                    <i className="fa-solid fa-gear"></i>
                                 </button>
-                                <button
-                                    className={` ${classes.searchInput} ${classes.searchButton} ${classes.dropDownBtn}`}
-                                    onClick={handleChangeTheme}
-                                >
-                                    <i className="fa-solid fa-palette"></i>
-                                    Смени тема ({themeSets[currentIndex].name})
-                                </button>
-                                <button
-                                    className={` ${classes.searchInput} ${classes.searchButton} ${classes.dropDownBtn}`}
-                                    onClick={logout}
-                                >
-                                    <i className="fa-solid fa-right-from-bracket"></i>
-                                    Излез
-                                </button>
+                                <div className={classes.dropDownMenu}>
+                                    <button
+                                        className={` ${classes.searchInput} ${classes.searchButton} ${classes.dropDownBtn}`}
+                                        onClick={openCompanyModal}
+                                    >
+                                        <i className="fa-solid fa-pen-to-square"></i>
+                                        Промени данни за фирма
+                                    </button>
+                                    <button
+                                        className={` ${classes.searchInput} ${classes.searchButton} ${classes.dropDownBtn}`}
+                                        onClick={handleChangeTheme}
+                                    >
+                                        <i className="fa-solid fa-palette"></i>
+                                        Смени тема (
+                                        {themeSets[currentIndex].name})
+                                    </button>
+                                    <button
+                                        className={` ${classes.searchInput} ${classes.searchButton} ${classes.dropDownBtn}`}
+                                        onClick={logout}
+                                    >
+                                        <i className="fa-solid fa-right-from-bracket"></i>
+                                        Излез
+                                    </button>
+                                </div>
                             </div>
                         </div>
+                        <p>Welcome {userName}</p>
                     </div>
-                    <p>Welcome {userName}</p>
                 </div>
-            </div>
-            <div className={classes.searchContainer}>
-                <input
-                    className={classes.searchInput}
-                    type="text"
-                    placeholder="Въведи сериен номер"
-                    ref={searchInput}
-                />
-                <button
-                    className={`${classes.searchInput} ${classes.searchButton}`}
-                    onClick={handleSearchInput}
-                >
-                    <i className="fa-solid fa-magnifying-glass"></i>
-                </button>
-                {searching ? (
-                    <button
-                        className={`${classes.searchInput} ${classes.searchButton} `}
-                        onClick={handleResetInput}
-                    >
-                        <i className="fa-solid fa-arrows-rotate"></i>
-                    </button>
-                ) : undefined}
-            </div>
-            <nav>
-                <button
-                    className={classes.menuButton}
-                    onClick={() => {
-                        openModal();
-                    }}
-                >
-                    <i className="fa-solid fa-pen-to-square"></i>
-                    Добави
-                </button>
-                <div>
-                    <Filter
-                        machines={machines}
-                        onSelect={onSelect}
-                        onReset={onReset}
+                <div className={classes.searchContainer}>
+                    <input
+                        className={classes.searchInput}
+                        type="text"
+                        placeholder="Въведи сериен номер"
+                        ref={searchInput}
                     />
+                    <button
+                        className={`${classes.searchInput} ${classes.searchButton}`}
+                        onClick={handleSearchInput}
+                    >
+                        <i className="fa-solid fa-magnifying-glass"></i>
+                    </button>
+                    {searching ? (
+                        <button
+                            className={`${classes.searchInput} ${classes.searchButton} `}
+                            onClick={handleResetInput}
+                        >
+                            <i className="fa-solid fa-arrows-rotate"></i>
+                        </button>
+                    ) : undefined}
                 </div>
-                {/* <button className={classes.menuButton}>Филтър</button> */}
-            </nav>
-        </div>
+                <nav>
+                    <button
+                        className={classes.menuButton}
+                        onClick={() => {
+                            openModal();
+                        }}
+                    >
+                        <i className="fa-solid fa-pen-to-square"></i>
+                        Добави
+                    </button>
+                    <div>
+                        <Filter
+                            machines={machines}
+                            onSelect={onSelect}
+                            onReset={onReset}
+                        />
+                    </div>
+                    {/* <button className={classes.menuButton}>Филтър</button> */}
+                </nav>
+            </div>
+        </>
     );
 }

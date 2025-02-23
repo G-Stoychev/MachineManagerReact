@@ -14,7 +14,7 @@ dialog {
     top: 22%;
     left: 35%;
     box-shadow: 5px 5px 5px rgba(26, 25, 25, 0.774);
-    animation: animateModal 1s;
+    animation: animateModal 0.5s;
 }
 dialog::backdrop {
     /* background-color: rgba(68, 132, 148, 0.712); */

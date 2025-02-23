@@ -9,7 +9,10 @@ import { getMachines, getCompany } from "../../services/dataService.js";
 import classes from "./Container.module.css";
 
 export default function Container({ userName, logout }) {
-    const [listOfMachines, setListOfMachines] = useState(getMachines());
+    const originalMachineList = getMachines();
+    const [listOfMachines, setListOfMachines] = useState([
+        ...originalMachineList,
+    ]);
     const [companyInfo, setCompanyInfo] = useState(getCompany());
     const dialog = useRef();
     const CompanyDialog = useRef();
@@ -64,7 +67,7 @@ export default function Container({ userName, logout }) {
                 onSearch={handleSearchMachine}
                 onReset={handleResetTable}
                 company={companyInfo}
-                machines={listOfMachines}
+                machines={originalMachineList}
                 onSelect={handleSelectMachine}
             />
             <AddItemModal

@@ -7,7 +7,7 @@
     height: 99vh;
     z-index: 15;
     color: rgb(26, 23, 23);
-    animation: animateModal 0.1s;
+    animation: animateModal 0.4s;
 }
 
 .modal::backdrop {
@@ -95,6 +95,9 @@
         width: 0%;
     }
 
+    33% {
+        width: 33%;
+    }
     100% {
         width: fit-content;
     }
