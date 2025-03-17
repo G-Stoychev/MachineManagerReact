@@ -1,52 +1,39 @@
-import { useState, useEffect } from "react";
-import { auth } from "../../firebase.js";
-import {
-    signOut,
-    signInWithEmailAndPassword,
-    onAuthStateChanged,
-} from "firebase/auth";
+import { useState, useEffect, useRef } from "react";
+
+import ErrorModal from "../ErrorModal/ErrorModal";
 
 import styles from "./LoginPortal.module.css";
 
-const AuthForm = ({ isUser }) => {
+const AuthForm = ({ error, handleSignin, setError }) => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-    const [error, setError] = useState("");
-    const [user, setUser] = useState(null);
+    const errorModal = useRef();
 
     useEffect(() => {
-        const unsubscribe = onAuthStateChanged(auth, (user) => {
-            setUser(user);
-        });
-        return () => unsubscribe();
-    }, []);
+        if (error && errorModal.current) {
+            errorModal.current.open();
+        }
+    }, [error]);
 
-    const handleSignin = async (e) => {
+    const onSubmit = (e) => {
         e.preventDefault();
-        try {
-            await signInWithEmailAndPassword(auth, email, password);
-            isUser(user);
-            setError("");
-        } catch (error) {
-            setError(error.message);
-        }
-    };
-
-    const handleSignOut = async () => {
-        try {
-            await signOut(auth);
-            setUser(null); // Update user state after sign-out
-            setError(""); // Clear any previous errors
-        } catch (error) {
-            setError(error.message);
-        }
+        handleSignin(email, password);
     };
 
     return (
         <div>
             {error && <p style={{ color: "red" }}>{error}</p>}
 
-            <form className={styles.form} onSubmit={handleSignin}>
+            {error && (
+                <ErrorModal
+                    title="Грешен email или парола"
+                    text={error}
+                    setError={setError}
+                    ref={errorModal}
+                />
+            )}
+
+            <form className={styles.form} onSubmit={onSubmit}>
                 <h2>Login</h2>
                 <div className={styles.sectionWrapper}>
                     <label>Name:</label>

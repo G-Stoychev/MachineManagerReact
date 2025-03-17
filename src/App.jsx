@@ -1,30 +1,65 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { auth } from "../src/firebase.js";
+import {
+    signOut,
+    signInWithEmailAndPassword,
+    onAuthStateChanged,
+} from "firebase/auth";
+
 import Container from "./components/Container/Container.jsx";
 import AuthForm from "./components/LoginPortal/AuthForm.jsx";
 
 function App() {
     const [isValid, setIsValid] = useState(false);
     const [userName, setUserName] = useState("guest");
+    const [error, setError] = useState("");
+    const [user, setUser] = useState(null);
 
-    function CheckLogUser(user) {
+    useEffect(() => {
+        const unsubscribe = onAuthStateChanged(auth, (user) => {
+            setUser(user);
+        });
+        return () => unsubscribe();
+    }, []);
+
+    const handleSignin = async (email, password) => {
+        try {
+            await signInWithEmailAndPassword(auth, email, password);
+            setError("");
+        } catch (error) {
+            setError(error.message);
+        }
+    };
+
+    const handleSignOut = async () => {
+        try {
+            await signOut(auth);
+            setUser(null); // Update user state after sign-out
+            setIsValid(false);
+            setError(""); // Clear any previous errors
+        } catch (error) {
+            setError(error.message);
+        }
+    };
+
+    useEffect(() => {
         if (user) {
             setIsValid(true);
         }
-        console.log(user);
-    }
-
-    function handleLogout() {
-        setIsValid(false);
-    }
+    }, [user]);
 
     return (
         <>
             {isValid ? (
                 <>
-                    <Container userName={userName} logout={handleLogout} />
+                    <Container userName={userName} logout={handleSignOut} />
                 </>
             ) : (
-                <AuthForm isUser={CheckLogUser} />
+                <AuthForm
+                    error={error}
+                    setError={setError}
+                    handleSignin={handleSignin}
+                />
             )}
         </>
     );

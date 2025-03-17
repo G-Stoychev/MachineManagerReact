@@ -85,7 +85,7 @@ export default function Menu({
                     setError={setError}
                     ref={errorModal}
                 />
-            )}{" "}
+            )}
             <div className={classes.container}>
                 <div className={classes.title}>
                     <div>
