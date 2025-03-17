@@ -26,6 +26,11 @@ function App() {
         try {
             await signInWithEmailAndPassword(auth, email, password);
             setError("");
+            if (email === "gstoychev20@gmail.com") {
+                setUserName("Freakx");
+            } else if (email === "tyuliev80@gmail.com") {
+                setUserName("Krasi");
+            }
         } catch (error) {
             setError(error.message);
         }

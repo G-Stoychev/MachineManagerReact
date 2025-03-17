@@ -123,7 +123,7 @@ export default function Menu({
                                 </div>
                             </div>
                         </div>
-                        <p>Welcome {userName}</p>
+                        <p>Здравей {userName}</p>
                     </div>
                 </div>
                 <div className={classes.searchContainer}>

@@ -115,6 +115,9 @@ nav {
     .container h3 {
         font-size: 1rem;
     }
+    .container p {
+        font-size: 0.8rem;
+    }
     .searchInput {
         border: none;
         outline: none;
@@ -123,6 +126,16 @@ nav {
         padding: 5px;
     }
     .menuButton {
+        scale: 0.75;
+        margin: 0;
+    }
+
+    input {
         scale: 0.8;
+    }
+
+    select {
+        scale: 0.8;
+        margin: 0;
     }
 }
