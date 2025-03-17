@@ -1,24 +1,22 @@
 import { useState } from "react";
 import Container from "./components/Container/Container.jsx";
-import LoginPortal from "./components/LoginPortal/LoginPortal.jsx";
+import AuthForm from "./components/LoginPortal/AuthForm.jsx";
 
 function App() {
-    const [isValid, setIsvaled] = useState(true);
-    const [userName, setUserName] = useState("");
+    const [isValid, setIsValid] = useState(false);
+    const [userName, setUserName] = useState("guest");
 
-    function handleCheckLogInfo(name, password) {
-        if (name === "Freakx" && password === "123456") {
-            setIsvaled(true);
-            setUserName("Freakx");
-        } else if (name === "Krasi" && password === "654321") {
-            setIsvaled(true);
-            setUserName("Krasi");
+    function CheckLogUser(user) {
+        if (user) {
+            setIsValid(true);
         }
+        console.log(user);
     }
 
     function handleLogout() {
-        setIsvaled(false);
+        setIsValid(false);
     }
+
     return (
         <>
             {isValid ? (
@@ -26,10 +24,17 @@ function App() {
                     <Container userName={userName} logout={handleLogout} />
                 </>
             ) : (
-                <LoginPortal validLog={handleCheckLogInfo} />
+                <AuthForm isUser={CheckLogUser} />
             )}
         </>
     );
 }
 
 export default App;
+
+// Import the functions you need from the SDKs you need
+
+// TODO: Add SDKs for Firebase products that you want to use
+// https://firebase.google.com/docs/web/setup#available-libraries
+
+// Your web app's Firebase configuration
