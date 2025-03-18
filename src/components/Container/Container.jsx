@@ -20,8 +20,22 @@ export default function Container({ userName, logout }) {
     const handleOpenAddItemModal = () => dialog.current.open();
     const handleOpenCompanyModal = () => CompanyDialog.current.open();
 
+    const sendRequest = async (machineData) => {
+        const response = await fetch(
+            "https://react-learn-94c74-default-rtdb.europe-west1.firebasedatabase.app/machines.json",
+            {
+                method: "PUT",
+                body: JSON.stringify(machineData),
+            }
+        );
+        if (!response.ok) {
+            throw new Error("Sending cart data failed");
+        }
+    };
+
     const handleAddNewMachine = (newMachineData) => {
         setListOfMachines([...listOfMachines, newMachineData]);
+        sendRequest([...listOfMachines, newMachineData]);
     };
 
     const handleSearchMachine = (filterInput) => {
