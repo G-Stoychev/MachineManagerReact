@@ -4,8 +4,6 @@ import PartnerSection from "./PartnerSection.jsx";
 import PartnerModal from "./PartnerModal.jsx";
 import Menu from "./ProtocolMenu.jsx";
 
-import { getCompany } from "../../services/dataService.js";
-
 import classes from "./ProtocolModal.module.css";
 
 export default function ProtocolModal({
@@ -13,9 +11,9 @@ export default function ProtocolModal({
     lastmove,
     closeProtocolmodal,
     onSaveMove,
+    company,
 }) {
     const dialog = useRef();
-    const company = getCompany();
     const [partner, setPartner] = useState(lastmove);
 
     const handleOpenPratnerModal = () => {

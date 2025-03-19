@@ -4,7 +4,7 @@ import ErrorModal from "../ErrorModal/ErrorModal.jsx";
 import classes from "./Menu.module.css";
 
 export default function Menu({
-    userName,
+    userInfo,
     logout,
     openModal,
     onSearch,
@@ -123,7 +123,7 @@ export default function Menu({
                                 </div>
                             </div>
                         </div>
-                        <p>Здравей {userName}</p>
+                        <p>Здравейте {userInfo.name}</p>
                     </div>
                 </div>
                 <div className={classes.searchContainer}>

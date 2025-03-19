@@ -1,34 +1,28 @@
 import { useState, useRef, useEffect } from "react";
+import { getDatabase, ref, onValue } from "firebase/database";
+
 import classes from "./ExpandedContainer.module.css";
 
 import RepairModal from "../RepairModal/RepairModal.jsx";
 import {
-    getRepairsByMachineId,
-    getMovementsByMachineId,
-    getCompany,
-    sendRequest,
-    fetchtData,
-    updateRepairRequest,
+    addRepairData,
+    addMoveData,
+    changeRepairData,
 } from "../../services/dataService.js";
+
 import ProtocolModal from "../ProtocolModal/ProtocolModal.jsx";
 import MachineInformation from "./MachineInformation.jsx";
 import RepairsInformation from "./RepairsInformation.jsx";
 import MovementsInformation from "./MovementsInformation.jsx";
 import ErrorModal from "../ErrorModal/ErrorModal.jsx";
 
-export default function ExpandedContainer({
-    machine,
-    closeRow,
-    onUpdateMovement,
-}) {
+export default function ExpandedContainer({ machine, closeRow, company }) {
     const [error, setError] = useState(false);
     const [content, setContent] = useState("repairs");
     const [selectedRepair, setSelectedRepair] = useState();
     const [repairsList, setRepairsList] = useState([]);
-    const [movements, setMovements] = useState(
-        getMovementsByMachineId(machine.id)
-    );
-    const company = getCompany();
+    const [movements, setMovements] = useState([]);
+
     const errorModal = useRef();
 
     const handleSetRepairs = () => {
@@ -45,7 +39,6 @@ export default function ExpandedContainer({
             return;
         }
         setSelectedRepair(undefined);
-        onUpdateMovement(lastmove);
         closeRow(id);
     };
     useEffect(() => {
@@ -55,46 +48,54 @@ export default function ExpandedContainer({
     }, [error]);
 
     useEffect(() => {
-        async function fetchData() {
-            try {
-                const data = await fetchtData("repairs");
-
-                if (data && typeof data === "object") {
+        const database = getDatabase();
+        const repairsRef = ref(database, "repairs");
+        const unsubscribe = onValue(
+            repairsRef,
+            (snapshot) => {
+                if (snapshot.exists()) {
+                    const data = snapshot.val();
                     const repairsArray = Object.values(data);
                     const currentMachineRepairs = repairsArray.filter(
                         (repair) => repair.machineId === machine.id
                     );
                     setRepairsList(currentMachineRepairs);
                 } else {
-                    console.error("fetchtData() не върна валидни данни!", data);
+                    console.log("No data found!");
                 }
-            } catch (error) {
-                console.error("Грешка при зареждане на данните:", error);
+            },
+            {
+                onlyOnce: true,
             }
-        }
-        fetchData();
-    }, [repairsList]);
+        );
+
+        return () => unsubscribe();
+    }, []);
 
     useEffect(() => {
-        async function fetchData() {
-            try {
-                const data = await fetchtData("movements");
-
-                if (data && typeof data === "object") {
+        const database = getDatabase();
+        const movementsRef = ref(database, "movements");
+        const unsubscribe = onValue(
+            movementsRef,
+            (snapshot) => {
+                if (snapshot.exists()) {
+                    const data = snapshot.val();
                     const movementsArray = Object.values(data);
-                    const currentMachineMovements = movementsArray.filter(
+                    const currentMachineMove = movementsArray.filter(
                         (move) => move.machineId === machine.id
                     );
-                    setMovements(currentMachineMovements);
+                    setMovements(currentMachineMove);
                 } else {
-                    console.error("fetchtData() не върна валидни данни!", data);
+                    console.log("No data found!");
                 }
-            } catch (error) {
-                console.error("Грешка при зареждане на данните:", error);
+            },
+            {
+                onlyOnce: true,
             }
-        }
-        fetchData();
-    }, [movements]);
+        );
+
+        return () => unsubscribe();
+    }, []);
 
     const handleSetUpdateRepair = (repair) => {
         handleSetNewRepair();
@@ -108,16 +109,18 @@ export default function ExpandedContainer({
             machineId: machine.id,
         };
         newRepair.id = Date.now().toString();
-
-        sendRequest("repairs", newRep);
+        addRepairData(newRep);
+        console.log(repairsList);
+        setRepairsList([...repairsList, newRep]);
         handleSetRepairs();
     };
     const handleOnUpdate = (updatedRepair) => {
-        // const index = repairsList.findIndex((r) => r.id === updatedRepair.id);
-        // const copiedRepairsList = [...repairsList];
-        // copiedRepairsList.splice(index, 1, updatedRepair);
-        // setRepairsList(copiedRepairsList);
-        updateRepairRequest("repairs", updatedRepair);
+        const index = repairsList.findIndex((r) => r.id === updatedRepair.id);
+        const copiedRepairsList = [...repairsList];
+        copiedRepairsList.splice(index, 1, updatedRepair);
+        setRepairsList(copiedRepairsList);
+        console.log(updatedRepair.id);
+        changeRepairData(updatedRepair.id, updatedRepair);
         handleSetRepairs();
         S;
     };
@@ -129,8 +132,8 @@ export default function ExpandedContainer({
             id: Date.now().toString(),
             date: new Date().toLocaleDateString("en-GB"),
         };
+        addMoveData(newMove);
         setMovements((m) => [...m, newMove]);
-        sendRequest("movements", newMove);
         handleSetInformation();
     };
 
@@ -150,6 +153,7 @@ export default function ExpandedContainer({
             )}
             {content === "protocolModal" ? (
                 <ProtocolModal
+                    company={company}
                     machine={machine}
                     lastmove={lastmove ? lastmove : {}}
                     closeProtocolmodal={handleSetInformation}

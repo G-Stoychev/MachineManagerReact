@@ -1,89 +1,49 @@
-import MACHINESDATA from "../util/machineData.js";
-import REPAIRS from "../util/repairsByMachine.js";
-import COMPANY from "../util/company.js";
-import MOVEMENTS from "../util/movementsByMachine.js";
+import { getDatabase, ref, set, push } from "firebase/database";
 
-export const fetchtData = async (key) => {
-    const response = await fetch(
-        `https://react-learn-94c74-default-rtdb.europe-west1.firebasedatabase.app/${key}.json`
-    );
+export const addMachineData = (machine) => {
+    const db = getDatabase();
+    const pushMachine = push(ref(db, `machines`));
+    const machineKey = pushMachine.key;
 
-    if (!response.ok) {
-        throw new Error("Cloud not fetch cart data!");
-    }
-
-    const data = await response.json();
-    return data;
+    set(pushMachine, {
+        ...machine,
+        id: machineKey,
+    });
 };
 
-export const sendRequest = async (key, data) => {
-    const response = await fetch(
-        `https://react-learn-94c74-default-rtdb.europe-west1.firebasedatabase.app/${key}.json`,
-        {
-            method: "POST",
-            body: JSON.stringify(data),
-        }
-    );
-    if (!response.ok) {
-        throw new Error("Sending cart data failed");
-    }
+export const addRepairData = (repair) => {
+    const db = getDatabase();
+    const pushRepair = push(ref(db, `repairs`));
+    const repairKey = pushRepair.key;
+
+    set(pushRepair, {
+        ...repair,
+        id: repairKey,
+    });
 };
 
-export const updateRepairRequest = async (key, updatedItem) => {
-    const response = await fetch(
-        `https://react-learn-94c74-default-rtdb.europe-west1.firebasedatabase.app/${key}.json`
-    );
-
-    if (!response.ok) {
-        throw new Error("Could not fetch data!");
-    }
-
-    let data = await response.json();
-
-    if (!Array.isArray(data)) {
-        data = data ? Object.values(data) : [];
-    }
-
-    console.log(data);
-
-    // Намери индекса на обекта по ID
-    const index = data.findIndex((item) => item.id === updatedItem.id);
-    if (index === -1) {
-        throw new Error("Item not found!");
-    }
-
-    // Заместване на стария обект с новата версия
-    data[index] = updatedItem;
-
-    // Изпращане на обновения масив обратно в Firebase
-    const updateResponse = await fetch(
-        `https://react-learn-94c74-default-rtdb.europe-west1.firebasedatabase.app/${key}.json`,
-        {
-            method: "PUT",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify(data),
-        }
-    );
-
-    if (!updateResponse.ok) {
-        throw new Error("Could not update data!");
-    }
+export const changeRepairData = (id, repair) => {
+    const db = getDatabase();
+    set(ref(db, `repairs/` + id), repair);
 };
 
-export function getMachines() {
-    return MACHINESDATA;
-}
+export const addMoveData = (move) => {
+    const db = getDatabase();
+    const pushMove = push(ref(db, `movements`));
+    const moveKey = pushMove.key;
 
-export function getRepairsByMachineId(machineId) {
-    return REPAIRS.filter((repair) => repair.machineId === machineId);
-}
+    set(pushMove, {
+        ...move,
+        id: moveKey,
+    });
+};
 
-export function getMovementsByMachineId(machineId) {
-    return MOVEMENTS.filter((move) => move.machineId === machineId);
-}
+export const changeCompanyData = (move) => {
+    const db = getDatabase();
+    set(ref(db, `company`), move);
+};
 
-export function getCompany() {
-    return COMPANY;
-}
+export const changeUserInfo = (userInfo) => {
+    const db = getDatabase();
+    set(ref(db, `userInfo`), userInfo);
+};

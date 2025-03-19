@@ -77,7 +77,7 @@ export default function PartnerModal({ lastmove, ref, onCreate }) {
                     ></input>
                 </div>
                 <div className={classes.sectionWrapper}>
-                    <label>Адрес:</label>
+                    <label>Обект:</label>
                     <input
                         type="text"
                         placeholder="Тип обект"

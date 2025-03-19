@@ -5,15 +5,43 @@ import {
     signInWithEmailAndPassword,
     onAuthStateChanged,
 } from "firebase/auth";
+import { getDatabase, ref, onValue } from "firebase/database";
+
+import { changeUserInfo } from "./services/dataService.js";
 
 import Container from "./components/Container/Container.jsx";
 import AuthForm from "./components/LoginPortal/AuthForm.jsx";
 
 function App() {
     const [isValid, setIsValid] = useState(false);
-    const [userName, setUserName] = useState("guest");
+    const [userInfo, setUserInfo] = useState({
+        name: "GUEST",
+        theme: "Пролет",
+    });
     const [error, setError] = useState("");
     const [user, setUser] = useState(null);
+
+    useEffect(() => {
+        const database = getDatabase();
+        const userRef = ref(database, "userInfo");
+        const unsubscribe = onValue(
+            userRef,
+            (snapshot) => {
+                if (snapshot.exists()) {
+                    const data = snapshot.val();
+                    setUserInfo(data);
+                    console.log(data);
+                } else {
+                    console.log("No data found!");
+                }
+            },
+            {
+                onlyOnce: true,
+            }
+        );
+
+        return () => unsubscribe();
+    }, []);
 
     useEffect(() => {
         const unsubscribe = onAuthStateChanged(auth, (user) => {
@@ -26,13 +54,21 @@ function App() {
         try {
             await signInWithEmailAndPassword(auth, email, password);
             setError("");
-            if (email === "gstoychev20@gmail.com") {
-                setUserName("Freakx");
-            } else if (email === "tyuliev80@gmail.com") {
-                setUserName("Krasi");
-            }
         } catch (error) {
             setError(error.message);
+        }
+        if (email === "gstoychev20@gmail.com") {
+            setUserInfo((prevState) => ({
+                ...prevState,
+                name: "Freakx",
+            }));
+            changeUserInfo(userInfo);
+        } else if (email === "tyuliev80@gmail.com") {
+            setUserInfo((prevState) => ({
+                ...prevState,
+                name: "Krasi",
+            }));
+            changeUserInfo(userInfo);
         }
     };
 
@@ -57,7 +93,7 @@ function App() {
         <>
             {isValid ? (
                 <>
-                    <Container userName={userName} logout={handleSignOut} />
+                    <Container userInfo={userInfo} logout={handleSignOut} />
                 </>
             ) : (
                 <AuthForm

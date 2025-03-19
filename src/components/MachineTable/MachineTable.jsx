@@ -2,7 +2,7 @@ import { useState } from "react";
 import classes from "./MachineTable.module.css";
 
 import Row from "./Row.jsx";
-export default function MachineTable({ machines }) {
+export default function MachineTable({ machines, company }) {
     const [modalIsOpen, setModalIsOpen] = useState(false);
 
     return (
@@ -21,6 +21,7 @@ export default function MachineTable({ machines }) {
                 <tbody className="table-body">
                     {machines.map((machine) => (
                         <Row
+                            company={company}
                             key={machine.id}
                             machine={machine}
                             modalIsOpen={modalIsOpen}

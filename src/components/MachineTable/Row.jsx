@@ -1,14 +1,12 @@
 import { createPortal } from "react-dom";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { getDatabase, ref, onValue } from "firebase/database";
 
 import ExpandedContainer from "../ExpandedContainer/ExpandedContainer.jsx";
 
-import { getCompany } from "../../services/dataService.js";
-
-export default function Row({ machine, setModalIsOpen, modalIsOpen }) {
+export default function Row({ machine, setModalIsOpen, modalIsOpen, company }) {
     const [expandedModal, setExpandedModal] = useState(false);
     const [move, setMove] = useState(null);
-    const company = getCompany();
 
     function toggleModal() {
         const nextState = !expandedModal;
@@ -16,9 +14,31 @@ export default function Row({ machine, setModalIsOpen, modalIsOpen }) {
         setModalIsOpen(nextState);
     }
 
-    const updateMovements = (lastmove) => {
-        setMove(lastmove);
-    };
+    useEffect(() => {
+        const database = getDatabase();
+        const movementsRef = ref(database, "movements");
+        const unsubscribe = onValue(
+            movementsRef,
+            (snapshot) => {
+                if (snapshot.exists()) {
+                    const data = snapshot.val();
+                    const movementsArray = Object.values(data);
+                    const currentMachineMove = movementsArray.filter(
+                        (move) => move.machineId === machine.id
+                    );
+                    setMove(currentMachineMove[currentMachineMove.length - 1]);
+                } else {
+                    console.log("No data found!");
+                }
+            },
+            {
+                onlyOnce: true,
+            }
+        );
+
+        return () => unsubscribe();
+    }, [move]);
+
     return (
         <>
             <tr
@@ -36,9 +56,9 @@ export default function Row({ machine, setModalIsOpen, modalIsOpen }) {
             {expandedModal &&
                 createPortal(
                     <ExpandedContainer
+                        company={company}
                         machine={machine}
                         closeRow={toggleModal}
-                        onUpdateMovement={updateMovements}
                     />,
                     document.getElementById("portal")
                 )}
