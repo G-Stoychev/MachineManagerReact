@@ -1,41 +1,48 @@
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 
 import Menu from "../Menu/Menu.jsx";
 import MachineTable from "../MachineTable/MachineTable.jsx";
 import AddItemModal from "../AddItemModal/AddItemModal.jsx";
 import CompanyInfoModal from "../CompanyInfoModal/CompanyInfoModal.jsx";
-import { getMachines, getCompany } from "../../services/dataService.js";
+import {
+    getMachines,
+    getCompany,
+    fetchtData,
+    sendRequest,
+} from "../../services/dataService.js";
 
 import classes from "./Container.module.css";
 
 export default function Container({ userName, logout }) {
-    const originalMachineList = getMachines();
-    const [listOfMachines, setListOfMachines] = useState([
-        ...originalMachineList,
-    ]);
+    const [originalMachineList, setOriginalMachineList] = useState([]);
+    const [listOfMachines, setListOfMachines] = useState([]);
     const [companyInfo, setCompanyInfo] = useState(getCompany());
     const dialog = useRef();
     const CompanyDialog = useRef();
 
     const handleOpenAddItemModal = () => dialog.current.open();
     const handleOpenCompanyModal = () => CompanyDialog.current.open();
+    useEffect(() => {
+        async function fetchData() {
+            try {
+                const data = await fetchtData("machines");
 
-    const sendRequest = async (machineData) => {
-        const response = await fetch(
-            "https://react-learn-94c74-default-rtdb.europe-west1.firebasedatabase.app/machines.json",
-            {
-                method: "PUT",
-                body: JSON.stringify(machineData),
+                if (data && typeof data === "object") {
+                    const machinesArray = Object.values(data); // ✅ Преобразуваме обект в масив
+                    setOriginalMachineList(machinesArray);
+                    setListOfMachines(machinesArray);
+                } else {
+                    console.error("fetchtData() не върна валидни данни!", data);
+                }
+            } catch (error) {
+                console.error("Грешка при зареждане на данните:", error);
             }
-        );
-        if (!response.ok) {
-            throw new Error("Sending cart data failed");
         }
-    };
+        fetchData();
+    }, [listOfMachines]);
 
     const handleAddNewMachine = (newMachineData) => {
-        setListOfMachines([...listOfMachines, newMachineData]);
-        sendRequest([...listOfMachines, newMachineData]);
+        sendRequest("machines", newMachineData);
     };
 
     const handleSearchMachine = (filterInput) => {

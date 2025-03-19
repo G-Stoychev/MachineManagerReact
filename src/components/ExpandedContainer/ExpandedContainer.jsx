@@ -6,6 +6,9 @@ import {
     getRepairsByMachineId,
     getMovementsByMachineId,
     getCompany,
+    sendRequest,
+    fetchtData,
+    updateRepairRequest,
 } from "../../services/dataService.js";
 import ProtocolModal from "../ProtocolModal/ProtocolModal.jsx";
 import MachineInformation from "./MachineInformation.jsx";
@@ -21,9 +24,7 @@ export default function ExpandedContainer({
     const [error, setError] = useState(false);
     const [content, setContent] = useState("repairs");
     const [selectedRepair, setSelectedRepair] = useState();
-    const [repairsList, setRepairsList] = useState(
-        getRepairsByMachineId(machine.id)
-    );
+    const [repairsList, setRepairsList] = useState([]);
     const [movements, setMovements] = useState(
         getMovementsByMachineId(machine.id)
     );
@@ -53,6 +54,48 @@ export default function ExpandedContainer({
         }
     }, [error]);
 
+    useEffect(() => {
+        async function fetchData() {
+            try {
+                const data = await fetchtData("repairs");
+
+                if (data && typeof data === "object") {
+                    const repairsArray = Object.values(data);
+                    const currentMachineRepairs = repairsArray.filter(
+                        (repair) => repair.machineId === machine.id
+                    );
+                    setRepairsList(currentMachineRepairs);
+                } else {
+                    console.error("fetchtData() не върна валидни данни!", data);
+                }
+            } catch (error) {
+                console.error("Грешка при зареждане на данните:", error);
+            }
+        }
+        fetchData();
+    }, [repairsList]);
+
+    useEffect(() => {
+        async function fetchData() {
+            try {
+                const data = await fetchtData("movements");
+
+                if (data && typeof data === "object") {
+                    const movementsArray = Object.values(data);
+                    const currentMachineMovements = movementsArray.filter(
+                        (move) => move.machineId === machine.id
+                    );
+                    setMovements(currentMachineMovements);
+                } else {
+                    console.error("fetchtData() не върна валидни данни!", data);
+                }
+            } catch (error) {
+                console.error("Грешка при зареждане на данните:", error);
+            }
+        }
+        fetchData();
+    }, [movements]);
+
     const handleSetUpdateRepair = (repair) => {
         handleSetNewRepair();
         setSelectedRepair(repair);
@@ -65,14 +108,16 @@ export default function ExpandedContainer({
             machineId: machine.id,
         };
         newRepair.id = Date.now().toString();
-        setRepairsList([...repairsList, newRep]);
+
+        sendRequest("repairs", newRep);
         handleSetRepairs();
     };
     const handleOnUpdate = (updatedRepair) => {
-        const index = repairsList.findIndex((r) => r.id === updatedRepair.id);
-        const copiedRepairsList = [...repairsList];
-        copiedRepairsList.splice(index, 1, updatedRepair);
-        setRepairsList(copiedRepairsList);
+        // const index = repairsList.findIndex((r) => r.id === updatedRepair.id);
+        // const copiedRepairsList = [...repairsList];
+        // copiedRepairsList.splice(index, 1, updatedRepair);
+        // setRepairsList(copiedRepairsList);
+        updateRepairRequest("repairs", updatedRepair);
         handleSetRepairs();
         S;
     };
@@ -85,6 +130,7 @@ export default function ExpandedContainer({
             date: new Date().toLocaleDateString("en-GB"),
         };
         setMovements((m) => [...m, newMove]);
+        sendRequest("movements", newMove);
         handleSetInformation();
     };
 
