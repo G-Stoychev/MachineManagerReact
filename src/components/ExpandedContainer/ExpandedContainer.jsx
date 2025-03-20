@@ -65,7 +65,7 @@ export default function ExpandedContainer({ machine, closeRow, company }) {
                 }
             },
             {
-                onlyOnce: true,
+                onlyOnce: false,
             }
         );
 
@@ -111,18 +111,18 @@ export default function ExpandedContainer({ machine, closeRow, company }) {
         newRepair.id = Date.now().toString();
         addRepairData(newRep);
         console.log(repairsList);
-        setRepairsList([...repairsList, newRep]);
+        // setRepairsList([...repairsList, newRep]);
         handleSetRepairs();
     };
     const handleOnUpdate = (updatedRepair) => {
-        const index = repairsList.findIndex((r) => r.id === updatedRepair.id);
-        const copiedRepairsList = [...repairsList];
-        copiedRepairsList.splice(index, 1, updatedRepair);
-        setRepairsList(copiedRepairsList);
-        console.log(updatedRepair.id);
+        // const index = repairsList.findIndex((r) => r.id === updatedRepair.id);
+        // console.log(repairsList[index].id);
+        // const copiedRepairsList = [...repairsList];
+        // copiedRepairsList.splice(index, 1, updatedRepair);
+        // setRepairsList(copiedRepairsList);
+        // console.log(updatedRepair.id);
         changeRepairData(updatedRepair.id, updatedRepair);
         handleSetRepairs();
-        S;
     };
 
     const handOnSaveMovement = (lastmove) => {
