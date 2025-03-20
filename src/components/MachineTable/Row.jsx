@@ -27,12 +27,10 @@ export default function Row({ machine, setModalIsOpen, modalIsOpen, company }) {
                         (move) => move.machineId === machine.id
                     );
                     setMove(currentMachineMove[currentMachineMove.length - 1]);
-                } else {
-                    console.log("No data found!");
                 }
             },
             {
-                onlyOnce: true,
+                onlyOnce: false,
             }
         );
 

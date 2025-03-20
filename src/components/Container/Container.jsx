@@ -33,8 +33,6 @@ export default function Container({ userInfo, logout }) {
                     const machinesArray = Object.values(data);
                     setOriginalMachineList(machinesArray);
                     setListOfMachines(machinesArray);
-                } else {
-                    console.log("No data found!");
                 }
             },
             {
@@ -54,8 +52,6 @@ export default function Container({ userInfo, logout }) {
                 if (snapshot.exists()) {
                     const data = snapshot.val();
                     setCompanyInfo(data);
-                } else {
-                    console.log("No data found!");
                 }
             },
             {

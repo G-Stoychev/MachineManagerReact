@@ -34,7 +34,7 @@ export default function PartnerModal({ lastmove, ref, onCreate }) {
             alert("Моля попълнете всички поледата");
             return;
         }
-        console.log(inputPartnerIfno);
+
         onCreate(inputPartnerIfno);
         handleCloseModal();
     };

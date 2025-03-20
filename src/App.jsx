@@ -30,9 +30,6 @@ function App() {
                 if (snapshot.exists()) {
                     const data = snapshot.val();
                     setUserInfo(data);
-                    console.log(data);
-                } else {
-                    console.log("No data found!");
                 }
             },
             {

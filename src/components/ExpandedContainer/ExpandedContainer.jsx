@@ -60,8 +60,6 @@ export default function ExpandedContainer({ machine, closeRow, company }) {
                         (repair) => repair.machineId === machine.id
                     );
                     setRepairsList(currentMachineRepairs);
-                } else {
-                    console.log("No data found!");
                 }
             },
             {
@@ -85,12 +83,10 @@ export default function ExpandedContainer({ machine, closeRow, company }) {
                         (move) => move.machineId === machine.id
                     );
                     setMovements(currentMachineMove);
-                } else {
-                    console.log("No data found!");
                 }
             },
             {
-                onlyOnce: true,
+                onlyOnce: false,
             }
         );
 
@@ -110,7 +106,7 @@ export default function ExpandedContainer({ machine, closeRow, company }) {
         };
         newRepair.id = Date.now().toString();
         addRepairData(newRep);
-        console.log(repairsList);
+
         // setRepairsList([...repairsList, newRep]);
         handleSetRepairs();
     };
