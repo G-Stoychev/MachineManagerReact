@@ -1,4 +1,4 @@
-select {
+.select {
     width: 200px;
     border: none;
     border-radius: 5px;
@@ -10,7 +10,7 @@ select {
 }
 
 @media only screen and (max-width: 600px) {
-    select {
+    .select {
         width: 200px;
         border: none;
         border-radius: 5px;

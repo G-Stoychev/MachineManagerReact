@@ -5,6 +5,7 @@ import classes from "./Menu.module.css";
 
 const ErrorModal = lazy(() => import("../ErrorModal/ErrorModal.jsx"));
 const Filter = lazy(() => import("./Filter.jsx"));
+
 export default function Menu({
     userInfo,
     logout,
@@ -31,22 +32,22 @@ export default function Menu({
         {
             name: "Зима",
             hoverColor: "--winterColor",
-            bgImg: " url(/src/assets/winter-bg.jpg)",
+            bgImg: " url(/images/winter-bg.jpg)",
         },
         {
             name: "Пролет",
             hoverColor: "--springColor",
-            bgImg: " url(/src/assets/spring-bg.jpg)",
+            bgImg: " url(/images/spring-bg.jpg)",
         },
         {
             name: "Лято",
             hoverColor: "--summerColor",
-            bgImg: " url(/src/assets/summer-bg.jpg)",
+            bgImg: " url(/images/summer-bg.jpg)",
         },
         {
             name: "Есен",
             hoverColor: "--autumnColor",
-            bgImg: " url(/src/assets/autumn-bg.jpg)",
+            bgImg: " url(/images/autumn-bg.jpg)",
         },
     ];
 
