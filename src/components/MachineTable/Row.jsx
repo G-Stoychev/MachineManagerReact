@@ -1,5 +1,5 @@
 import { createPortal } from "react-dom";
-import { useState, useEffect, lazy, Suspense } from "react";
+import { useState, useEffect, lazy } from "react";
 import { getDatabase, ref, onValue } from "firebase/database";
 
 // import ExpandedContainer from "../ExpandedContainer/ExpandedContainer.jsx";

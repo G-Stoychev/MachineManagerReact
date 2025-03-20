@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, lazy } from "react";
 import { auth } from "../src/firebase.js";
 import {
     signOut,
@@ -9,8 +9,11 @@ import { getDatabase, ref, onValue } from "firebase/database";
 
 import { changeUserInfo } from "./services/dataService.js";
 
-import Container from "./components/Container/Container.jsx";
-import AuthForm from "./components/LoginPortal/AuthForm.jsx";
+const Container = lazy(() => import("./components/Container/Container.jsx"));
+const AuthForm = lazy(() => import("./components/LoginPortal/AuthForm.jsx"));
+
+// import Container from "./components/Container/Container.jsx";
+// import AuthForm from "./components/LoginPortal/AuthForm.jsx";
 
 function App() {
     const [isValid, setIsValid] = useState(false);

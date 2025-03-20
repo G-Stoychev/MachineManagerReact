@@ -1,14 +1,21 @@
-import { useRef, useState, useEffect } from "react";
+import { useRef, useState, useEffect, lazy } from "react";
 import { getDatabase, ref, onValue } from "firebase/database";
 
-import Menu from "../Menu/Menu.jsx";
-import MachineTable from "../MachineTable/MachineTable.jsx";
-import AddItemModal from "../AddItemModal/AddItemModal.jsx";
-import CompanyInfoModal from "../CompanyInfoModal/CompanyInfoModal.jsx";
+// import Menu from "../Menu/Menu.jsx";
+// import MachineTable from "../MachineTable/MachineTable.jsx";
+// import AddItemModal from "../AddItemModal/AddItemModal.jsx";
+// import CompanyInfoModal from "../CompanyInfoModal/CompanyInfoModal.jsx";
 import {
     addMachineData,
     changeCompanyData,
 } from "../../services/dataService.js";
+
+const Menu = lazy(() => import("../Menu/Menu.jsx"));
+const MachineTable = lazy(() => import("../MachineTable/MachineTable.jsx"));
+const AddItemModal = lazy(() => import("../AddItemModal/AddItemModal.jsx"));
+const CompanyInfoModal = lazy(() =>
+    import("../CompanyInfoModal/CompanyInfoModal.jsx")
+);
 
 import classes from "./Container.module.css";
 
@@ -68,9 +75,11 @@ export default function Container({ userInfo, logout }) {
     };
 
     const handleSearchMachine = (filterInput) => {
+        console.log(originalMachineList[4].serialNumber);
         const findedMachine = originalMachineList.filter(
-            (m) => m.serialNumber === parseInt(filterInput)
+            (m) => m.serialNumber === filterInput
         );
+        console.log(typeof filterInput);
         setListOfMachines(findedMachine);
     };
 
@@ -88,12 +97,12 @@ export default function Container({ userInfo, logout }) {
                 setListOfMachines(findedMachineByModel);
             }
         } else {
-            setListOfMachines(getMachines());
+            setListOfMachines(originalMachineList);
         }
     };
 
     const handleResetTable = () => {
-        setListOfMachines(getMachines());
+        setListOfMachines(originalMachineList);
     };
 
     const handleCompanyChange = (newCompanyInfo) => {

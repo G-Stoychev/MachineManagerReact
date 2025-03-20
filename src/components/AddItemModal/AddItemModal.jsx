@@ -1,6 +1,7 @@
-import { useRef, useImperativeHandle, useState, useEffect } from "react";
+import { useRef, useImperativeHandle, useState, useEffect, lazy } from "react";
 
-import ErrorModal from "../ErrorModal/ErrorModal.jsx";
+// import ErrorModal from "../ErrorModal/ErrorModal.jsx";
+const ErrorModal = lazy(() => import("../ErrorModal/ErrorModal.jsx"));
 
 import classes from "./AddItemModal.module.css";
 

@@ -1,7 +1,9 @@
-import { useState } from "react";
+import { useState, lazy } from "react";
 import classes from "./MachineTable.module.css";
 
-import Row from "./Row.jsx";
+// import Row from "./Row.jsx";
+
+const Row = lazy(() => import("./Row.jsx"));
 export default function MachineTable({ machines, company }) {
     const [modalIsOpen, setModalIsOpen] = useState(false);
 

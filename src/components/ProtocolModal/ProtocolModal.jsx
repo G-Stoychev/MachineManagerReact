@@ -1,9 +1,12 @@
-import { useRef, useState } from "react";
+import { useRef, useState, lazy } from "react";
 
-import PartnerSection from "./PartnerSection.jsx";
-import PartnerModal from "./PartnerModal.jsx";
-import Menu from "./ProtocolMenu.jsx";
+// import PartnerSection from "./PartnerSection.jsx";
+// import PartnerModal from "./PartnerModal.jsx";
+// import Menu from "./ProtocolMenu.jsx";
 
+const PartnerSection = lazy(() => import("./PartnerSection.jsx"));
+const PartnerModal = lazy(() => import("./PartnerModal.jsx"));
+const Menu = lazy(() => import("./ProtocolMenu.jsx"));
 import classes from "./ProtocolModal.module.css";
 
 export default function ProtocolModal({

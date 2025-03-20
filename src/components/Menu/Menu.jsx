@@ -1,8 +1,10 @@
-import { useEffect, useRef, useState } from "react";
-import Filter from "./Filter.jsx";
-import ErrorModal from "../ErrorModal/ErrorModal.jsx";
+import { useEffect, useRef, useState, lazy } from "react";
+// import Filter from "./Filter.jsx";
+// import ErrorModal from "../ErrorModal/ErrorModal.jsx";
 import classes from "./Menu.module.css";
 
+const ErrorModal = lazy(() => import("../ErrorModal/ErrorModal.jsx"));
+const Filter = lazy(() => import("./Filter.jsx"));
 export default function Menu({
     userInfo,
     logout,
