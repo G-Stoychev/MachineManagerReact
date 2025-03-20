@@ -86,7 +86,7 @@ export default function ExpandedContainer({ machine, closeRow, company }) {
                 }
             },
             {
-                onlyOnce: false,
+                onlyOnce: true,
             }
         );
 
@@ -106,8 +106,8 @@ export default function ExpandedContainer({ machine, closeRow, company }) {
         };
         newRepair.id = Date.now().toString();
         addRepairData(newRep);
-
-        // setRepairsList([...repairsList, newRep]);
+        console.log(repairsList);
+        setRepairsList([...repairsList, newRep]);
         handleSetRepairs();
     };
     const handleOnUpdate = (updatedRepair) => {

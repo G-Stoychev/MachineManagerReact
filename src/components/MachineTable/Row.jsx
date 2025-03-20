@@ -35,7 +35,7 @@ export default function Row({ machine, setModalIsOpen, modalIsOpen, company }) {
         );
 
         return () => unsubscribe();
-    }, [move]);
+    }, []);
 
     return (
         <>
