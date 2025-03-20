@@ -1,8 +1,12 @@
 import { createPortal } from "react-dom";
-import { useState, useEffect } from "react";
+import { useState, useEffect, lazy, Suspense } from "react";
 import { getDatabase, ref, onValue } from "firebase/database";
 
-import ExpandedContainer from "../ExpandedContainer/ExpandedContainer.jsx";
+// import ExpandedContainer from "../ExpandedContainer/ExpandedContainer.jsx";
+
+const ExpandedContainer = lazy(() =>
+    import("../ExpandedContainer/ExpandedContainer.jsx")
+);
 
 export default function Row({ machine, setModalIsOpen, modalIsOpen, company }) {
     const [expandedModal, setExpandedModal] = useState(false);
