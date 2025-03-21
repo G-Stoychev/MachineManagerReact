@@ -1,25 +1,35 @@
 import { getDatabase, ref, set, push } from "firebase/database";
 
-export const addMachineData = (machine) => {
+export const addMachineData = async (machine) => {
     const db = getDatabase();
     const pushMachine = push(ref(db, `machines`));
     const machineKey = pushMachine.key;
 
-    set(pushMachine, {
+    await set(pushMachine, {
         ...machine,
         id: machineKey,
     });
+
+    return {
+        ...machine,
+        id: machineKey,
+    };
 };
 
-export const addRepairData = (repair) => {
+export const addRepairData = async (repair) => {
     const db = getDatabase();
     const pushRepair = push(ref(db, `repairs`));
     const repairKey = pushRepair.key;
 
-    set(pushRepair, {
+    await set(pushRepair, {
         ...repair,
         id: repairKey,
     });
+
+    return {
+        ...repair,
+        id: repairKey,
+    };
 };
 
 export const changeRepairData = (id, repair) => {
@@ -27,15 +37,20 @@ export const changeRepairData = (id, repair) => {
     set(ref(db, `repairs/` + id), repair);
 };
 
-export const addMoveData = (move) => {
+export const addMoveData = async (move) => {
     const db = getDatabase();
     const pushMove = push(ref(db, `movements`));
     const moveKey = pushMove.key;
 
-    set(pushMove, {
+    await set(pushMove, {
         ...move,
         id: moveKey,
     });
+
+    return {
+        ...move,
+        id: moveKey,
+    };
 };
 
 export const changeCompanyData = (move) => {

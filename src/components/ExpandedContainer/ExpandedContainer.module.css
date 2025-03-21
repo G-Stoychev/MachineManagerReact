@@ -8,6 +8,7 @@
     z-index: 15;
     color: rgb(26, 23, 23);
     animation: animateModal 0.4s;
+    overflow: scroll;
 }
 
 .modal::backdrop {
@@ -28,6 +29,9 @@
 
 .informationModal {
     margin-bottom: 10px;
+    position: sticky;
+    top: 0;
+    z-index: -15;
 }
 
 .rowMenu,
@@ -47,6 +51,8 @@
     padding: 5px 10px;
     border-radius: 5px;
     box-shadow: 1px 2px 2px 2px rgba(0, 0, 0, 0.445);
+    background-image: radial-gradient(circle, var(--seasonColor), white);
+    z-index: 15;
 }
 
 .selectedBtn {

@@ -27,7 +27,7 @@ export default function AddItemModal({ onAddNewMachine, ref, company }) {
 
     const handleSubmit = (formData) => {
         const newMachineData = {
-            id: Date.now().toString(),
+            // id: Date.now().toString(),
             model: formData.get("model"),
             brand: formData.get("brand"),
             serialNumber: formData.get("serialNumber"),

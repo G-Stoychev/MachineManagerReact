@@ -104,39 +104,39 @@ export default function ExpandedContainer({ machine, closeRow, company }) {
         setSelectedRepair(repair);
     };
 
-    const handleOnCreate = (newRepair) => {
+    const handleOnCreate = async (newRepair) => {
         const newRep = {
             ...newRepair,
-            id: Date.now().toString(),
             machineId: machine.id,
         };
-        newRepair.id = Date.now().toString();
-        addRepairData(newRep);
-        console.log(repairsList);
-        setRepairsList([...repairsList, newRep]);
-        handleSetRepairs();
+
+        try {
+            const savedRepair = await addRepairData(newRep);
+            setRepairsList([...repairsList, savedRepair]);
+            handleSetRepairs();
+        } catch (error) {
+            console.error("Грешка при запис на ремонт:", error);
+        }
     };
+
     const handleOnUpdate = (updatedRepair) => {
-        // const index = repairsList.findIndex((r) => r.id === updatedRepair.id);
-        // console.log(repairsList[index].id);
-        // const copiedRepairsList = [...repairsList];
-        // copiedRepairsList.splice(index, 1, updatedRepair);
-        // setRepairsList(copiedRepairsList);
-        // console.log(updatedRepair.id);
         changeRepairData(updatedRepair.id, updatedRepair);
         handleSetRepairs();
     };
 
-    const handOnSaveMovement = (lastmove) => {
+    const handOnSaveMovement = async (lastmove) => {
         const newMove = {
             ...lastmove,
             machineId: machine.id,
-            id: Date.now().toString(),
             date: new Date().toLocaleDateString("en-GB"),
         };
-        addMoveData(newMove);
-        setMovements((m) => [...m, newMove]);
-        handleSetInformation();
+        try {
+            const savedMove = await addMoveData(newMove);
+            setMovements((m) => [...m, savedMove]);
+            handleSetInformation();
+        } catch (error) {
+            console.error("Грешка при запис на движение:", error);
+        }
     };
 
     const lastmove = movements[movements.length - 1];

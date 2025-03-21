@@ -69,9 +69,13 @@ export default function Container({ userInfo, logout }) {
         return () => unsubscribe();
     }, []);
 
-    const handleAddNewMachine = (newMachineData) => {
-        addMachineData(newMachineData);
-        setListOfMachines([...listOfMachines, newMachineData]);
+    const handleAddNewMachine = async (newMachineData) => {
+        try {
+            const savedMachine = await addMachineData(newMachineData);
+            // setListOfMachines((prevList) => [...prevList, savedMachine]);
+        } catch (error) {
+            console.error("Грешка при запис на новата машина:", error);
+        }
     };
 
     const handleSearchMachine = (filterInput) => {
