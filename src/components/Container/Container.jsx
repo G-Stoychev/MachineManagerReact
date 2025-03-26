@@ -83,7 +83,7 @@ export default function Container({ userInfo, logout }) {
                 }
             },
             {
-                onlyOnce: true,
+                onlyOnce: false,
             }
         );
 

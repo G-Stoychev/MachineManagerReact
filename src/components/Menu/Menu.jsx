@@ -78,7 +78,6 @@ export default function Menu({
             return;
         }
         setSearching(true);
-        console.log(inputBulstatValues);
         onSearchBulsat(inputBulstatValues);
     };
 
