@@ -22,6 +22,7 @@ import classes from "./Container.module.css";
 export default function Container({ userInfo, logout }) {
     const [originalMachineList, setOriginalMachineList] = useState([]);
     const [listOfMachines, setListOfMachines] = useState([]);
+    const [movements, setMovements] = useState([]);
     const [companyInfo, setCompanyInfo] = useState({});
     const dialog = useRef();
     const CompanyDialog = useRef();
@@ -69,6 +70,26 @@ export default function Container({ userInfo, logout }) {
         return () => unsubscribe();
     }, []);
 
+    useEffect(() => {
+        const database = getDatabase();
+        const movementsRef = ref(database, "movements");
+        const unsubscribe = onValue(
+            movementsRef,
+            (snapshot) => {
+                if (snapshot.exists()) {
+                    const data = snapshot.val();
+                    const movementsArray = Object.values(data);
+                    setMovements(movementsArray);
+                }
+            },
+            {
+                onlyOnce: true,
+            }
+        );
+
+        return () => unsubscribe();
+    }, []);
+
     const handleAddNewMachine = async (newMachineData) => {
         try {
             const savedMachine = await addMachineData(newMachineData);
@@ -79,12 +100,23 @@ export default function Container({ userInfo, logout }) {
     };
 
     const handleSearchMachine = (filterInput) => {
-        console.log(originalMachineList[4].serialNumber);
         const findedMachine = originalMachineList.filter(
             (m) => m.serialNumber === filterInput
         );
-        console.log(typeof filterInput);
         setListOfMachines(findedMachine);
+    };
+
+    const handleSearchBulstat = (bulstatValues) => {
+        const findedMovements = movements.filter(
+            (m) => m.bulstat === bulstatValues
+        );
+        const selectedIds = findedMovements
+            .map((move) => move.machineId)
+            .flat();
+        const filteredMachines = originalMachineList.filter((machine) =>
+            selectedIds.includes(machine.id)
+        );
+        setListOfMachines(filteredMachines);
     };
 
     const handleSelectMachine = (selectedMachine) => {
@@ -126,6 +158,7 @@ export default function Container({ userInfo, logout }) {
                 company={companyInfo}
                 machines={originalMachineList}
                 onSelect={handleSelectMachine}
+                onSearchBulsat={handleSearchBulstat}
             />
             <AddItemModal
                 ref={dialog}

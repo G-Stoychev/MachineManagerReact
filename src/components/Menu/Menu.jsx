@@ -16,8 +16,10 @@ export default function Menu({
     company,
     machines,
     onSelect,
+    onSearchBulsat,
 }) {
     const searchInput = useRef();
+    const inputBulstat = useRef();
     const [searching, setSearching] = useState(false);
     const [currentIndex, setCurrentIndex] = useState(0);
     const [error, setError] = useState(false);
@@ -69,8 +71,25 @@ export default function Menu({
         onSearch(inputSerialNumber);
     };
 
+    const handleSearchBulstat = () => {
+        const inputBulstatValues = inputBulstat.current.value;
+        if (inputBulstatValues === "") {
+            setError(true);
+            return;
+        }
+        setSearching(true);
+        console.log(inputBulstatValues);
+        onSearchBulsat(inputBulstatValues);
+    };
+
     const handleResetInput = () => {
         searchInput.current.value = "";
+        onReset();
+        setSearching(false);
+    };
+
+    const handleBulstatInput = () => {
+        inputBulstat.current.value = "";
         onReset();
         setSearching(false);
     };
@@ -146,6 +165,29 @@ export default function Menu({
                         <button
                             className={`${classes.searchInput} ${classes.searchButton} `}
                             onClick={handleResetInput}
+                        >
+                            <i className="fa-solid fa-arrows-rotate"></i>
+                        </button>
+                    ) : undefined}
+                </div>
+                {/* inputBulstat търсени по булстат */}
+                <div className={classes.searchContainer}>
+                    <input
+                        className={classes.searchInput}
+                        type="text"
+                        placeholder="Търси партньор по булстат"
+                        ref={inputBulstat}
+                    />
+                    <button
+                        className={`${classes.searchInput} ${classes.searchButton}`}
+                        onClick={handleSearchBulstat}
+                    >
+                        <i className="fa-solid fa-magnifying-glass"></i>
+                    </button>
+                    {searching ? (
+                        <button
+                            className={`${classes.searchInput} ${classes.searchButton} `}
+                            onClick={handleBulstatInput}
                         >
                             <i className="fa-solid fa-arrows-rotate"></i>
                         </button>

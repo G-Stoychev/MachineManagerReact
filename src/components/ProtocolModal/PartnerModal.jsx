@@ -21,6 +21,7 @@ export default function PartnerModal({ lastmove, ref, onCreate }) {
             id: Date.now().toString(),
             partner: formData.get("partner"),
             contact: formData.get("contact"),
+            bulstat: formData.get("bulstat"),
             location: formData.get("location"),
             phone: formData.get("phone"),
             object: formData.get("object"),
@@ -56,6 +57,15 @@ export default function PartnerModal({ lastmove, ref, onCreate }) {
                         name="partner"
                         placeholder="Въведи име на фирмата"
                         defaultValue={formState?.partner}
+                    />
+                </div>
+                <div className={classes.sectionWrapper}>
+                    <label>Име:</label>
+                    <input
+                        type="text"
+                        name="bulstat"
+                        placeholder="Въведи булстат"
+                        defaultValue={formState?.bulstat}
                     />
                 </div>
                 <div className={classes.sectionWrapper}>

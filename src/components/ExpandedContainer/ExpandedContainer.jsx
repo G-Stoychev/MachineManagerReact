@@ -128,7 +128,7 @@ export default function ExpandedContainer({ machine, closeRow, company }) {
         const newMove = {
             ...lastmove,
             machineId: machine.id,
-            date: new Date().toLocaleDateString("en-GB"),
+            date: new Date().toISOString().split("T")[0],
         };
         try {
             const savedMove = await addMoveData(newMove);
