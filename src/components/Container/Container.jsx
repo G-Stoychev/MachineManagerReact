@@ -19,7 +19,7 @@ const CompanyInfoModal = lazy(() =>
 
 import classes from "./Container.module.css";
 
-export default function Container({ userInfo, logout }) {
+export default function Container({ userInfo, logout, openCars }) {
     const [originalMachineList, setOriginalMachineList] = useState([]);
     const [listOfMachines, setListOfMachines] = useState([]);
     const [movements, setMovements] = useState([]);
@@ -159,6 +159,7 @@ export default function Container({ userInfo, logout }) {
                 machines={originalMachineList}
                 onSelect={handleSelectMachine}
                 onSearchBulsat={handleSearchBulstat}
+                openCars={openCars}
             />
             <AddItemModal
                 ref={dialog}

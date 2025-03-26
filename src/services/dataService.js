@@ -58,6 +58,11 @@ export const changeCompanyData = (move) => {
     set(ref(db, `company`), move);
 };
 
+export const changeCarsData = (cars) => {
+    const db = getDatabase();
+    set(ref(db, `cars`), cars);
+};
+
 export const changeUserInfo = (userInfo) => {
     const db = getDatabase();
     set(ref(db, `userInfo`), userInfo);

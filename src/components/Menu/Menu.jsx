@@ -17,6 +17,7 @@ export default function Menu({
     machines,
     onSelect,
     onSearchBulsat,
+    openCars,
 }) {
     const searchInput = useRef();
     const inputBulstat = useRef();
@@ -126,6 +127,15 @@ export default function Menu({
                                         <i className="fa-solid fa-pen-to-square"></i>
                                         Промени данни за фирма
                                     </button>
+
+                                    <button
+                                        className={` ${classes.searchInput} ${classes.searchButton} ${classes.dropDownBtn}`}
+                                        onClick={openCars}
+                                    >
+                                        <i className="fa-solid fa-right-from-bracket"></i>
+                                        Коли
+                                    </button>
+
                                     <button
                                         className={` ${classes.searchInput} ${classes.searchButton} ${classes.dropDownBtn}`}
                                         onClick={handleChangeTheme}
@@ -134,6 +144,7 @@ export default function Menu({
                                         Смени тема (
                                         {themeSets[currentIndex].name})
                                     </button>
+
                                     <button
                                         className={` ${classes.searchInput} ${classes.searchButton} ${classes.dropDownBtn}`}
                                         onClick={logout}

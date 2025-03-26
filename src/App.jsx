@@ -8,6 +8,7 @@ import {
 import { getDatabase, ref, onValue } from "firebase/database";
 
 import { changeUserInfo } from "./services/dataService.js";
+import CarsData from "./components/Menu/CarsData.jsx";
 
 const Container = lazy(() => import("./components/Container/Container.jsx"));
 const AuthForm = lazy(() => import("./components/LoginPortal/AuthForm.jsx"));
@@ -23,6 +24,7 @@ function App() {
     });
     const [error, setError] = useState("");
     const [user, setUser] = useState(null);
+    const [cars, setCars] = useState(false);
 
     useEffect(() => {
         const database = getDatabase();
@@ -89,11 +91,20 @@ function App() {
         }
     }, [user]);
 
+    const handleToogleCars = () => {
+        setCars(!cars);
+    };
+
     return (
         <>
             {isValid ? (
                 <>
-                    <Container userInfo={userInfo} logout={handleSignOut} />
+                    <Container
+                        userInfo={userInfo}
+                        logout={handleSignOut}
+                        openCars={handleToogleCars}
+                    />
+                    {cars && <CarsData toggle={handleToogleCars} />}
                 </>
             ) : (
                 <AuthForm
@@ -107,10 +118,3 @@ function App() {
 }
 
 export default App;
-
-// Import the functions you need from the SDKs you need
-
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
-
-// Your web app's Firebase configuration
