@@ -95,7 +95,7 @@ export default function Container({ userInfo, logout }) {
             if (findedMachineByBrand.length > 0) {
                 setListOfMachines(findedMachineByBrand);
             } else {
-                const findedMachineByModel = getMachines().filter(
+                const findedMachineByModel = originalMachineList.filter(
                     (m) => m.model === selectedMachine
                 );
                 setListOfMachines(findedMachineByModel);
