@@ -49,7 +49,7 @@ const CarsData = ({ toggle, cars }) => {
                             />
                         </p>
                         <p>
-                            <strong>Валиден до (ЗАСТРАХОВКА):</strong>
+                            <strong>ЗАСТРАХОВКА валидна до:</strong>
                             <input
                                 type="date"
                                 value={car.insurance || ""}
@@ -63,7 +63,7 @@ const CarsData = ({ toggle, cars }) => {
                             />
                         </p>
                         <p>
-                            <strong>Валиден до (ВИНЕТКА):</strong>
+                            <strong>ВИНЕТКА валидна до:</strong>
                             <input
                                 type="date"
                                 value={car.vignette || ""}
@@ -77,7 +77,7 @@ const CarsData = ({ toggle, cars }) => {
                             />
                         </p>
                         <p>
-                            <strong>Валиден до (ПРЕГЛЕД):</strong>
+                            <strong>ПРЕГЛЕД валиден до :</strong>
                             <input
                                 type="date"
                                 value={car.inspection || ""}
