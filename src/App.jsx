@@ -77,7 +77,7 @@ function App() {
         if (cars.length > 0) {
             checkExpiringDates();
         }
-    }, []);
+    }, [cars.length]);
 
     useEffect(() => {
         const database = getDatabase();
