@@ -13,9 +13,6 @@ import CarsData from "./components/Menu/CarsData.jsx";
 const Container = lazy(() => import("./components/Container/Container.jsx"));
 const AuthForm = lazy(() => import("./components/LoginPortal/AuthForm.jsx"));
 
-// import Container from "./components/Container/Container.jsx";
-// import AuthForm from "./components/LoginPortal/AuthForm.jsx";
-
 function App() {
     const [isValid, setIsValid] = useState(false);
     const [userInfo, setUserInfo] = useState({
@@ -33,24 +30,22 @@ function App() {
         const unsubscribe = onValue(carsRef, (snapshot) => {
             if (snapshot.exists()) {
                 const data = snapshot.val();
-                setCars(Object.values(data)); // Превръщаме обект в масив
+                setCars(Object.values(data));
             }
         });
 
         return () => unsubscribe();
     }, []);
 
-    // Обект за превод на типовете услуги
     const labels = {
         insurance: "ЗАСТРАХОВКА",
         vignette: "ВИНЕТКА",
         inspection: "ПРЕГЛЕД",
     };
 
-    // Функция за проверка на изтичащите дати
     const checkExpiringDates = () => {
         const today = new Date();
-        let expiringList = []; // Масив за събиране на предупрежденията
+        let expiringList = [];
 
         cars.forEach((car) => {
             ["insurance", "vignette", "inspection"].forEach((field) => {
@@ -70,7 +65,6 @@ function App() {
             });
         });
 
-        // Ако има предупреждения, показваме ги в един `alert`
         if (expiringList.length > 0) {
             alert(
                 "⚠️ Внимание! Следните срокове изтичат скоро:\n\n" +
@@ -79,7 +73,6 @@ function App() {
         }
     };
 
-    // Проверка при промяна на `cars`
     useEffect(() => {
         if (cars.length > 0) {
             checkExpiringDates();
