@@ -67,3 +67,31 @@ export const changeUserInfo = (userInfo) => {
     const db = getDatabase();
     set(ref(db, `userInfo`), userInfo);
 };
+
+export const changeThema = (thema, user) => {
+    const db = getDatabase();
+    set(ref(db, `thema/` + user), thema);
+};
+
+export const themeSets = [
+    {
+        name: "Зима",
+        hoverColor: "--winterColor",
+        bgImg: " url(/images/winter-bg.jpg)",
+    },
+    {
+        name: "Пролет",
+        hoverColor: "--springColor",
+        bgImg: " url(/images/spring-bg.jpg)",
+    },
+    {
+        name: "Лято",
+        hoverColor: "--summerColor",
+        bgImg: " url(/images/summer-bg.jpg)",
+    },
+    {
+        name: "Есен",
+        hoverColor: "--autumnColor",
+        bgImg: " url(/images/autumn-bg.jpg)",
+    },
+];

@@ -3,6 +3,9 @@ import { useEffect, useRef, useState, lazy } from "react";
 // import ErrorModal from "../ErrorModal/ErrorModal.jsx";
 import classes from "./Menu.module.css";
 
+import { getDatabase, ref, onValue } from "firebase/database";
+import { changeThema, themeSets } from "../../services/dataService.js";
+
 const ErrorModal = lazy(() => import("../ErrorModal/ErrorModal.jsx"));
 const Filter = lazy(() => import("./Filter.jsx"));
 
@@ -25,42 +28,39 @@ export default function Menu({
     const [currentIndex, setCurrentIndex] = useState(0);
     const [error, setError] = useState(false);
     const errorModal = useRef();
+    const [thema, setTheme] = useState([]);
+
     useEffect(() => {
         if (error && errorModal.current) {
             errorModal.current.open();
         }
     }, [error]);
 
-    const themeSets = [
-        {
-            name: "Зима",
-            hoverColor: "--winterColor",
-            bgImg: " url(/images/winter-bg.jpg)",
-        },
-        {
-            name: "Пролет",
-            hoverColor: "--springColor",
-            bgImg: " url(/images/spring-bg.jpg)",
-        },
-        {
-            name: "Лято",
-            hoverColor: "--summerColor",
-            bgImg: " url(/images/summer-bg.jpg)",
-        },
-        {
-            name: "Есен",
-            hoverColor: "--autumnColor",
-            bgImg: " url(/images/autumn-bg.jpg)",
-        },
-    ];
+    useEffect(() => {
+        const database = getDatabase();
+        const userRef = ref(database, `thema/` + userInfo.name);
+
+        const unsubscribe = onValue(userRef, (snapshot) => {
+            if (snapshot.exists()) {
+                const data = snapshot.val();
+                setTheme((prevTheme) => {
+                    return JSON.stringify(prevTheme) === JSON.stringify(data)
+                        ? prevTheme
+                        : data;
+                });
+            }
+        });
+
+        return () => unsubscribe();
+    }, [userInfo.name]);
 
     useEffect(() => {
         document.documentElement.style.setProperty(
             "--seasonColor",
-            `var(${themeSets[currentIndex].hoverColor})`
+            `var(${thema.hoverColor})`
         );
-        document.body.style.backgroundImage = themeSets[currentIndex].bgImg;
-    }, [currentIndex]);
+        document.body.style.backgroundImage = thema.bgImg;
+    }, [thema]);
 
     const handleSearchInput = () => {
         const inputSerialNumber = searchInput.current.value;
@@ -95,7 +95,15 @@ export default function Menu({
     };
 
     const handleChangeTheme = () => {
-        setCurrentIndex((prevIndex) => (prevIndex + 1) % themeSets.length);
+        setCurrentIndex((prevIndex) => {
+            const newIndex = (prevIndex + 1) % themeSets.length;
+            const newTheme = themeSets[newIndex];
+
+            setTheme(newTheme); // Локално сменяме темата
+            changeThema(newTheme, userInfo.name); // Запазваме я в базата
+
+            return newIndex;
+        });
     };
 
     return (
@@ -185,7 +193,7 @@ export default function Menu({
                     <input
                         className={classes.searchInput}
                         type="text"
-                        placeholder="Търси партньор по булстат"
+                        placeholder="Търси фирма по булстат"
                         ref={inputBulstat}
                     />
                     <button
