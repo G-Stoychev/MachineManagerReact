@@ -132,8 +132,8 @@ export default function Menu({
                                         className={` ${classes.searchInput} ${classes.searchButton} ${classes.dropDownBtn}`}
                                         onClick={openCars}
                                     >
-                                        <i className="fa-solid fa-right-from-bracket"></i>
-                                        Коли
+                                        <i className="fa-solid fa-car"></i>
+                                        Автомобили
                                     </button>
 
                                     <button
