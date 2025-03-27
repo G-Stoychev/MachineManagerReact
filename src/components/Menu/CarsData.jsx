@@ -2,30 +2,8 @@ import React, { useState, useEffect } from "react";
 import styles from "./CarsData.module.css";
 
 import { changeCarsData } from "../../services/dataService";
-import { getDatabase, ref, onValue } from "firebase/database";
 
-const CarsData = ({ toggle }) => {
-    const [cars, setCars] = useState([]);
-
-    useEffect(() => {
-        const database = getDatabase();
-        const carsRef = ref(database, "cars");
-        const unsubscribe = onValue(
-            carsRef,
-            (snapshot) => {
-                if (snapshot.exists()) {
-                    const data = snapshot.val();
-                    setCars(data);
-                }
-            },
-            {
-                onlyOnce: false,
-            }
-        );
-
-        return () => unsubscribe();
-    }, []);
-
+const CarsData = ({ toggle, cars }) => {
     const handleChange = (index, field, value) => {
         const updatedCars = [...cars];
         updatedCars[index][field] = value;
@@ -49,10 +27,10 @@ const CarsData = ({ toggle }) => {
                             />
                         </p>
                         <p>
-                            <strong>Гражданска:</strong>
+                            <strong>Валиден до (ЗАСТРАХОВКА):</strong>
                             <input
-                                type="text"
-                                value={car.insurance}
+                                type="date"
+                                value={car.insurance || ""}
                                 onChange={(e) =>
                                     handleChange(
                                         index,
@@ -63,10 +41,10 @@ const CarsData = ({ toggle }) => {
                             />
                         </p>
                         <p>
-                            <strong>Винетка:</strong>
+                            <strong>Валиден до (ВИНЕТКА):</strong>
                             <input
-                                type="text"
-                                value={car.vignette}
+                                type="date"
+                                value={car.vignette || ""}
                                 onChange={(e) =>
                                     handleChange(
                                         index,
@@ -77,10 +55,10 @@ const CarsData = ({ toggle }) => {
                             />
                         </p>
                         <p>
-                            <strong>Преглед:</strong>
+                            <strong>Валиден до (ПРЕГЛЕД):</strong>
                             <input
-                                type="text"
-                                value={car.inspection}
+                                type="date"
+                                value={car.inspection || ""}
                                 onChange={(e) =>
                                     handleChange(
                                         index,

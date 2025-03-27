@@ -7,7 +7,7 @@ import {
 } from "firebase/auth";
 import { getDatabase, ref, onValue } from "firebase/database";
 
-import { changeUserInfo } from "./services/dataService.js";
+import { changeUserInfo, changeCarsData } from "./services/dataService.js";
 import CarsData from "./components/Menu/CarsData.jsx";
 
 const Container = lazy(() => import("./components/Container/Container.jsx"));
@@ -24,7 +24,67 @@ function App() {
     });
     const [error, setError] = useState("");
     const [user, setUser] = useState(null);
-    const [cars, setCars] = useState(false);
+    const [openCars, setOpenCars] = useState(false);
+    const [cars, setCars] = useState([]);
+
+    useEffect(() => {
+        const database = getDatabase();
+        const carsRef = ref(database, "cars");
+        const unsubscribe = onValue(carsRef, (snapshot) => {
+            if (snapshot.exists()) {
+                const data = snapshot.val();
+                setCars(Object.values(data)); // Превръщаме обект в масив
+            }
+        });
+
+        return () => unsubscribe();
+    }, []);
+
+    // Обект за превод на типовете услуги
+    const labels = {
+        insurance: "ЗАСТРАХОВКА",
+        vignette: "ВИНЕТКА",
+        inspection: "ПРЕГЛЕД",
+    };
+
+    // Функция за проверка на изтичащите дати
+    const checkExpiringDates = () => {
+        const today = new Date();
+        let expiringList = []; // Масив за събиране на предупрежденията
+
+        cars.forEach((car) => {
+            ["insurance", "vignette", "inspection"].forEach((field) => {
+                if (car[field]) {
+                    const expirationDate = new Date(car[field]);
+                    const timeDiff = expirationDate - today;
+                    const daysLeft = Math.ceil(
+                        timeDiff / (1000 * 60 * 60 * 24)
+                    );
+
+                    if (daysLeft === 10 || (daysLeft < 10 && daysLeft >= 0)) {
+                        expiringList.push(
+                            `🚗 ${car.plate}: ${labels[field]} изтича след ${daysLeft} дни (${car[field]})`
+                        );
+                    }
+                }
+            });
+        });
+
+        // Ако има предупреждения, показваме ги в един `alert`
+        if (expiringList.length > 0) {
+            alert(
+                "⚠️ Внимание! Следните срокове изтичат скоро:\n\n" +
+                    expiringList.join("\n")
+            );
+        }
+    };
+
+    // Проверка при промяна на `cars`
+    useEffect(() => {
+        if (cars.length > 0) {
+            checkExpiringDates();
+        }
+    }, []);
 
     useEffect(() => {
         const database = getDatabase();
@@ -92,7 +152,7 @@ function App() {
     }, [user]);
 
     const handleToogleCars = () => {
-        setCars(!cars);
+        setOpenCars(!openCars);
     };
 
     return (
@@ -104,7 +164,9 @@ function App() {
                         logout={handleSignOut}
                         openCars={handleToogleCars}
                     />
-                    {cars && <CarsData toggle={handleToogleCars} />}
+                    {openCars && (
+                        <CarsData toggle={handleToogleCars} cars={cars} />
+                    )}
                 </>
             ) : (
                 <AuthForm
