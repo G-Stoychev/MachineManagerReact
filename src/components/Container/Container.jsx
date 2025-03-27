@@ -17,9 +17,11 @@ const CompanyInfoModal = lazy(() =>
     import("../CompanyInfoModal/CompanyInfoModal.jsx")
 );
 
+import CarsData from "../Menu/CarsData.jsx";
+
 import classes from "./Container.module.css";
 
-export default function Container({ userInfo, logout, openCars }) {
+export default function Container({ userInfo, logout }) {
     const [originalMachineList, setOriginalMachineList] = useState([]);
     const [listOfMachines, setListOfMachines] = useState([]);
     const [movements, setMovements] = useState([]);
@@ -29,6 +31,68 @@ export default function Container({ userInfo, logout, openCars }) {
 
     const handleOpenAddItemModal = () => dialog.current.open();
     const handleOpenCompanyModal = () => CompanyDialog.current.open();
+
+    const [openCars, setOpenCars] = useState(false);
+    const [cars, setCars] = useState([]);
+
+    useEffect(() => {
+        const database = getDatabase();
+        const carsRef = ref(database, "cars");
+        const unsubscribe = onValue(carsRef, (snapshot) => {
+            if (snapshot.exists()) {
+                const data = snapshot.val();
+                setCars(Object.values(data));
+            }
+        });
+
+        return () => unsubscribe();
+    }, []);
+
+    const labels = {
+        insurance: "ЗАСТРАХОВКА",
+        vignette: "ВИНЕТКА",
+        inspection: "ПРЕГЛЕД",
+    };
+
+    const checkExpiringDates = () => {
+        const today = new Date();
+        let expiringList = [];
+
+        cars.forEach((car) => {
+            ["insurance", "vignette", "inspection"].forEach((field) => {
+                if (car[field]) {
+                    const expirationDate = new Date(car[field]);
+                    const timeDiff = expirationDate - today;
+                    const daysLeft = Math.ceil(
+                        timeDiff / (1000 * 60 * 60 * 24)
+                    );
+
+                    if (daysLeft === 10 || (daysLeft < 10 && daysLeft >= 0)) {
+                        expiringList.push(
+                            `🚗 ${car.plate}: ${labels[field]} изтича след ${daysLeft} дни (${car[field]})`
+                        );
+                    }
+                }
+            });
+        });
+
+        if (expiringList.length > 0) {
+            alert(
+                "⚠️ Внимание! Следните срокове изтичат скоро:\n\n" +
+                    expiringList.join("\n")
+            );
+        }
+    };
+
+    useEffect(() => {
+        if (cars.length > 0) {
+            checkExpiringDates();
+        }
+    }, [cars.length]);
+
+    const handleToogleCars = () => {
+        setOpenCars(!openCars);
+    };
 
     useEffect(() => {
         const database = getDatabase();
@@ -148,6 +212,7 @@ export default function Container({ userInfo, logout, openCars }) {
 
     return (
         <div className={classes.container}>
+            {openCars && <CarsData toggle={handleToogleCars} cars={cars} />}
             <Menu
                 userInfo={userInfo}
                 logout={logout}
@@ -159,7 +224,7 @@ export default function Container({ userInfo, logout, openCars }) {
                 machines={originalMachineList}
                 onSelect={handleSelectMachine}
                 onSearchBulsat={handleSearchBulstat}
-                openCars={openCars}
+                openCars={handleToogleCars}
             />
             <AddItemModal
                 ref={dialog}
