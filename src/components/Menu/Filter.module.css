@@ -9,6 +9,11 @@
     box-shadow: 3px 3px 3px rgba(26, 25, 25, 0.774);
 }
 
+.select:hover {
+    background-color: var(--seasonColor);
+    cursor: pointer;
+}
+
 @media only screen and (max-width: 600px) {
     .select {
         width: 200px;

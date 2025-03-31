@@ -99,8 +99,8 @@ export default function Menu({
             const newIndex = (prevIndex + 1) % themeSets.length;
             const newTheme = themeSets[newIndex];
 
-            setTheme(newTheme); // Локално сменяме темата
-            changeThema(newTheme, userInfo.name); // Запазваме я в базата
+            setTheme(newTheme);
+            changeThema(newTheme, userInfo.name);
 
             return newIndex;
         });
@@ -149,8 +149,7 @@ export default function Menu({
                                         onClick={handleChangeTheme}
                                     >
                                         <i className="fa-solid fa-palette"></i>
-                                        Смени тема (
-                                        {themeSets[currentIndex].name})
+                                        Смени тема ({thema.name})
                                     </button>
 
                                     <button

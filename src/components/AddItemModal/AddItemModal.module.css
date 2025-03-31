@@ -1,4 +1,4 @@
-dialog {
+.dialog {
     font-family: inherit;
     font-weight: bold;
     font-size: 1rem;
@@ -8,7 +8,6 @@ dialog {
     border-radius: 5px;
     border: unset;
     position: absolute;
-    width: 25%;
     height: fit-content;
     z-index: 15;
     top: 22%;
@@ -17,7 +16,6 @@ dialog {
     animation: showModal 0.5s;
 }
 dialog::backdrop {
-    /* background-color: rgba(68, 132, 148, 0.712); */
     background-color: rgba(152, 154, 155, 0.781);
 }
 
@@ -56,12 +54,24 @@ dialog::backdrop {
     justify-content: center;
 }
 
-@media only screen and (max-width: 600px) {
-    dialog {
-        width: 70%;
+@media only screen and (max-width: 480px) {
+    .dialog {
+        top: 12%;
+        left: 15%;
     }
 
-    dialog h2 {
+    .dialog h2 {
+        font-size: 1rem;
+    }
+}
+
+@media only screen and (max-width: 780px) {
+    .dialog {
+        top: 12%;
+        left: 15%;
+    }
+
+    .dialog h2 {
         font-size: 1rem;
     }
 }

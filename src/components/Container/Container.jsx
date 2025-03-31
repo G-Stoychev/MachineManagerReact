@@ -1,10 +1,6 @@
-import { useRef, useState, useEffect, lazy } from "react";
+import { useRef, useState, useEffect, lazy, useMemo } from "react";
 import { getDatabase, ref, onValue } from "firebase/database";
 
-// import Menu from "../Menu/Menu.jsx";
-// import MachineTable from "../MachineTable/MachineTable.jsx";
-// import AddItemModal from "../AddItemModal/AddItemModal.jsx";
-// import CompanyInfoModal from "../CompanyInfoModal/CompanyInfoModal.jsx";
 import {
     addMachineData,
     changeCompanyData,
@@ -20,6 +16,7 @@ const CompanyInfoModal = lazy(() =>
 import CarsData from "../Menu/CarsData.jsx";
 
 import classes from "./Container.module.css";
+import ErrorModal from "../ErrorModal/ErrorModal.jsx";
 
 export default function Container({ userInfo, logout }) {
     const [originalMachineList, setOriginalMachineList] = useState([]);
@@ -34,6 +31,13 @@ export default function Container({ userInfo, logout }) {
 
     const [openCars, setOpenCars] = useState(false);
     const [cars, setCars] = useState([]);
+    const [error, setError] = useState(false);
+    const errorModal = useRef();
+    useEffect(() => {
+        if (error && errorModal.current) {
+            errorModal.current.open();
+        }
+    }, [error]);
 
     useEffect(() => {
         const database = getDatabase();
@@ -77,11 +81,13 @@ export default function Container({ userInfo, logout }) {
         });
 
         if (expiringList.length > 0) {
-            alert(
-                "⚠️ Внимание! Следните срокове изтичат скоро:\n\n" +
-                    expiringList.join("\n")
-            );
+            setError(true);
+            // alert(
+            //     "⚠️ Внимание! Следните срокове изтичат скоро:\n\n" +
+            //         expiringList.join("\n")
+            // );
         }
+        return expiringList.join("\n");
     };
 
     useEffect(() => {
@@ -157,7 +163,6 @@ export default function Container({ userInfo, logout }) {
     const handleAddNewMachine = async (newMachineData) => {
         try {
             const savedMachine = await addMachineData(newMachineData);
-            // setListOfMachines((prevList) => [...prevList, savedMachine]);
         } catch (error) {
             console.error("Грешка при запис на новата машина:", error);
         }
@@ -209,10 +214,20 @@ export default function Container({ userInfo, logout }) {
         changeCompanyData(newCompanyInfo);
         setCompanyInfo(newCompanyInfo);
     };
-
+    const expiringMessages = useMemo(() => checkExpiringDates(), [cars]);
     return (
         <div className={classes.container}>
             {openCars && <CarsData toggle={handleToogleCars} cars={cars} />}
+            {error && (
+                <ErrorModal
+                    title="⚠️ Внимание! Следните срокове изтичат скоро:"
+                    text={expiringMessages.split("\n").map((line, index) => (
+                        <span key={index}>{line}</span>
+                    ))}
+                    setError={setError}
+                    ref={errorModal}
+                />
+            )}
             <Menu
                 userInfo={userInfo}
                 logout={logout}
