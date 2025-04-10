@@ -14,9 +14,11 @@ export default function MachineTable({ machines, company }) {
                     <tr className="info-row">
                         <th>Модел</th>
                         <th>Марка</th>
+                        <th>Профилактика</th>
                         <th>Сериен номер</th>
                         <th>Движение</th>
                         <th>Местоположение</th>
+                        <th>Обект</th>
                         <th>Фирма</th>
                     </tr>
                 </thead>
