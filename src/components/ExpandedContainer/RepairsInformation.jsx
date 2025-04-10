@@ -33,7 +33,7 @@ export default function RepairsInformation({
                             <td> {repair.date}</td>
                             <td>{repair.person}</td>
                             <td>{repair.parts}</td>
-                            <td>{repair.prevention ? "Yes" : "No"}</td>
+                            <td>{repair.prevention ? "Да" : "Не"}</td>
                             <td>
                                 <button
                                     onClick={() =>

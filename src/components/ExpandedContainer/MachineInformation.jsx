@@ -51,7 +51,7 @@ export default function MachineInformation({
                     <div className={classes.sectionWrapper}>
                         <div>Булстат:</div>
                         <div>
-                            {lastmove ? lastmove.bulstat : "Не е зададен"}
+                            {lastmove ? lastmove.bulstat : company.bulstat}
                         </div>
                     </div>
                     <div className={classes.sectionWrapper}>

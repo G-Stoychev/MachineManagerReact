@@ -80,7 +80,7 @@ export default function PartnerModal({ lastmove, ref, onCreate }) {
                         />
                     </div>
                     <div className={classes.sectionWrapper}>
-                        <label>Име:</label>
+                        <label>Булстат:</label>
                         <input
                             type="text"
                             name="bulstat"
@@ -92,7 +92,7 @@ export default function PartnerModal({ lastmove, ref, onCreate }) {
                         <label>МОЛ:</label>
                         <input
                             type="text"
-                            placeholder="Материално отговорно лице"
+                            placeholder="МОЛ"
                             name="contact"
                             defaultValue={formState?.contact}
                         />
