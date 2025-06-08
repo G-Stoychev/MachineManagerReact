@@ -85,8 +85,10 @@ export default function ExpandedContainer({ machine, closeRow, company }) {
                 if (snapshot.exists()) {
                     const data = snapshot.val();
                     const movementsArray = Object.values(data);
-                    const currentMachineMove = movementsArray.filter(
-                        (move) => move.machineId === machine.id
+                    const currentMachineMove = movementsArray.filter((move) =>
+                        Array.isArray(move.machineId)
+                            ? move.machineId.includes(machine.id)
+                            : move.machineId === machine.id
                     );
                     setMovements(currentMachineMove);
                 }
