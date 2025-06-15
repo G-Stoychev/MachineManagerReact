@@ -12,6 +12,7 @@ const AddItemModal = lazy(() => import("../AddItemModal/AddItemModal.jsx"));
 const CompanyInfoModal = lazy(() =>
     import("../CompanyInfoModal/CompanyInfoModal.jsx")
 );
+const ProtocolPlus = lazy(() => import("../ProtocolModal/ProtocolPlus.jsx"));
 
 import CarsData from "../Menu/CarsData.jsx";
 
@@ -33,6 +34,8 @@ export default function Container({ userInfo, logout }) {
     const [cars, setCars] = useState([]);
     const [error, setError] = useState(false);
     const errorModal = useRef();
+    const [protocolState, setProtocolState] = useState(false);
+
     useEffect(() => {
         if (error && errorModal.current) {
             errorModal.current.open();
@@ -215,9 +218,20 @@ export default function Container({ userInfo, logout }) {
         setCompanyInfo(newCompanyInfo);
     };
     const expiringMessages = useMemo(() => checkExpiringDates(), [cars]);
+
+    const toggleProtocol = () => {
+        setProtocolState(!protocolState);
+    };
     return (
         <div className={classes.container}>
             {openCars && <CarsData toggle={handleToogleCars} cars={cars} />}
+
+            {protocolState && (
+                <ProtocolPlus
+                    company={companyInfo}
+                    toggleProtocol={toggleProtocol}
+                />
+            )}
             {error && (
                 <ErrorModal
                     title="⚠️ Внимание! Следните срокове изтичат скоро:"
@@ -240,6 +254,7 @@ export default function Container({ userInfo, logout }) {
                 onSelect={handleSelectMachine}
                 onSearchBulsat={handleSearchBulstat}
                 openCars={handleToogleCars}
+                toggleProtocol={toggleProtocol}
             />
             <AddItemModal
                 ref={dialog}

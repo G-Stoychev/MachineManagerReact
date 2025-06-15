@@ -21,6 +21,7 @@ export default function Menu({
     onSelect,
     onSearchBulsat,
     openCars,
+    toggleProtocol,
 }) {
     const searchInput = useRef();
     const inputBulstat = useRef();
@@ -219,6 +220,16 @@ export default function Menu({
                     >
                         <i className="fa-solid fa-pen-to-square"></i>
                         Добави
+                    </button>
+                    <button
+                        className={classes.menuButton}
+                        onClick={() => {
+                            toggleProtocol();
+                            console.log("click protocol open");
+                        }}
+                    >
+                        <i className="fa-solid fa-pen-to-square"></i>
+                        Протокол
                     </button>
                     <div>
                         <Filter
