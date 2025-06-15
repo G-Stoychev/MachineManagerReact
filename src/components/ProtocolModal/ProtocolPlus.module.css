@@ -131,14 +131,33 @@ s .closeBtn {
     font-size: inherit;
 }
 
+.addingContainer {
+    display: flex;
+}
+
+.addingContainer input {
+    width: 270px;
+    height: 30px;
+    border: 2px solid;
+    border-radius: 5px;
+}
+
+.inputWrapper {
+    display: flex;
+}
+
 @media print {
     body {
         margin: 0;
         padding: 0;
     }
     @page {
-        size: A4;
-        margin: 10mm;
+        size: A4 portrait; /* A4 в портретна ориентация */
+        margin: 10mm; /* вътрешен отстъп */
+    }
+
+    .addingContainer {
+        display: none;
     }
 
     .printButton,
