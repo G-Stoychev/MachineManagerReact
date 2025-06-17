@@ -6,7 +6,8 @@
         white
     );
     font-size: 1rem;
-    position: absolute;
+    position: relative;
+    left: 1;
     width: 99.9%;
     height: 100vh;
     z-index: 15;

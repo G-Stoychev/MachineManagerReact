@@ -1,6 +1,7 @@
 import { useState, useEffect, lazy, useRef } from "react";
 
 import { getDatabase, ref, onValue } from "firebase/database";
+import { addMoveData } from "../../services/dataService.js";
 
 const PartnerSection = lazy(() => import("./PartnerSection.jsx"));
 const PartnerModal = lazy(() => import("./PartnerModal.jsx"));
@@ -11,10 +12,17 @@ import classes from "./ProtocolPlus.module.css";
 export default function ProtocolPlus({ company, toggleProtocol }) {
     const [listOfMachines, setListOfMachines] = useState([]);
     const [selectedMachines, setSelectedMachines] = useState([]);
-    const [inputSerialNumber, setInputSerialNumber] = useState();
+    const inputRef = useRef(null);
     const [addingMachine, setAddingMachine] = useState(false);
     const [error, setError] = useState(false);
+    const [errorText, setErrorText] = useState([]);
     const errorModal = useRef();
+    const dialog = useRef();
+    const [partner, setPartner] = useState([]);
+
+    const handleOpenPratnerModal = () => {
+        dialog.current.open();
+    };
 
     useEffect(() => {
         if (error && errorModal.current) {
@@ -43,35 +51,94 @@ export default function ProtocolPlus({ company, toggleProtocol }) {
     }, []);
 
     const handleSearchMachine = () => {
-        if (inputSerialNumber.trim() === "") {
+        const inputRefNumber = inputRef.current.value.trim();
+        if (inputRefNumber === "") {
             setError(true);
+            setErrorText({
+                title: "Грешка",
+                text: "Моля попълнете полето за сериен номер",
+            });
             return;
         }
 
-        const findedMachine = listOfMachines.filter(
-            (m) => m.serialNumber === inputSerialNumber.trim()
+        const foundMachine = listOfMachines.find(
+            (m) => m.serialNumber === inputRefNumber.trim()
         );
-        if (findedMachine.length === 0) {
+        if (!foundMachine) {
             setError(true);
+            setErrorText({
+                title: "Грешка",
+                text: "Машина с този сериен номер не съществува",
+            });
+            return;
         }
-        setSelectedMachines(findedMachine);
+        const isSelected = selectedMachines.some(
+            (m) => m.serialNumber === foundMachine.serialNumber
+        );
+        if (isSelected) {
+            setError(true);
+            setErrorText({
+                title: "Грешка",
+                text: "Машина с този сериен номер вече е добавена към протокола.",
+            });
+            return;
+        }
+        setSelectedMachines((selectedMachines) => [
+            ...selectedMachines,
+            foundMachine,
+        ]);
+        inputRef.current.value = 0;
+    };
+    const machinesIds = selectedMachines.map((m) => m.id);
+
+    const handleCreateMove = (newMoveInput) => {
+        setPartner(newMoveInput);
+    };
+
+    const handOnSaveMovement = async () => {
+        if (selectedMachines.length === 0 || partner.length === 0) {
+            setError(true);
+            setErrorText({
+                title: "Грешка",
+                text: "Не може да запазите протокол без да въведете данни за машини и клиент",
+            });
+            return;
+        }
+        const newMove = {
+            ...partner,
+            machineId: machinesIds,
+            date: new Date().toISOString().split("T")[0],
+        };
+        try {
+            const savedMove = await addMoveData(newMove);
+            toggleProtocol();
+        } catch (error) {
+            console.error("Грешка при запис на движение:", error);
+        }
     };
 
     return (
         <>
             {error && (
                 <ErrorModal
-                    title="Няма такава машина!"
-                    text={
-                        "Въведиения сериен номер е грешен или машина с този номер не съществува"
-                    }
+                    title={errorText.title}
+                    text={errorText.text}
                     setError={setError}
                     ref={errorModal}
                 />
             )}
 
             <div className={classes.protocolModal}>
-                <Menu closeProtocolmodal={toggleProtocol} />
+                <Menu
+                    closeProtocolmodal={toggleProtocol}
+                    handleOpenPratnerModal={handleOpenPratnerModal}
+                    handleSaveNewMove={handOnSaveMovement}
+                />
+                <PartnerModal
+                    lastmove={partner}
+                    ref={dialog}
+                    onCreate={handleCreateMove}
+                />
                 <div>
                     <h1>Приемо-предавателен Протокол</h1>
                     <div className={classes.section}>
@@ -88,10 +155,10 @@ export default function ProtocolPlus({ company, toggleProtocol }) {
 
                             <div className={classes.party}>
                                 <h3>Приемаща страна</h3>
-                                <p>Ime</p>
-                                <p>Мол: </p>
-                                <p>Адрес: </p>
-                                <p>Телефон: </p>
+                                <p>{partner.partner}</p>
+                                <p>Мол: {partner.contact}</p>
+                                <p>Адрес: {partner.location}</p>
+                                <p>Телефон: {partner.phone}</p>
                             </div>
                         </div>
 
@@ -138,11 +205,8 @@ export default function ProtocolPlus({ company, toggleProtocol }) {
                                     <div className={classes.inputWrapper}>
                                         <input
                                             type="number"
-                                            onChange={(e) =>
-                                                setInputSerialNumber(
-                                                    e.target.value
-                                                )
-                                            }
+                                            placeholder="Въведете сериен номер"
+                                            ref={inputRef}
                                         ></input>
                                         <button onClick={handleSearchMachine}>
                                             Добави
@@ -164,7 +228,7 @@ export default function ProtocolPlus({ company, toggleProtocol }) {
                                     <p>____________________________</p>
                                 </div>
                                 <div>
-                                    <p>Ime i familia</p>
+                                    <p>{partner.contact}</p>
                                     <p>Подпис на приемащата страна:</p>
                                     <p>____________________________</p>
                                 </div>
