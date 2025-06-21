@@ -7,7 +7,6 @@
     );
     font-size: 1rem;
     position: relative;
-    left: 1;
     width: 99.9%;
     height: 100vh;
     z-index: 15;
@@ -49,6 +48,7 @@ s .closeBtn {
 
 .section {
     margin-bottom: 20px;
+    padding-left: 20px;
 }
 
 .partyInfo {
@@ -80,7 +80,7 @@ s .closeBtn {
 .protocolModal th,
 .protocolModal td {
     padding: 8px;
-    text-align: left;
+    text-align: center;
 }
 .signaturesSection {
     margin-top: 60px;
@@ -135,8 +135,15 @@ s .closeBtn {
 .addingContainer {
     display: flex;
 }
+.headerWrapper {
+    display: flex;
+    justify-content: space-between;
+    padding-right: 100px;
+}
 
 .addingContainer input {
+    margin-top: 7px;
+    margin-bottom: 5px;
     width: 270px;
     height: 30px;
     border: 2px solid;
@@ -145,6 +152,21 @@ s .closeBtn {
 
 .inputWrapper {
     display: flex;
+}
+.machineDelBtn {
+    background-color: rgba(255, 0, 0, 0.281);
+    color: #fffdfd;
+    scale: 0.8;
+}
+
+.machineDelBtn:hover {
+    background-color: rgb(255, 255, 255);
+    color: rgb(255, 4, 4);
+    scale: 0.9;
+}
+
+tbody p {
+    display: inline;
 }
 
 @media print {
@@ -175,5 +197,13 @@ s .closeBtn {
         appearance: none;
         -webkit-appearance: none;
         -moz-appearance: none;
+    }
+
+    .machineDelBtn {
+        display: none;
+    }
+
+    .headerWrapper button {
+        display: none;
     }
 }

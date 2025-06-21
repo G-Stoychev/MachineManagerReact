@@ -19,6 +19,7 @@ export default function ProtocolPlus({ company, toggleProtocol }) {
     const errorModal = useRef();
     const dialog = useRef();
     const [partner, setPartner] = useState([]);
+    const [isReturn, setIsReturn] = useState(false);
 
     const handleOpenPratnerModal = () => {
         dialog.current.open();
@@ -87,7 +88,7 @@ export default function ProtocolPlus({ company, toggleProtocol }) {
             ...selectedMachines,
             foundMachine,
         ]);
-        inputRef.current.value = 0;
+        inputRef.current.value = null;
     };
     const machinesIds = selectedMachines.map((m) => m.id);
 
@@ -104,17 +105,42 @@ export default function ProtocolPlus({ company, toggleProtocol }) {
             });
             return;
         }
-        const newMove = {
-            ...partner,
-            machineId: machinesIds,
-            date: new Date().toISOString().split("T")[0],
-        };
-        try {
-            const savedMove = await addMoveData(newMove);
-            toggleProtocol();
-        } catch (error) {
-            console.error("Грешка при запис на движение:", error);
+        if (isReturn) {
+            const newMove = {
+                id: Date.now().toString(),
+                partner: company.name,
+                contact: company.mol,
+                bulstat: company.bulstat,
+                location: company.adress,
+                phone: company.phone,
+                object: company.object,
+                machineId: machinesIds,
+                date: new Date().toISOString().split("T")[0],
+            };
+            try {
+                const savedMove = await addMoveData(newMove);
+                toggleProtocol();
+            } catch (error) {
+                console.error("Грешка при запис на движение:", error);
+            }
+        } else {
+            const newMove = {
+                ...partner,
+                machineId: machinesIds,
+                date: new Date().toISOString().split("T")[0],
+            };
+
+            try {
+                const savedMove = await addMoveData(newMove);
+                toggleProtocol();
+            } catch (error) {
+                console.error("Грешка при запис на движение:", error);
+            }
         }
+    };
+
+    const deleteMachineFromList = (machineID) => {
+        setSelectedMachines((prev) => prev.filter((id) => id !== machineID));
     };
 
     return (
@@ -162,8 +188,20 @@ export default function ProtocolPlus({ company, toggleProtocol }) {
                             </div>
                         </div>
 
-                        <div className={classes.section}>
-                            <h2>Данни за предадената машина</h2>
+                        <div>
+                            <div className={classes.headerWrapper}>
+                                <h2>Данни за предадената машина</h2>
+                                <button
+                                    onClick={() => {
+                                        setIsReturn(!isReturn);
+                                        console.log(partner);
+                                        console.log(company);
+                                    }}
+                                >
+                                    {isReturn ? "Демонтаж" : " Mонтаж"}
+                                </button>
+                            </div>
+
                             <table>
                                 <thead>
                                     <tr>
@@ -180,14 +218,24 @@ export default function ProtocolPlus({ company, toggleProtocol }) {
                                             <td>{machine.brand}</td>
                                             <td>{machine.serialNumber}</td>
                                             <td>
-                                                <select
+                                                <p>
+                                                    {isReturn
+                                                        ? "Демонтаж"
+                                                        : " Mонтаж"}
+                                                </p>
+                                                <button
+                                                    title="Изтрий машината"
                                                     className={
-                                                        classes.movementInfo
+                                                        classes.machineDelBtn
                                                     }
+                                                    onClick={() => {
+                                                        deleteMachineFromList(
+                                                            machine
+                                                        );
+                                                    }}
                                                 >
-                                                    <option>Монтаж</option>
-                                                    <option>Демонтаж</option>
-                                                </select>
+                                                    x
+                                                </button>
                                             </td>
                                         </tr>
                                     ))}
