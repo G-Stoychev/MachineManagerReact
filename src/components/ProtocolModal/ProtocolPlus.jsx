@@ -194,8 +194,6 @@ export default function ProtocolPlus({ company, toggleProtocol }) {
                                 <button
                                     onClick={() => {
                                         setIsReturn(!isReturn);
-                                        console.log(partner);
-                                        console.log(company);
                                     }}
                                 >
                                     {isReturn ? "Демонтаж" : " Mонтаж"}
