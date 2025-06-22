@@ -16,10 +16,17 @@ export default function RepairModal({
             person: formData.get("person"),
             parts: formData.get("parts"),
         };
+        if (repairData.prevention) {
+            repairData.profDate = repairData.date;
+        }
+        if (!repairData.prevention) {
+            repairData.profDate = "";
+        }
         if (repairData.date.trim() === "" || repairData.person.trim() === "") {
             setError(true);
             return;
         }
+
         if (isEdit) {
             onUpdate({ ...repair, ...repairData });
             return;
@@ -53,9 +60,13 @@ export default function RepairModal({
                 />
             </div>
             <div className={classes.sectionWrapper}>
-                <h3>Сменени части и други ремонти:</h3>
+                <h3>Информация за ремонта:</h3>
             </div>
-            <textarea name="parts" defaultValue={formState?.parts}></textarea>
+            <textarea
+                name="parts"
+                defaultValue={formState?.parts}
+                placeholder="Сменени части , информация за състояние на машината или друг ремонт"
+            ></textarea>
 
             <div>
                 <button>{isEdit ? "Промени" : "Добави"}</button>

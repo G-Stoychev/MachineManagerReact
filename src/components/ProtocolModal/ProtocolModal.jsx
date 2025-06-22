@@ -1,11 +1,12 @@
-import { useRef, useState } from "react";
+import { useRef, useState, lazy } from "react";
 
-import PartnerSection from "./PartnerSection.jsx";
-import PartnerModal from "./PartnerModal.jsx";
-import Menu from "./ProtocolMenu.jsx";
+// import PartnerSection from "./PartnerSection.jsx";
+// import PartnerModal from "./PartnerModal.jsx";
+// import Menu from "./ProtocolMenu.jsx";
 
-import { getCompany } from "../../services/dataService.js";
-
+const PartnerSection = lazy(() => import("./PartnerSection.jsx"));
+const PartnerModal = lazy(() => import("./PartnerModal.jsx"));
+const Menu = lazy(() => import("./ProtocolMenu.jsx"));
 import classes from "./ProtocolModal.module.css";
 
 export default function ProtocolModal({
@@ -13,9 +14,9 @@ export default function ProtocolModal({
     lastmove,
     closeProtocolmodal,
     onSaveMove,
+    company,
 }) {
     const dialog = useRef();
-    const company = getCompany();
     const [partner, setPartner] = useState(lastmove);
 
     const handleOpenPratnerModal = () => {

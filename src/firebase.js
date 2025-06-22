@@ -5,7 +5,7 @@ const firebaseConfig = {
     apiKey: "AIzaSyAca_usbqbokv4FrRdsJxxiAbcDL8-DVm8",
     authDomain: "machinemanager-d29f1.firebaseapp.com",
     databaseURL:
-        "https://machinemanager-d29f1-default-rtdb.europe-west1.firebasedatabase.app",
+        "https://machinemanager-d29f1-default-rtdb.europe-west1.firebasedatabase.app/",
     projectId: "machinemanager-d29f1",
     storageBucket: "machinemanager-d29f1.firebasestorage.app",
     messagingSenderId: "1073686995863",
@@ -15,5 +15,4 @@ const firebaseConfig = {
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
-
 export { auth };

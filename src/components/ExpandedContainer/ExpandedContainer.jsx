@@ -1,33 +1,34 @@
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, lazy } from "react";
+import { getDatabase, ref, onValue } from "firebase/database";
+
 import classes from "./ExpandedContainer.module.css";
 
 import RepairModal from "../RepairModal/RepairModal.jsx";
 import {
-    getRepairsByMachineId,
-    getMovementsByMachineId,
-    getCompany,
+    addRepairData,
+    addMoveData,
+    changeRepairData,
 } from "../../services/dataService.js";
-import ProtocolModal from "../ProtocolModal/ProtocolModal.jsx";
-import MachineInformation from "./MachineInformation.jsx";
-import RepairsInformation from "./RepairsInformation.jsx";
-import MovementsInformation from "./MovementsInformation.jsx";
-import ErrorModal from "../ErrorModal/ErrorModal.jsx";
 
-export default function ExpandedContainer({
-    machine,
-    closeRow,
-    onUpdateMovement,
-}) {
+// import ProtocolModal from "../ProtocolModal/ProtocolModal.jsx";
+// import MachineInformation from "./MachineInformation.jsx";
+// import RepairsInformation from "./RepairsInformation.jsx";
+// import MovementsInformation from "./MovementsInformation.jsx";
+// import ErrorModal from "../ErrorModal/ErrorModal.jsx";
+
+const MachineInformation = lazy(() => import("./MachineInformation.jsx"));
+const ErrorModal = lazy(() => import("../ErrorModal/ErrorModal.jsx"));
+const ProtocolModal = lazy(() => import("../ProtocolModal/ProtocolModal.jsx"));
+const RepairsInformation = lazy(() => import("./RepairsInformation.jsx"));
+const MovementsInformation = lazy(() => import("./MovementsInformation.jsx"));
+
+export default function ExpandedContainer({ machine, closeRow, company }) {
     const [error, setError] = useState(false);
     const [content, setContent] = useState("repairs");
     const [selectedRepair, setSelectedRepair] = useState();
-    const [repairsList, setRepairsList] = useState(
-        getRepairsByMachineId(machine.id)
-    );
-    const [movements, setMovements] = useState(
-        getMovementsByMachineId(machine.id)
-    );
-    const company = getCompany();
+    const [repairsList, setRepairsList] = useState([]);
+    const [movements, setMovements] = useState([]);
+
     const errorModal = useRef();
 
     const handleSetRepairs = () => {
@@ -44,7 +45,6 @@ export default function ExpandedContainer({
             return;
         }
         setSelectedRepair(undefined);
-        onUpdateMovement(lastmove);
         closeRow(id);
     };
     useEffect(() => {
@@ -53,39 +53,92 @@ export default function ExpandedContainer({
         }
     }, [error]);
 
+    useEffect(() => {
+        const database = getDatabase();
+        const repairsRef = ref(database, "repairs");
+        const unsubscribe = onValue(
+            repairsRef,
+            (snapshot) => {
+                if (snapshot.exists()) {
+                    const data = snapshot.val();
+                    const repairsArray = Object.values(data);
+                    const currentMachineRepairs = repairsArray.filter(
+                        (repair) => repair.machineId === machine.id
+                    );
+                    setRepairsList(currentMachineRepairs);
+                }
+            },
+            {
+                onlyOnce: false,
+            }
+        );
+
+        return () => unsubscribe();
+    }, []);
+
+    useEffect(() => {
+        const database = getDatabase();
+        const movementsRef = ref(database, "movements");
+        const unsubscribe = onValue(
+            movementsRef,
+            (snapshot) => {
+                if (snapshot.exists()) {
+                    const data = snapshot.val();
+                    const movementsArray = Object.values(data);
+                    const currentMachineMove = movementsArray.filter((move) =>
+                        Array.isArray(move.machineId)
+                            ? move.machineId.includes(machine.id)
+                            : move.machineId === machine.id
+                    );
+                    setMovements(currentMachineMove);
+                }
+            },
+            {
+                onlyOnce: true,
+            }
+        );
+
+        return () => unsubscribe();
+    }, []);
+
     const handleSetUpdateRepair = (repair) => {
         handleSetNewRepair();
         setSelectedRepair(repair);
     };
 
-    const handleOnCreate = (newRepair) => {
+    const handleOnCreate = async (newRepair) => {
         const newRep = {
             ...newRepair,
-            id: Date.now().toString(),
             machineId: machine.id,
         };
-        newRepair.id = Date.now().toString();
-        setRepairsList([...repairsList, newRep]);
-        handleSetRepairs();
-    };
-    const handleOnUpdate = (updatedRepair) => {
-        const index = repairsList.findIndex((r) => r.id === updatedRepair.id);
-        const copiedRepairsList = [...repairsList];
-        copiedRepairsList.splice(index, 1, updatedRepair);
-        setRepairsList(copiedRepairsList);
-        handleSetRepairs();
-        S;
+
+        try {
+            const savedRepair = await addRepairData(newRep);
+            setRepairsList([...repairsList, savedRepair]);
+            handleSetRepairs();
+        } catch (error) {
+            console.error("Грешка при запис на ремонт:", error);
+        }
     };
 
-    const handOnSaveMovement = (lastmove) => {
+    const handleOnUpdate = (updatedRepair) => {
+        changeRepairData(updatedRepair.id, updatedRepair);
+        handleSetRepairs();
+    };
+
+    const handOnSaveMovement = async (lastmove) => {
         const newMove = {
             ...lastmove,
             machineId: machine.id,
-            id: Date.now().toString(),
-            date: new Date().toLocaleDateString("en-GB"),
+            date: new Date().toISOString().split("T")[0],
         };
-        setMovements((m) => [...m, newMove]);
-        handleSetInformation();
+        try {
+            const savedMove = await addMoveData(newMove);
+            setMovements((m) => [...m, savedMove]);
+            handleSetInformation();
+        } catch (error) {
+            console.error("Грешка при запис на движение:", error);
+        }
     };
 
     const lastmove = movements[movements.length - 1];
@@ -104,6 +157,7 @@ export default function ExpandedContainer({
             )}
             {content === "protocolModal" ? (
                 <ProtocolModal
+                    company={company}
                     machine={machine}
                     lastmove={lastmove ? lastmove : {}}
                     closeProtocolmodal={handleSetInformation}

@@ -1,10 +1,16 @@
-import { useEffect, useRef, useState } from "react";
-import Filter from "./Filter.jsx";
-import ErrorModal from "../ErrorModal/ErrorModal.jsx";
+import { useEffect, useRef, useState, lazy } from "react";
+// import Filter from "./Filter.jsx";
+// import ErrorModal from "../ErrorModal/ErrorModal.jsx";
 import classes from "./Menu.module.css";
 
+import { getDatabase, ref, onValue } from "firebase/database";
+import { changeThema, themeSets } from "../../services/dataService.js";
+
+const ErrorModal = lazy(() => import("../ErrorModal/ErrorModal.jsx"));
+const Filter = lazy(() => import("./Filter.jsx"));
+
 export default function Menu({
-    userName,
+    userInfo,
     logout,
     openModal,
     onSearch,
@@ -13,48 +19,49 @@ export default function Menu({
     company,
     machines,
     onSelect,
+    onSearchBulsat,
+    openCars,
+    toggleProtocol,
 }) {
     const searchInput = useRef();
+    const inputBulstat = useRef();
     const [searching, setSearching] = useState(false);
     const [currentIndex, setCurrentIndex] = useState(0);
     const [error, setError] = useState(false);
     const errorModal = useRef();
+    const [thema, setTheme] = useState([]);
+
     useEffect(() => {
         if (error && errorModal.current) {
             errorModal.current.open();
         }
     }, [error]);
 
-    const themeSets = [
-        {
-            name: "Зима",
-            hoverColor: "--winterColor",
-            bgImg: " url(/src/assets/winter-bg.jpg)",
-        },
-        {
-            name: "Пролет",
-            hoverColor: "--springColor",
-            bgImg: " url(/src/assets/spring-bg.jpg)",
-        },
-        {
-            name: "Лято",
-            hoverColor: "--summerColor",
-            bgImg: " url(/src/assets/summer-bg.jpg)",
-        },
-        {
-            name: "Есен",
-            hoverColor: "--autumnColor",
-            bgImg: " url(/src/assets/autumn-bg.jpg)",
-        },
-    ];
+    useEffect(() => {
+        const database = getDatabase();
+        const userRef = ref(database, `thema/` + userInfo.name);
+
+        const unsubscribe = onValue(userRef, (snapshot) => {
+            if (snapshot.exists()) {
+                const data = snapshot.val();
+                setTheme((prevTheme) => {
+                    return JSON.stringify(prevTheme) === JSON.stringify(data)
+                        ? prevTheme
+                        : data;
+                });
+            }
+        });
+
+        return () => unsubscribe();
+    }, [userInfo.name]);
 
     useEffect(() => {
         document.documentElement.style.setProperty(
             "--seasonColor",
-            `var(${themeSets[currentIndex].hoverColor})`
+            `var(${thema.hoverColor})`
         );
-        document.body.style.backgroundImage = themeSets[currentIndex].bgImg;
-    }, [currentIndex]);
+        document.body.style.backgroundImage = thema.bgImg;
+    }, [thema]);
 
     const handleSearchInput = () => {
         const inputSerialNumber = searchInput.current.value;
@@ -66,14 +73,38 @@ export default function Menu({
         onSearch(inputSerialNumber);
     };
 
+    const handleSearchBulstat = () => {
+        const inputBulstatValues = inputBulstat.current.value;
+        if (inputBulstatValues === "") {
+            setError(true);
+            return;
+        }
+        setSearching(true);
+        onSearchBulsat(inputBulstatValues);
+    };
+
     const handleResetInput = () => {
         searchInput.current.value = "";
         onReset();
         setSearching(false);
     };
 
+    const handleBulstatInput = () => {
+        inputBulstat.current.value = "";
+        onReset();
+        setSearching(false);
+    };
+
     const handleChangeTheme = () => {
-        setCurrentIndex((prevIndex) => (prevIndex + 1) % themeSets.length);
+        setCurrentIndex((prevIndex) => {
+            const newIndex = (prevIndex + 1) % themeSets.length;
+            const newTheme = themeSets[newIndex];
+
+            setTheme(newTheme);
+            changeThema(newTheme, userInfo.name);
+
+            return newIndex;
+        });
     };
 
     return (
@@ -105,14 +136,23 @@ export default function Menu({
                                         <i className="fa-solid fa-pen-to-square"></i>
                                         Промени данни за фирма
                                     </button>
+
+                                    <button
+                                        className={` ${classes.searchInput} ${classes.searchButton} ${classes.dropDownBtn}`}
+                                        onClick={openCars}
+                                    >
+                                        <i className="fa-solid fa-car"></i>
+                                        Автомобили
+                                    </button>
+
                                     <button
                                         className={` ${classes.searchInput} ${classes.searchButton} ${classes.dropDownBtn}`}
                                         onClick={handleChangeTheme}
                                     >
                                         <i className="fa-solid fa-palette"></i>
-                                        Смени тема (
-                                        {themeSets[currentIndex].name})
+                                        Смени тема ({thema.name})
                                     </button>
+
                                     <button
                                         className={` ${classes.searchInput} ${classes.searchButton} ${classes.dropDownBtn}`}
                                         onClick={logout}
@@ -123,7 +163,7 @@ export default function Menu({
                                 </div>
                             </div>
                         </div>
-                        <p>Здравей {userName}</p>
+                        <p>Здравейте {userInfo.name}</p>
                     </div>
                 </div>
                 <div className={classes.searchContainer}>
@@ -148,6 +188,29 @@ export default function Menu({
                         </button>
                     ) : undefined}
                 </div>
+                {/* inputBulstat търсени по булстат */}
+                <div className={classes.searchContainer}>
+                    <input
+                        className={classes.searchInput}
+                        type="text"
+                        placeholder="Търси фирма по булстат"
+                        ref={inputBulstat}
+                    />
+                    <button
+                        className={`${classes.searchInput} ${classes.searchButton}`}
+                        onClick={handleSearchBulstat}
+                    >
+                        <i className="fa-solid fa-magnifying-glass"></i>
+                    </button>
+                    {searching ? (
+                        <button
+                            className={`${classes.searchInput} ${classes.searchButton} `}
+                            onClick={handleBulstatInput}
+                        >
+                            <i className="fa-solid fa-arrows-rotate"></i>
+                        </button>
+                    ) : undefined}
+                </div>
                 <nav>
                     <button
                         className={classes.menuButton}
@@ -157,6 +220,16 @@ export default function Menu({
                     >
                         <i className="fa-solid fa-pen-to-square"></i>
                         Добави
+                    </button>
+                    <button
+                        className={classes.menuButton}
+                        onClick={() => {
+                            toggleProtocol();
+                            console.log("click protocol open");
+                        }}
+                    >
+                        <i className="fa-solid fa-pen-to-square"></i>
+                        Протокол
                     </button>
                     <div>
                         <Filter

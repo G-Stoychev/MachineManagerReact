@@ -16,6 +16,7 @@
 .table thead tr:last-child,
 .table tbody td {
     text-align: center;
+    font-size: 1rem;
 }
 
 .table th,

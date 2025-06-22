@@ -4,9 +4,10 @@ import {
     useActionState,
     useEffect,
     useState,
+    lazy,
 } from "react";
-import ErrorModal from "../ErrorModal/ErrorModal.jsx";
-
+// import ErrorModal from "../ErrorModal/ErrorModal.jsx";
+const ErrorModal = lazy(() => import("../ErrorModal/ErrorModal.jsx"));
 import classes from "./CompanyInfoModal.module.css";
 
 export default function CompanyInfoModal({ ref, onCompanyEdit, company }) {

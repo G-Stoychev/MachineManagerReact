@@ -1,7 +1,7 @@
 .errorModal {
     box-shadow: -1px -1px 5px 5px brown;
     width: 30%;
-    height: 20%;
+    height: fit-content;
 }
 
 .errorModal h2 {
@@ -15,4 +15,8 @@
 .errorModal div {
     display: flex;
     justify-content: end;
+}
+
+span {
+    display: inline-block;
 }

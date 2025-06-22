@@ -42,3 +42,33 @@ export default function LoginPortal({ validLog }) {
         </form>
     );
 }
+
+export const sendRequest = async (key, newItem) => {
+    const existingData = await fetch(
+        `https://react-learn-94c74-default-rtdb.europe-west1.firebasedatabase.app/${key}.json`
+    );
+    const data = await existingData.json();
+
+    const currentArray = data
+        ? Array.isArray(data)
+            ? data
+            : Object.values(data)
+        : [];
+
+    currentArray.push(newItem);
+
+    const response = await fetch(
+        `https://react-learn-94c74-default-rtdb.europe-west1.firebasedatabase.app/${key}.json`,
+        {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(currentArray),
+        }
+    );
+
+    if (!response.ok) {
+        throw new Error("Could not update data!");
+    }
+};

@@ -20,7 +20,7 @@ export default function ErrorModal({ title, text, setError, ref }) {
     return (
         <dialog ref={errorModal} className={classes.errorModal}>
             <h2>
-                <i className="fa-solid fa-triangle-exclamation"></i>
+                ⚠️
                 {title}
             </h2>
             <p>{text}</p>

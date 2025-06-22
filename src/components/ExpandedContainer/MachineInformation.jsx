@@ -37,17 +37,22 @@ export default function MachineInformation({
                             {lastmove ? lastmove.location : company.adress}
                         </div>
                     </div>
-                </div>
-
-                <div>
                     <div className={classes.sectionWrapper}>
                         <div>Дата на монтаж:</div>
                         <div>{lastmove ? lastmove.date : machine.buyDate}</div>
                     </div>
+                </div>
 
+                <div className="right-section-wrapper">
                     <div className={classes.sectionWrapper}>
                         <div>Парньор:</div>
                         <div>{lastmove ? lastmove.partner : company.name}</div>
+                    </div>
+                    <div className={classes.sectionWrapper}>
+                        <div>Булстат:</div>
+                        <div>
+                            {lastmove ? lastmove.bulstat : company.bulstat}
+                        </div>
                     </div>
                     <div className={classes.sectionWrapper}>
                         <div>Обект:</div>
