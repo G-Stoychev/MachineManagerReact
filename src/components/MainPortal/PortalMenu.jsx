@@ -30,6 +30,10 @@ export default function PortalMenu({
                     image={<i className="fa-solid fa-car-side"></i>}
                     click={toggleCars}
                 />
+                <MenuCard
+                    text={"Organizer Coming SOON"}
+                    image={<i class="fa-solid fa-calendar-days"></i>}
+                />
             </div>
         </>
     );
