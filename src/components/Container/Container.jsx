@@ -42,6 +42,7 @@ export default function Container({ userInfo, close }) {
         }
     }, [error]);
 
+    //CarsData
     useEffect(() => {
         const database = getDatabase();
         const carsRef = ref(database, "cars");
@@ -103,6 +104,7 @@ export default function Container({ userInfo, close }) {
         setOpenCars(!openCars);
     };
 
+    //Machines Data
     useEffect(() => {
         const database = getDatabase();
         const machinesRef = ref(database, "machines");
@@ -124,6 +126,7 @@ export default function Container({ userInfo, close }) {
         return () => unsubscribe();
     }, []);
 
+    //Company Data
     useEffect(() => {
         const database = getDatabase();
         const companyRef = ref(database, "company");
@@ -143,6 +146,7 @@ export default function Container({ userInfo, close }) {
         return () => unsubscribe();
     }, []);
 
+    //Movements Data
     useEffect(() => {
         const database = getDatabase();
         const movementsRef = ref(database, "movements");

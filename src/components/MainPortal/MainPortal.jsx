@@ -3,11 +3,15 @@ import { getDatabase, ref, onValue } from "firebase/database";
 
 import CarsData from "../Menu/CarsData.jsx";
 import ErrorModal from "../ErrorModal/ErrorModal.jsx";
-import PortalMenu from "./MainPortalMenu.jsx";
+import PortalMenu from "./PortalMenu.jsx";
+import StickyMenu from "./StickyMenu.jsx";
+
 const Container = lazy(() => import("../Container/Container.jsx"));
+const ProtocolPlus = lazy(() => import("../ProtocolModal/ProtocolPlus.jsx"));
 
 export default function MainPortal({ userInfo, logout }) {
     const [cars, setCars] = useState([]);
+    const [companyInfo, setCompanyInfo] = useState({});
     const [error, setError] = useState(false);
     const errorModal = useRef();
     const [selectedComponent, setSelectedComponent] = useState("menu");
@@ -18,6 +22,27 @@ export default function MainPortal({ userInfo, logout }) {
         }
     }, [error]);
 
+    //Company Data
+    useEffect(() => {
+        const database = getDatabase();
+        const companyRef = ref(database, "company");
+        const unsubscribe = onValue(
+            companyRef,
+            (snapshot) => {
+                if (snapshot.exists()) {
+                    const data = snapshot.val();
+                    setCompanyInfo(data);
+                }
+            },
+            {
+                onlyOnce: true,
+            }
+        );
+
+        return () => unsubscribe();
+    }, []);
+
+    //Cars Data
     useEffect(() => {
         const database = getDatabase();
         const carsRef = ref(database, "cars");
@@ -86,6 +111,15 @@ export default function MainPortal({ userInfo, logout }) {
         );
     };
 
+    const handleToogleProtocol = () => {
+        setSelectedComponent((prev) =>
+            prev === "protocol" ? "menu" : "protocol"
+        );
+    };
+    const handleReturnHome = () => {
+        setSelectedComponent("menu");
+    };
+
     return (
         <>
             {error && (
@@ -98,6 +132,18 @@ export default function MainPortal({ userInfo, logout }) {
                     ref={errorModal}
                 />
             )}
+
+            <StickyMenu logout={logout} handleReturnHome={handleReturnHome} />
+
+            {selectedComponent === "menu" && (
+                <PortalMenu
+                    toggleCars={handleToogleCars}
+                    toggleContainer={handleToogleContainer}
+                    toggleProtocol={handleToogleProtocol}
+                    logout={logout}
+                />
+            )}
+
             {selectedComponent === "cars" && (
                 <CarsData toggle={handleToogleCars} cars={cars} />
             )}
@@ -106,11 +152,10 @@ export default function MainPortal({ userInfo, logout }) {
                 <Container userInfo={userInfo} close={handleToogleContainer} />
             )}
 
-            {selectedComponent === "menu" && (
-                <PortalMenu
-                    openCars={handleToogleCars}
-                    openContainer={handleToogleContainer}
-                    logout={logout}
+            {selectedComponent === "protocol" && (
+                <ProtocolPlus
+                    company={companyInfo}
+                    toggleProtocol={handleToogleProtocol}
                 />
             )}
         </>

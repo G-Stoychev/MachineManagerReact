@@ -1,5 +1,5 @@
 .wrapper {
-    background-color: aliceblue;
+    background-color: rgba(240, 248, 255, 0.349);
     display: flex;
     flex-wrap: wrap;
     justify-content: space-evenly;
@@ -19,6 +19,7 @@
 }
 
 .card {
+    background-color: rgba(240, 248, 255, 0.644);
     width: 200px;
     height: 250px;
     display: flex;
@@ -27,20 +28,23 @@
     padding: 20px;
     border-radius: 15px;
     box-shadow: 0px 0px 14px 0px rgba(26, 25, 25, 0.534);
+    transition: transform 0.3s ease;
 }
 
 .card:hover {
     cursor: pointer;
+    background-color: rgba(151, 212, 212, 0.438);
+    transform: translateY(-5px);
 }
 
 .cardImg {
-    font-size: 10rem;
+    font-size: 9.5rem;
     display: flex;
     justify-content: center;
 }
 
 .cardText {
-    font-size: 1rem;
+    font-size: 1.5rem;
     text-align: center;
     font-weight: bold;
 }

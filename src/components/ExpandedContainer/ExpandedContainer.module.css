@@ -5,6 +5,7 @@
     padding: 5px 10px;
     position: absolute;
     height: 99vh;
+    top: 3%;
     z-index: 15;
     color: rgb(26, 23, 23);
     animation: animateModal 0.4s;
