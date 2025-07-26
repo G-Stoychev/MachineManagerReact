@@ -1,0 +1,46 @@
+.wrapper {
+    background-color: aliceblue;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    gap: 15px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    border-radius: 15px;
+    padding: 50px 20px;
+    transform: translate(-50%, -50%);
+}
+
+.portalButton {
+    width: 200px;
+    height: 200px;
+    font-size: 3rem;
+}
+
+.card {
+    width: 200px;
+    height: 250px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0px 0px 14px 0px rgba(26, 25, 25, 0.534);
+}
+
+.card:hover {
+    cursor: pointer;
+}
+
+.cardImg {
+    font-size: 10rem;
+    display: flex;
+    justify-content: center;
+}
+
+.cardText {
+    font-size: 1rem;
+    text-align: center;
+    font-weight: bold;
+}

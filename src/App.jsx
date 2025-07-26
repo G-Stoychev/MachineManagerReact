@@ -9,7 +9,8 @@ import { getDatabase, ref, onValue } from "firebase/database";
 
 import { changeUserInfo } from "./services/dataService.js";
 
-const Container = lazy(() => import("./components/Container/Container.jsx"));
+const MainPortal = lazy(() => import("./components/MainPortal/MainPortal.jsx"));
+
 const AuthForm = lazy(() => import("./components/LoginPortal/AuthForm.jsx"));
 
 function App() {
@@ -86,9 +87,7 @@ function App() {
     return (
         <>
             {isValid ? (
-                <>
-                    <Container userInfo={userInfo} logout={handleSignOut} />
-                </>
+                <MainPortal userInfo={userInfo} logout={handleSignOut} />
             ) : (
                 <AuthForm
                     error={error}

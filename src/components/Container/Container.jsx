@@ -19,7 +19,7 @@ import CarsData from "../Menu/CarsData.jsx";
 import classes from "./Container.module.css";
 import ErrorModal from "../ErrorModal/ErrorModal.jsx";
 
-export default function Container({ userInfo, logout }) {
+export default function Container({ userInfo, close }) {
     const [originalMachineList, setOriginalMachineList] = useState([]);
     const [listOfMachines, setListOfMachines] = useState([]);
     const [movements, setMovements] = useState([]);
@@ -244,7 +244,7 @@ export default function Container({ userInfo, logout }) {
             )}
             <Menu
                 userInfo={userInfo}
-                logout={logout}
+                logout={close}
                 openModal={handleOpenAddItemModal}
                 openCompanyModal={handleOpenCompanyModal}
                 onSearch={handleSearchMachine}
