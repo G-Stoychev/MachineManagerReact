@@ -14,6 +14,7 @@ export default function StickyMenu({
     setSelectedComponent,
     closeContainer,
     handleOpenCompanyModal,
+    toggleProtocol,
 }) {
     const [thema, setTheme] = useState([]);
     const [currentIndex, setCurrentIndex] = useState(0);
@@ -104,7 +105,10 @@ export default function StickyMenu({
                                 <i className="fa-solid fa-backward"></i> Back
                             </span>
                             <div>Machines MENU</div>
-                            <div onClick={handleToogleProtocol}> Protocol</div>
+                            <div onClick={toggleProtocol}>
+                                <i className="fa-solid fa-pen-to-square"></i>{" "}
+                                Протокол
+                            </div>
                         </>
                     )}
 

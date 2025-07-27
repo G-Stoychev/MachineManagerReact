@@ -6,9 +6,6 @@ import { addMachineData } from "../../services/dataService.js";
 const Menu = lazy(() => import("../Menu/Menu.jsx"));
 const MachineTable = lazy(() => import("../MachineTable/MachineTable.jsx"));
 const AddItemModal = lazy(() => import("../AddItemModal/AddItemModal.jsx"));
-const CompanyInfoModal = lazy(() =>
-    import("../CompanyInfoModal/CompanyInfoModal.jsx")
-);
 const ProtocolPlus = lazy(() => import("../ProtocolModal/ProtocolPlus.jsx"));
 
 import classes from "./Container.module.css";
@@ -185,7 +182,6 @@ export default function Container({ userInfo, close }) {
                 onAddNewMachine={handleAddNewMachine}
                 company={companyInfo}
             />
-            <CompanyInfoModal ref={CompanyDialog} company={companyInfo} />
             <MachineTable machines={listOfMachines} company={companyInfo} />
         </div>
     );

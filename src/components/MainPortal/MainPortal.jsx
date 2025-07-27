@@ -16,6 +16,11 @@ const CompanyInfoModal = lazy(() =>
 
 export default function MainPortal({ userInfo, logout }) {
     const [selectedComponent, setSelectedComponent] = useState("menu");
+    // const previousComponentRef = useRef("menu");
+
+    // useEffect(() => {
+    //     previousComponentRef.current = selectedComponent;
+    // }, [selectedComponent]);
 
     const [cars, setCars] = useState([]);
 
@@ -121,16 +126,22 @@ export default function MainPortal({ userInfo, logout }) {
     };
     //end Cars
 
-    const handleToogleContainer = () => {
+    const handleToggleContainer = () => {
         setSelectedComponent((prev) =>
             prev === "container" ? "menu" : "container"
         );
     };
+    const previousComponentRef = useRef("menu"); // или "container", по подразбиране
 
-    const handleToogleProtocol = () => {
-        setSelectedComponent((prev) =>
-            prev === "protocol" ? "menu" : "protocol"
-        );
+    const handleToggleProtocol = () => {
+        setSelectedComponent((prev) => {
+            if (prev === "protocol") {
+                return previousComponentRef.current;
+            } else {
+                previousComponentRef.current = prev;
+                return "protocol";
+            }
+        });
     };
 
     const handleReturnHome = () => {
@@ -163,16 +174,17 @@ export default function MainPortal({ userInfo, logout }) {
                 company={companyInfo}
                 activeComponent={selectedComponent}
                 setSelectedComponent={setSelectedComponent}
-                closeContainer={handleToogleContainer}
+                closeContainer={handleToggleContainer}
                 companyInfoChange={handleCompanyChange}
                 handleOpenCompanyModal={handleOpenCompanyModal}
+                toggleProtocol={handleToggleProtocol}
             />
 
             {selectedComponent === "menu" && (
                 <PortalMenu
                     toggleCars={handleToogleCars}
-                    toggleContainer={handleToogleContainer}
-                    toggleProtocol={handleToogleProtocol}
+                    toggleContainer={handleToggleContainer}
+                    toggleProtocol={handleToggleProtocol}
                 />
             )}
 
@@ -181,13 +193,13 @@ export default function MainPortal({ userInfo, logout }) {
             )}
 
             {selectedComponent === "container" && (
-                <Container userInfo={userInfo} close={handleToogleContainer} />
+                <Container userInfo={userInfo} close={handleToggleContainer} />
             )}
 
             {selectedComponent === "protocol" && (
                 <ProtocolPlus
                     company={companyInfo}
-                    toggleProtocol={handleToogleProtocol}
+                    toggleProtocol={handleToggleProtocol}
                 />
             )}
         </>
