@@ -56,23 +56,30 @@ function App() {
         try {
             await signInWithEmailAndPassword(auth, email, password);
             setError("");
+
+            if (email === "gstoychev20@gmail.com") {
+                setUserInfo((prevState) => {
+                    const updatedInfo = { ...prevState, name: "Freakx" };
+                    localStorage.setItem(
+                        "userInfo",
+                        JSON.stringify(updatedInfo)
+                    );
+                    changeUserInfo(updatedInfo); // Преместено тук
+                    return updatedInfo;
+                });
+            } else if (email === "tyuliev80@gmail.com") {
+                setUserInfo((prevState) => {
+                    const updatedInfo = { ...prevState, name: "Краси" };
+                    localStorage.setItem(
+                        "userInfo",
+                        JSON.stringify(updatedInfo)
+                    );
+                    changeUserInfo(updatedInfo); // Преместено тук
+                    return updatedInfo;
+                });
+            }
         } catch (error) {
             setError(error.message);
-        }
-        if (email === "gstoychev20@gmail.com") {
-            setUserInfo((prevState) => {
-                const updatedInfo = { ...prevState, name: "Freakx" };
-                localStorage.setItem("userInfo", JSON.stringify(updatedInfo));
-                return updatedInfo;
-            });
-            changeUserInfo(userInfo);
-        } else if (email === "tyuliev80@gmail.com") {
-            setUserInfo((prevState) => {
-                const updatedInfo = { ...prevState, name: "Краси" };
-                localStorage.setItem("userInfo", JSON.stringify(updatedInfo));
-                return updatedInfo;
-            });
-            changeUserInfo(userInfo);
         }
     };
 

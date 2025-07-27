@@ -1,10 +1,7 @@
 import { useRef, useState, useEffect, lazy } from "react";
 import { getDatabase, ref, onValue } from "firebase/database";
 
-import {
-    addMachineData,
-    changeCompanyData,
-} from "../../services/dataService.js";
+import { addMachineData } from "../../services/dataService.js";
 
 const Menu = lazy(() => import("../Menu/Menu.jsx"));
 const MachineTable = lazy(() => import("../MachineTable/MachineTable.jsx"));
@@ -26,7 +23,6 @@ export default function Container({ userInfo, close }) {
     const CompanyDialog = useRef();
 
     const handleOpenAddItemModal = () => dialog.current.open();
-    const handleOpenCompanyModal = () => CompanyDialog.current.open();
 
     const [error, setError] = useState(false);
     const errorModal = useRef();
@@ -151,11 +147,6 @@ export default function Container({ userInfo, close }) {
         setListOfMachines(originalMachineList);
     };
 
-    const handleCompanyChange = (newCompanyInfo) => {
-        changeCompanyData(newCompanyInfo);
-        setCompanyInfo(newCompanyInfo);
-    };
-
     const toggleProtocol = () => {
         setProtocolState(!protocolState);
     };
@@ -181,7 +172,6 @@ export default function Container({ userInfo, close }) {
                 userInfo={userInfo}
                 logout={close}
                 openModal={handleOpenAddItemModal}
-                openCompanyModal={handleOpenCompanyModal}
                 onSearch={handleSearchMachine}
                 onReset={handleResetTable}
                 company={companyInfo}
@@ -195,11 +185,7 @@ export default function Container({ userInfo, close }) {
                 onAddNewMachine={handleAddNewMachine}
                 company={companyInfo}
             />
-            <CompanyInfoModal
-                ref={CompanyDialog}
-                company={companyInfo}
-                onCompanyEdit={handleCompanyChange}
-            />
+            <CompanyInfoModal ref={CompanyDialog} company={companyInfo} />
             <MachineTable machines={listOfMachines} company={companyInfo} />
         </div>
     );
