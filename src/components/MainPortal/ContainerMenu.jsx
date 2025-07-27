@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 
-import Filter from "../Menu/Filter";
+import classes from "../MainPortal/StickyMenu.module.css";
 
 export default function ContainerMenu({ toggleProtocol }) {
     const searchInput = useRef();
@@ -15,7 +15,7 @@ export default function ContainerMenu({ toggleProtocol }) {
                     placeholder="Въведи сериен номер"
                     ref={searchInput}
                 />
-                <button>
+                <button className={classes.searchButton}>
                     <i className="fa-solid fa-magnifying-glass"></i>
                 </button>
                 {searching ? (
@@ -28,11 +28,11 @@ export default function ContainerMenu({ toggleProtocol }) {
                     placeholder="Търси фирма по булстат"
                     ref={inputBulstat}
                 />
-                <button>
+                <button className={classes.searchButton}>
                     <i className="fa-solid fa-magnifying-glass"></i>
                 </button>
                 {searching ? (
-                    <button>
+                    <button className={classes.searchButton}>
                         <i className="fa-solid fa-arrows-rotate"></i>
                     </button>
                 ) : undefined}
@@ -42,6 +42,7 @@ export default function ContainerMenu({ toggleProtocol }) {
                 <i className="fa-solid fa-pen-to-square"></i> Протокол
             </div>
             <button
+                className={classes.searchButton}
                 onClick={() => {
                     openModal();
                 }}
