@@ -1,4 +1,4 @@
-import { useRef, useState, useEffect, lazy, useMemo } from "react";
+import { useRef, useState, useEffect, lazy } from "react";
 import { getDatabase, ref, onValue } from "firebase/database";
 
 import {
@@ -14,8 +14,6 @@ const CompanyInfoModal = lazy(() =>
 );
 const ProtocolPlus = lazy(() => import("../ProtocolModal/ProtocolPlus.jsx"));
 
-import CarsData from "../Menu/CarsData.jsx";
-
 import classes from "./Container.module.css";
 import ErrorModal from "../ErrorModal/ErrorModal.jsx";
 
@@ -30,8 +28,6 @@ export default function Container({ userInfo, close }) {
     const handleOpenAddItemModal = () => dialog.current.open();
     const handleOpenCompanyModal = () => CompanyDialog.current.open();
 
-    const [openCars, setOpenCars] = useState(false);
-    const [cars, setCars] = useState([]);
     const [error, setError] = useState(false);
     const errorModal = useRef();
     const [protocolState, setProtocolState] = useState(false);
@@ -41,68 +37,6 @@ export default function Container({ userInfo, close }) {
             errorModal.current.open();
         }
     }, [error]);
-
-    //CarsData
-    useEffect(() => {
-        const database = getDatabase();
-        const carsRef = ref(database, "cars");
-        const unsubscribe = onValue(carsRef, (snapshot) => {
-            if (snapshot.exists()) {
-                const data = snapshot.val();
-                setCars(Object.values(data));
-            }
-        });
-
-        return () => unsubscribe();
-    }, []);
-
-    const labels = {
-        insurance: "ЗАСТРАХОВКА",
-        vignette: "ВИНЕТКА",
-        inspection: "ПРЕГЛЕД",
-    };
-
-    const checkExpiringDates = () => {
-        const today = new Date();
-        let expiringList = [];
-
-        cars.forEach((car) => {
-            ["insurance", "vignette", "inspection"].forEach((field) => {
-                if (car[field]) {
-                    const expirationDate = new Date(car[field]);
-                    const timeDiff = expirationDate - today;
-                    const daysLeft = Math.ceil(
-                        timeDiff / (1000 * 60 * 60 * 24)
-                    );
-
-                    if (daysLeft === 10 || (daysLeft < 10 && daysLeft >= 0)) {
-                        expiringList.push(
-                            `🚗 ${car.plate}: ${labels[field]} изтича след ${daysLeft} дни (${car[field]})`
-                        );
-                    }
-                }
-            });
-        });
-
-        if (expiringList.length > 0) {
-            setError(true);
-            // alert(
-            //     "⚠️ Внимание! Следните срокове изтичат скоро:\n\n" +
-            //         expiringList.join("\n")
-            // );
-        }
-        return expiringList.join("\n");
-    };
-
-    useEffect(() => {
-        if (cars.length > 0) {
-            checkExpiringDates();
-        }
-    }, [cars.length]);
-
-    const handleToogleCars = () => {
-        setOpenCars(!openCars);
-    };
 
     //Machines Data
     useEffect(() => {
@@ -221,15 +155,12 @@ export default function Container({ userInfo, close }) {
         changeCompanyData(newCompanyInfo);
         setCompanyInfo(newCompanyInfo);
     };
-    const expiringMessages = useMemo(() => checkExpiringDates(), [cars]);
 
     const toggleProtocol = () => {
         setProtocolState(!protocolState);
     };
     return (
         <div className={classes.container}>
-            {openCars && <CarsData toggle={handleToogleCars} cars={cars} />}
-
             {protocolState && (
                 <ProtocolPlus
                     company={companyInfo}
@@ -257,7 +188,6 @@ export default function Container({ userInfo, close }) {
                 machines={originalMachineList}
                 onSelect={handleSelectMachine}
                 onSearchBulsat={handleSearchBulstat}
-                openCars={handleToogleCars}
                 toggleProtocol={toggleProtocol}
             />
             <AddItemModal

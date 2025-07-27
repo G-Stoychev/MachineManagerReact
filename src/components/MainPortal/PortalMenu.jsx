@@ -32,7 +32,7 @@ export default function PortalMenu({
                 />
                 <MenuCard
                     text={"Organizer Coming SOON"}
-                    image={<i class="fa-solid fa-calendar-days"></i>}
+                    image={<i className="fa-solid fa-calendar-days"></i>}
                 />
             </div>
         </>

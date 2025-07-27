@@ -43,6 +43,87 @@
     transform: translateY(-2%);
 }
 
+/* Menu CSS styles*/
+
+.searchInput {
+    border: none;
+    outline: none;
+    background-color: inherit;
+    margin: 0;
+    padding: 15px;
+    font-weight: bold;
+}
+.searchInput::placeholder {
+    color: rgb(0, 0, 0);
+}
+
+.searchButton {
+    border: none;
+    box-shadow: unset;
+}
+
+.searchContainer {
+    display: flex;
+    align-items: center;
+    padding: 1px 5px;
+    border: 1px solid rgba(255, 255, 255, 0.233);
+    border-radius: 5px;
+}
+
+.menuButton {
+    border: none;
+    border-radius: 5px;
+    padding: 10px 25px;
+    font-size: 1rem;
+    margin: 5px;
+    font-weight: bold;
+    box-shadow: 3px 3px 3px rgba(26, 25, 25, 0.774);
+}
+
+.searchButton:hover {
+    color: #fcf2f2;
+    background-color: unset;
+}
+nav {
+    display: flex;
+    align-items: start;
+}
+
+.dropdown {
+    position: block;
+    display: inline-block;
+}
+
+.dropDownMenu {
+    display: none;
+    position: absolute;
+    background-color: #f1f1f1;
+    flex-direction: column;
+    align-items: start;
+    width: fit-content;
+    border-radius: 5px;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+}
+
+.dropdown button {
+    display: flex;
+    width: 100%;
+}
+.dropdown:hover .dropDownMenu {
+    display: flex;
+}
+
+.dropdown .dropOpenBtn:hover {
+    color: #27c907;
+    background-color: unset;
+}
+
+.dropdown button:hover {
+    background-color: var(--seasonColor);
+    color: black;
+}
+
 @media print {
     .menu {
         display: none;

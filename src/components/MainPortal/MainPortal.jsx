@@ -1,6 +1,8 @@
 import { useRef, useState, useEffect, lazy, useMemo } from "react";
 import { getDatabase, ref, onValue } from "firebase/database";
 
+import { changeCompanyData } from "../../services/dataService.js";
+
 import CarsData from "../Menu/CarsData.jsx";
 import ErrorModal from "../ErrorModal/ErrorModal.jsx";
 import PortalMenu from "./PortalMenu.jsx";
@@ -8,13 +10,21 @@ import StickyMenu from "./StickyMenu.jsx";
 
 const Container = lazy(() => import("../Container/Container.jsx"));
 const ProtocolPlus = lazy(() => import("../ProtocolModal/ProtocolPlus.jsx"));
+const CompanyInfoModal = lazy(() =>
+    import("../CompanyInfoModal/CompanyInfoModal.jsx")
+);
 
 export default function MainPortal({ userInfo, logout }) {
+    const [selectedComponent, setSelectedComponent] = useState("menu");
+
     const [cars, setCars] = useState([]);
-    const [companyInfo, setCompanyInfo] = useState({});
+
     const [error, setError] = useState(false);
     const errorModal = useRef();
-    const [selectedComponent, setSelectedComponent] = useState("menu");
+
+    const [companyInfo, setCompanyInfo] = useState({});
+    const CompanyDialog = useRef();
+    const handleOpenCompanyModal = () => CompanyDialog.current.open();
 
     useEffect(() => {
         if (error && errorModal.current) {
@@ -41,6 +51,11 @@ export default function MainPortal({ userInfo, logout }) {
 
         return () => unsubscribe();
     }, []);
+
+    const handleCompanyChange = (newCompanyInfo) => {
+        changeCompanyData(newCompanyInfo);
+        setCompanyInfo(newCompanyInfo);
+    };
 
     //Cars Data
     useEffect(() => {
@@ -104,6 +119,7 @@ export default function MainPortal({ userInfo, logout }) {
     const handleToogleCars = () => {
         setSelectedComponent((prev) => (prev === "cars" ? "menu" : "cars"));
     };
+    //end Cars
 
     const handleToogleContainer = () => {
         setSelectedComponent((prev) =>
@@ -116,6 +132,7 @@ export default function MainPortal({ userInfo, logout }) {
             prev === "protocol" ? "menu" : "protocol"
         );
     };
+
     const handleReturnHome = () => {
         setSelectedComponent("menu");
     };
@@ -133,14 +150,29 @@ export default function MainPortal({ userInfo, logout }) {
                 />
             )}
 
-            <StickyMenu logout={logout} handleReturnHome={handleReturnHome} />
+            <CompanyInfoModal
+                ref={CompanyDialog}
+                company={companyInfo}
+                onCompanyEdit={handleCompanyChange}
+            />
+
+            <StickyMenu
+                logout={logout}
+                handleReturnHome={handleReturnHome}
+                userInfo={userInfo}
+                company={companyInfo}
+                activeComponent={selectedComponent}
+                setSelectedComponent={setSelectedComponent}
+                closeContainer={handleToogleContainer}
+                companyInfoChange={handleCompanyChange}
+                handleOpenCompanyModal={handleOpenCompanyModal}
+            />
 
             {selectedComponent === "menu" && (
                 <PortalMenu
                     toggleCars={handleToogleCars}
                     toggleContainer={handleToogleContainer}
                     toggleProtocol={handleToogleProtocol}
-                    logout={logout}
                 />
             )}
 
