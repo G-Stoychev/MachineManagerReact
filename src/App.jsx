@@ -39,6 +39,13 @@ function App() {
     }, []);
 
     useEffect(() => {
+        const storedUserInfo = localStorage.getItem("userInfo");
+        if (storedUserInfo) {
+            setUserInfo(JSON.parse(storedUserInfo));
+        }
+    }, []);
+
+    useEffect(() => {
         const unsubscribe = onAuthStateChanged(auth, (user) => {
             setUser(user);
         });
@@ -53,16 +60,18 @@ function App() {
             setError(error.message);
         }
         if (email === "gstoychev20@gmail.com") {
-            setUserInfo((prevState) => ({
-                ...prevState,
-                name: "Freakx",
-            }));
+            setUserInfo((prevState) => {
+                const updatedInfo = { ...prevState, name: "Freakx" };
+                localStorage.setItem("userInfo", JSON.stringify(updatedInfo));
+                return updatedInfo;
+            });
             changeUserInfo(userInfo);
         } else if (email === "tyuliev80@gmail.com") {
-            setUserInfo((prevState) => ({
-                ...prevState,
-                name: "Krasi",
-            }));
+            setUserInfo((prevState) => {
+                const updatedInfo = { ...prevState, name: "Краси" };
+                localStorage.setItem("userInfo", JSON.stringify(updatedInfo));
+                return updatedInfo;
+            });
             changeUserInfo(userInfo);
         }
     };
@@ -71,6 +80,7 @@ function App() {
         try {
             await signOut(auth);
             setUser(null); // Update user state after sign-out
+            localStorage.removeItem("userInfo");
             setIsValid(false);
             setError(""); // Clear any previous errors
         } catch (error) {
