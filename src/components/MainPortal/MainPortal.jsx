@@ -16,11 +16,6 @@ const CompanyInfoModal = lazy(() =>
 
 export default function MainPortal({ userInfo, logout }) {
     const [selectedComponent, setSelectedComponent] = useState("menu");
-    // const previousComponentRef = useRef("menu");
-
-    // useEffect(() => {
-    //     previousComponentRef.current = selectedComponent;
-    // }, [selectedComponent]);
 
     const [cars, setCars] = useState([]);
 

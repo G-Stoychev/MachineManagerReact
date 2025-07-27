@@ -11,7 +11,6 @@ export default function Menu({
     machines,
     onSelect,
     onSearchBulsat,
-    toggleProtocol,
 }) {
     const searchInput = useRef();
     const inputBulstat = useRef();

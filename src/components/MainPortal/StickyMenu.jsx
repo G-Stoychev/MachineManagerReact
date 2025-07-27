@@ -3,6 +3,8 @@ import { useRef, useState, useEffect } from "react";
 import { getDatabase, ref, onValue } from "firebase/database";
 import { changeThema, themeSets } from "../../services/dataService.js";
 
+import ContainerMenu from "./ContainerMenu.jsx";
+
 import classes from "../MainPortal/StickyMenu.module.css";
 
 export default function StickyMenu({
@@ -100,15 +102,13 @@ export default function StickyMenu({
 
                     {activeComponent === "container" && (
                         <>
-                            {" "}
                             <span onClick={closeContainer}>
                                 <i className="fa-solid fa-backward"></i> Back
                             </span>
-                            <div>Machines MENU</div>
-                            <div onClick={toggleProtocol}>
-                                <i className="fa-solid fa-pen-to-square"></i>{" "}
-                                Протокол
-                            </div>
+                            <ContainerMenu
+                                closeContainer={closeContainer}
+                                toggleProtocol={toggleProtocol}
+                            />
                         </>
                     )}
 

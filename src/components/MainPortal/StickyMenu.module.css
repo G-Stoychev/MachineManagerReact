@@ -19,6 +19,14 @@
     padding-left: 10px;
 }
 
+.middleWrapper {
+    display: flex;
+    column-gap: 15px;
+    width: fit-content;
+    justify-content: space-between;
+    align-items: center;
+}
+
 .rightWrapper {
     display: flex;
     column-gap: 5px;
