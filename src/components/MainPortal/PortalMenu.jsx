@@ -1,6 +1,6 @@
 import classes from "../MainPortal/MainPortal.module.css";
 
-import MenuCard from "./MenuCard.jsx";
+import ComponentCard from "./ComponentCard.jsx";
 
 export default function PortalMenu({
     toggleCars,
@@ -10,28 +10,34 @@ export default function PortalMenu({
     return (
         <>
             <div className={classes.wrapper}>
-                <MenuCard
-                    text={"Machines"}
+                <ComponentCard
+                    text={"Машини"}
                     image={<i className="fa-solid fa-hard-drive"></i>}
                     click={toggleContainer}
                 />
-                <MenuCard
-                    text={"Protocol"}
+                <ComponentCard
+                    text={"Протокол"}
                     image={<i className="fa-solid fa-file-invoice"></i>}
                     click={toggleProtocol}
                 />
-                <MenuCard
-                    text={"Contract"}
+                <ComponentCard
+                    text={"Ремонтен лист"}
+                    image={<i className="fa-solid fa-sheet-plastic"></i>}
+                    click={toggleProtocol}
+                />
+                <ComponentCard
+                    text={"Договор"}
                     image={<i className="fa-solid fa-file-signature"></i>}
                     click={toggleProtocol}
                 />
-                <MenuCard
-                    text={"Cars"}
+
+                <ComponentCard
+                    text={"Коли"}
                     image={<i className="fa-solid fa-car-side"></i>}
                     click={toggleCars}
                 />
-                <MenuCard
-                    text={"Organizer Coming SOON"}
+                <ComponentCard
+                    text={"Органайзер"}
                     image={<i className="fa-solid fa-calendar-days"></i>}
                 />
             </div>

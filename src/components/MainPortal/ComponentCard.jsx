@@ -1,6 +1,6 @@
 import classes from "../MainPortal/MainPortal.module.css";
 
-export default function MenuCard({ click, text, image }) {
+export default function ComponentCard({ click, text, image }) {
     return (
         <>
             <div className={classes.card} onClick={click}>
