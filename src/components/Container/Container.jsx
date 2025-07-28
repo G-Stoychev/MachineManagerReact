@@ -9,49 +9,25 @@ const AddItemModal = lazy(() => import("../AddItemModal/AddItemModal.jsx"));
 const ProtocolPlus = lazy(() => import("../ProtocolModal/ProtocolPlus.jsx"));
 
 import classes from "./Container.module.css";
-import ErrorModal from "../ErrorModal/ErrorModal.jsx";
 
-export default function Container({ userInfo, close }) {
-    const [originalMachineList, setOriginalMachineList] = useState([]);
-    const [listOfMachines, setListOfMachines] = useState([]);
-    const [movements, setMovements] = useState([]);
+import { useInput } from "../../store/InputContext.jsx";
+
+export default function Container() {
     const [companyInfo, setCompanyInfo] = useState({});
     const dialog = useRef();
-    const CompanyDialog = useRef();
 
     const handleOpenAddItemModal = () => dialog.current.open();
 
     const [error, setError] = useState(false);
     const errorModal = useRef();
-    const [protocolState, setProtocolState] = useState(false);
+
+    const { listOfMachines } = useInput();
 
     useEffect(() => {
         if (error && errorModal.current) {
             errorModal.current.open();
         }
     }, [error]);
-
-    //Machines Data
-    useEffect(() => {
-        const database = getDatabase();
-        const machinesRef = ref(database, "machines");
-        const unsubscribe = onValue(
-            machinesRef,
-            (snapshot) => {
-                if (snapshot.exists()) {
-                    const data = snapshot.val();
-                    const machinesArray = Object.values(data);
-                    setOriginalMachineList(machinesArray);
-                    setListOfMachines(machinesArray);
-                }
-            },
-            {
-                onlyOnce: false,
-            }
-        );
-
-        return () => unsubscribe();
-    }, []);
 
     //Company Data
     useEffect(() => {
@@ -73,27 +49,6 @@ export default function Container({ userInfo, close }) {
         return () => unsubscribe();
     }, []);
 
-    //Movements Data
-    useEffect(() => {
-        const database = getDatabase();
-        const movementsRef = ref(database, "movements");
-        const unsubscribe = onValue(
-            movementsRef,
-            (snapshot) => {
-                if (snapshot.exists()) {
-                    const data = snapshot.val();
-                    const movementsArray = Object.values(data);
-                    setMovements(movementsArray);
-                }
-            },
-            {
-                onlyOnce: false,
-            }
-        );
-
-        return () => unsubscribe();
-    }, []);
-
     const handleAddNewMachine = async (newMachineData) => {
         try {
             const savedMachine = await addMachineData(newMachineData);
@@ -102,81 +57,14 @@ export default function Container({ userInfo, close }) {
         }
     };
 
-    const handleSearchMachine = (filterInput) => {
-        const findedMachine = originalMachineList.filter(
-            (m) => m.serialNumber === filterInput
-        );
-        setListOfMachines(findedMachine);
-    };
-
-    const handleSearchBulstat = (bulstatValues) => {
-        const findedMovements = movements.filter(
-            (m) => m.bulstat === bulstatValues
-        );
-        const selectedIds = findedMovements
-            .map((move) => move.machineId)
-            .flat();
-        const filteredMachines = originalMachineList.filter((machine) =>
-            selectedIds.includes(machine.id)
-        );
-        setListOfMachines(filteredMachines);
-    };
-
-    const handleSelectMachine = (selectedMachine) => {
-        if (selectedMachine !== "") {
-            const findedMachineByBrand = originalMachineList.filter(
-                (m) => m.brand === selectedMachine
-            );
-            if (findedMachineByBrand.length > 0) {
-                setListOfMachines(findedMachineByBrand);
-            } else {
-                const findedMachineByModel = originalMachineList.filter(
-                    (m) => m.model === selectedMachine
-                );
-                setListOfMachines(findedMachineByModel);
-            }
-        } else {
-            setListOfMachines(originalMachineList);
-        }
-    };
-
-    const handleResetTable = () => {
-        setListOfMachines(originalMachineList);
-    };
-
-    const toggleProtocol = () => {
-        setProtocolState(!protocolState);
-    };
     return (
         <div className={classes.container}>
-            {protocolState && (
-                <ProtocolPlus
-                    company={companyInfo}
-                    toggleProtocol={toggleProtocol}
-                />
-            )}
-            {error && (
-                <ErrorModal
-                    title="⚠️ Внимание! Следните срокове изтичат скоро:"
-                    text={expiringMessages.split("\n").map((line, index) => (
-                        <span key={index}>{line}</span>
-                    ))}
-                    setError={setError}
-                    ref={errorModal}
-                />
-            )}
-            <Menu
+            {/* <Menu
                 userInfo={userInfo}
                 logout={close}
                 openModal={handleOpenAddItemModal}
-                onSearch={handleSearchMachine}
-                onReset={handleResetTable}
                 company={companyInfo}
-                machines={originalMachineList}
-                onSelect={handleSelectMachine}
-                onSearchBulsat={handleSearchBulstat}
-                toggleProtocol={toggleProtocol}
-            />
+            /> */}
             <AddItemModal
                 ref={dialog}
                 onAddNewMachine={handleAddNewMachine}

@@ -2,40 +2,92 @@ import { useEffect, useRef, useState } from "react";
 
 import classes from "../MainPortal/StickyMenu.module.css";
 
+import { useInput } from "../../store/InputContext.jsx";
+
 export default function ContainerMenu({ toggleProtocol }) {
-    const searchInput = useRef();
-    const inputBulstat = useRef();
     const [searching, setSearching] = useState(false);
+
+    const {
+        serialNumberInput,
+        setSerialNumberInput,
+        bulstatNumberInput,
+        setBulstatNumberInput,
+        handleSearchMachine,
+        handleSearchBulstat,
+    } = useInput();
+
+    // const toggleSearch = () => {
+    //     setSearching((prev) => (prev === true ? false : true));
+    // };
+    const toggleSearch = () => {
+        setSearching((prev) => !prev);
+    };
+
+    useEffect(() => {
+        if (!searching) {
+            setSerialNumberInput("");
+            setBulstatNumberInput("");
+        }
+    }, [searching]);
 
     return (
         <>
-            <div>
-                <input
-                    type="text"
-                    placeholder="Въведи сериен номер"
-                    ref={searchInput}
-                />
-                <button className={classes.searchButton}>
-                    <i className="fa-solid fa-magnifying-glass"></i>
-                </button>
-                {searching ? (
-                    <button>
-                        <i className="fa-solid fa-arrows-rotate"></i>
+            <div className={classes.inputsWrapper}>
+                <div className={classes.inputWrapper}>
+                    <input
+                        value={serialNumberInput}
+                        type="text"
+                        placeholder="Въведи сериен номер"
+                        onChange={(e) => setSerialNumberInput(e.target.value)}
+                    />
+                    <button
+                        className={classes.searchButton}
+                        onClick={() => {
+                            handleSearchMachine(serialNumberInput);
+                            toggleSearch();
+                        }}
+                    >
+                        <i className="fa-solid fa-magnifying-glass"></i>
                     </button>
-                ) : undefined}
-                <input
-                    type="text"
-                    placeholder="Търси фирма по булстат"
-                    ref={inputBulstat}
-                />
-                <button className={classes.searchButton}>
-                    <i className="fa-solid fa-magnifying-glass"></i>
-                </button>
-                {searching ? (
-                    <button className={classes.searchButton}>
-                        <i className="fa-solid fa-arrows-rotate"></i>
+                    {searching ? (
+                        <button
+                            onClick={() => {
+                                handleSearchMachine(null);
+                                toggleSearch();
+                            }}
+                        >
+                            <i className="fa-solid fa-arrows-rotate"></i>
+                        </button>
+                    ) : undefined}
+                </div>
+                <div className={classes.inputWrapper}>
+                    <input
+                        value={bulstatNumberInput}
+                        type="text"
+                        placeholder="Търси фирма по булстат"
+                        onChange={(e) => setBulstatNumberInput(e.target.value)}
+                    />
+
+                    <button
+                        onClick={() => {
+                            handleSearchBulstat(bulstatNumberInput);
+                            toggleSearch();
+                        }}
+                    >
+                        <i className="fa-solid fa-magnifying-glass"></i>
                     </button>
-                ) : undefined}
+
+                    {searching ? (
+                        <button
+                            onClick={() => {
+                                handleSearchMachine(null);
+                                toggleSearch();
+                            }}
+                        >
+                            <i className="fa-solid fa-arrows-rotate"></i>
+                        </button>
+                    ) : undefined}
+                </div>
             </div>
 
             <div onClick={toggleProtocol}>

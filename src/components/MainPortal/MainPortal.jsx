@@ -14,6 +14,8 @@ const CompanyInfoModal = lazy(() =>
     import("../CompanyInfoModal/CompanyInfoModal.jsx")
 );
 
+import { InputProvider } from "../../store/InputContext.jsx";
+
 export default function MainPortal({ userInfo, logout }) {
     const [selectedComponent, setSelectedComponent] = useState("menu");
 
@@ -161,20 +163,22 @@ export default function MainPortal({ userInfo, logout }) {
                 company={companyInfo}
                 onCompanyEdit={handleCompanyChange}
             />
+            <InputProvider>
+                <StickyMenu
+                    logout={logout}
+                    handleReturnHome={handleReturnHome}
+                    userInfo={userInfo}
+                    company={companyInfo}
+                    activeComponent={selectedComponent}
+                    setSelectedComponent={setSelectedComponent}
+                    closeContainer={handleToggleContainer}
+                    companyInfoChange={handleCompanyChange}
+                    handleOpenCompanyModal={handleOpenCompanyModal}
+                    toggleProtocol={handleToggleProtocol}
+                />
 
-            <StickyMenu
-                logout={logout}
-                handleReturnHome={handleReturnHome}
-                userInfo={userInfo}
-                company={companyInfo}
-                activeComponent={selectedComponent}
-                setSelectedComponent={setSelectedComponent}
-                closeContainer={handleToggleContainer}
-                companyInfoChange={handleCompanyChange}
-                handleOpenCompanyModal={handleOpenCompanyModal}
-                toggleProtocol={handleToggleProtocol}
-            />
-
+                {selectedComponent === "container" && <Container />}
+            </InputProvider>
             {selectedComponent === "menu" && (
                 <PortalMenu
                     toggleCars={handleToogleCars}
@@ -185,10 +189,6 @@ export default function MainPortal({ userInfo, logout }) {
 
             {selectedComponent === "cars" && (
                 <CarsData toggle={handleToogleCars} cars={cars} />
-            )}
-
-            {selectedComponent === "container" && (
-                <Container userInfo={userInfo} close={handleToggleContainer} />
             )}
 
             {selectedComponent === "protocol" && (

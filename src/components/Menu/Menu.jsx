@@ -4,14 +4,7 @@ import classes from "./Menu.module.css";
 const ErrorModal = lazy(() => import("../ErrorModal/ErrorModal.jsx"));
 const Filter = lazy(() => import("./Filter.jsx"));
 
-export default function Menu({
-    openModal,
-    onSearch,
-    onReset,
-    machines,
-    onSelect,
-    onSearchBulsat,
-}) {
+export default function Menu({}) {
     const searchInput = useRef();
     const inputBulstat = useRef();
     const [searching, setSearching] = useState(false);
