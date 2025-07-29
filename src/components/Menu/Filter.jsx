@@ -1,7 +1,11 @@
 import classes from "./Filter.module.css";
 
-export default function Filter({ machines, onSelect }) {
-    const groupedByBrand = machines.reduce((acc, item) => {
+import { useMachines } from "../../store/MachineContext";
+
+export default function Filter({}) {
+    const { originalMachineList, handleSelectMachine } = useMachines();
+
+    const groupedByBrand = originalMachineList.reduce((acc, item) => {
         if (!acc[item.brand]) {
             acc[item.brand] = new Set();
         }
@@ -15,7 +19,7 @@ export default function Filter({ machines, onSelect }) {
 
     const selectFilterItem = (event) => {
         const item = event.target.value;
-        onSelect(item);
+        handleSelectMachine(item);
     };
 
     return (

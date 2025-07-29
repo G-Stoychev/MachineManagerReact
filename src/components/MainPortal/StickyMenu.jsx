@@ -20,6 +20,7 @@ export default function StickyMenu({
 }) {
     const [thema, setTheme] = useState([]);
     const [currentIndex, setCurrentIndex] = useState(0);
+    const [itsHover, setItsHover] = useState(false);
 
     useEffect(() => {
         const database = getDatabase();
@@ -102,8 +103,21 @@ export default function StickyMenu({
 
                     {activeComponent === "container" && (
                         <>
-                            <span onClick={closeContainer}>
-                                <i className="fa-solid fa-backward"></i> Back
+                            <span
+                                onClick={closeContainer}
+                                onMouseEnter={() => {
+                                    setItsHover(true);
+                                }}
+                                onMouseLeave={() => {
+                                    setItsHover(false);
+                                }}
+                            >
+                                {itsHover ? (
+                                    <i className="fa-solid fa-house"></i>
+                                ) : (
+                                    <i className="fa-solid fa-backward"></i>
+                                )}
+                                Back
                             </span>
                             <ContainerMenu
                                 closeContainer={closeContainer}

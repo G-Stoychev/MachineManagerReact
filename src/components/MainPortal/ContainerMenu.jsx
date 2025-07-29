@@ -1,4 +1,7 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState, lazy, useRef } from "react";
+
+const ErrorModal = lazy(() => import("../ErrorModal/ErrorModal.jsx"));
+import Filter from "../Menu/Filter.jsx";
 
 import classes from "../MainPortal/StickyMenu.module.css";
 
@@ -8,14 +11,18 @@ import { useMachines } from "../../store/MachineContext.jsx";
 export default function ContainerMenu({ toggleProtocol }) {
     const [searching, setSearching] = useState(false);
 
-    const {
-        serialNumberInput,
-        setSerialNumberInput,
-        bulstatNumberInput,
-        setBulstatNumberInput,
-    } = useInput();
+    const { serialNumberInput, setSerialNumberInput, setBulstatNumberInput } =
+        useInput();
 
     const { handleSearchMachine, handleSearchBulstat } = useMachines();
+    const [error, setError] = useState(false);
+    const errorModal = useRef();
+
+    useEffect(() => {
+        if (error && errorModal.current) {
+            errorModal.current.open();
+        }
+    }, [error]);
 
     // const toggleSearch = () => {
     //     setSearching((prev) => (prev === true ? false : true));
@@ -31,17 +38,74 @@ export default function ContainerMenu({ toggleProtocol }) {
         }
     }, [searching]);
 
+    const checkForErrors = (input) => {
+        if (input === "") {
+            setError(true);
+            return true;
+        }
+        return false;
+    };
+
     return (
         <>
-            <div className={classes.inputsWrapper}>
-                <div className={classes.inputWrapper}>
-                    <input
-                        value={serialNumberInput}
-                        type="text"
-                        placeholder="Въведи сериен номер/булстат на фирма"
-                        onChange={(e) => setSerialNumberInput(e.target.value)}
-                    />
-                    <button
+            {error && (
+                <ErrorModal
+                    title="Няма въведен номер !"
+                    text={"Моля въвеведете номер в полетоло!"}
+                    setError={setError}
+                    ref={errorModal}
+                />
+            )}
+            <div className={classes.inputWrapper}>
+                <input
+                    value={serialNumberInput}
+                    type="text"
+                    title="Въведи сериен номер/булстат на фирма"
+                    placeholder="Въведи сериен номер/булстат на фирма"
+                    onChange={(e) => setSerialNumberInput(e.target.value)}
+                />
+                <div className={classes.dropdown}>
+                    {searching ? undefined : (
+                        <button
+                            className={` ${classes.searchInput} ${classes.searchButton} ${classes.dropOpenBtn}`}
+                        >
+                            <i className="fa-solid fa-magnifying-glass"></i>
+                        </button>
+                    )}
+
+                    <div className={classes.dropDownMenu}>
+                        <button
+                            onClick={() => {
+                                const hasError =
+                                    checkForErrors(serialNumberInput);
+                                if (!hasError) {
+                                    handleSearchMachine(serialNumberInput);
+                                    toggleSearch();
+                                }
+                            }}
+                            className={` ${classes.searchInput} ${classes.searchButton} ${classes.dropDownBtn}`}
+                        >
+                            <i className="fa-solid fa-magnifying-glass"></i>
+                            Търси машина
+                        </button>
+
+                        <button
+                            onClick={() => {
+                                const hasError =
+                                    checkForErrors(serialNumberInput);
+                                if (!hasError) {
+                                    handleSearchBulstat(serialNumberInput);
+                                    toggleSearch();
+                                }
+                            }}
+                            className={` ${classes.searchInput} ${classes.searchButton} ${classes.dropDownBtn}`}
+                        >
+                            <i className="fa-solid fa-magnifying-glass"></i>
+                            Търси фирма
+                        </button>
+                    </div>
+                </div>
+                {/* <button
                         className={classes.searchButton}
                         onClick={() => {
                             handleSearchMachine(serialNumberInput);
@@ -59,38 +123,39 @@ export default function ContainerMenu({ toggleProtocol }) {
                         }}
                     >
                         <i className="fa-solid fa-magnifying-glass"></i>
+                    </button> */}
+                {searching && !error ? (
+                    <button
+                        className={classes.searchButton}
+                        onClick={() => {
+                            handleSearchMachine(null);
+                            toggleSearch();
+                        }}
+                    >
+                        <i className="fa-solid fa-arrows-rotate"></i>
                     </button>
-                    {searching ? (
-                        <button
-                            onClick={() => {
-                                handleSearchMachine(null);
-                                toggleSearch();
-                            }}
-                        >
-                            <i className="fa-solid fa-arrows-rotate"></i>
-                        </button>
-                    ) : undefined}
-                </div>
+                ) : undefined}
             </div>
 
-            <div onClick={toggleProtocol}>
-                <i className="fa-solid fa-pen-to-square"></i> Протокол
-            </div>
-            <button
-                className={classes.searchButton}
-                onClick={() => {
-                    openModal();
-                }}
-            >
-                <i className="fa-solid fa-pen-to-square"></i>
-                Добави
-            </button>
-            <div>
-                {/* <Filter
-                    machines={machines}
-                    onSelect={onSelect}
-                    onReset={onReset}
-                /> */}
+            <div className={classes.inputsWrapper}>
+                <button
+                    className={` ${classes.inputsWrapper} ${classes.searchButton}`}
+                    onClick={toggleProtocol}
+                >
+                    <i className="fa-solid fa-pen-to-square"></i> Протокол
+                </button>
+                <button
+                    className={classes.searchButton}
+                    onClick={() => {
+                        openModal();
+                    }}
+                >
+                    <i className="fa-solid fa-pen-to-square"></i>
+                    Добави
+                </button>
+                <div>
+                    <Filter />
+                </div>
             </div>
         </>
     );

@@ -8,14 +8,6 @@ export default function Menu({}) {
     const searchInput = useRef();
     const inputBulstat = useRef();
     const [searching, setSearching] = useState(false);
-    const [error, setError] = useState(false);
-    const errorModal = useRef();
-
-    useEffect(() => {
-        if (error && errorModal.current) {
-            errorModal.current.open();
-        }
-    }, [error]);
 
     const handleSearchInput = () => {
         const inputSerialNumber = searchInput.current.value;
