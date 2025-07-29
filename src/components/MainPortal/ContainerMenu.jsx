@@ -137,22 +137,23 @@ export default function ContainerMenu({ toggleProtocol }) {
                 ) : undefined}
             </div>
 
-            <div className={classes.inputsWrapper}>
-                <button
-                    className={` ${classes.inputsWrapper} ${classes.searchButton}`}
-                    onClick={toggleProtocol}
-                >
-                    <i className="fa-solid fa-pen-to-square"></i> Протокол
-                </button>
+            <div className={classes.btnWrapper}>
                 <button
                     className={classes.searchButton}
                     onClick={() => {
                         openModal();
                     }}
                 >
-                    <i className="fa-solid fa-pen-to-square"></i>
+                    <i className="fa-solid fa-plus"></i>
                     Добави
                 </button>
+                <button
+                    className={` ${classes.inputsWrapper} ${classes.searchButton}`}
+                    onClick={toggleProtocol}
+                >
+                    <i className="fa-solid fa-pen-to-square"></i> Протокол
+                </button>
+
                 <div>
                     <Filter />
                 </div>

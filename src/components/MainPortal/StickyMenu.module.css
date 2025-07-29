@@ -70,6 +70,7 @@
     box-shadow: unset;
     padding: 7px 7px;
     margin: 0;
+    transition: transform 0.3s ease;
 }
 
 .searchContainer {
@@ -91,18 +92,20 @@
 }
 
 .searchButton:hover {
-    /* color: #27c907; */
+    transform: translateY(-2%);
     background-color: var(--seasonColor);
 }
+
 nav {
     display: flex;
     align-items: start;
 }
 
-.inputsWrapper {
+.btnWrapper {
     display: flex;
     flex-direction: row;
     justify-content: center;
+    gap: 15px;
 }
 .inputWrapper {
     border: 1px solid #646664;

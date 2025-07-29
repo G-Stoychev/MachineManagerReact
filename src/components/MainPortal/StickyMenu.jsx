@@ -103,7 +103,8 @@ export default function StickyMenu({
 
                     {activeComponent === "container" && (
                         <>
-                            <span
+                            <button
+                                className={` ${classes.inputsWrapper} ${classes.searchButton}`}
                                 onClick={closeContainer}
                                 onMouseEnter={() => {
                                     setItsHover(true);
@@ -118,7 +119,7 @@ export default function StickyMenu({
                                     <i className="fa-solid fa-backward"></i>
                                 )}
                                 Back
-                            </span>
+                            </button>
                             <ContainerMenu
                                 closeContainer={closeContainer}
                                 toggleProtocol={toggleProtocol}
