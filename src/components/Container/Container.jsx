@@ -3,14 +3,12 @@ import { getDatabase, ref, onValue } from "firebase/database";
 
 import { addMachineData } from "../../services/dataService.js";
 
-const Menu = lazy(() => import("../Menu/Menu.jsx"));
 const MachineTable = lazy(() => import("../MachineTable/MachineTable.jsx"));
 const AddItemModal = lazy(() => import("../AddItemModal/AddItemModal.jsx"));
-const ProtocolPlus = lazy(() => import("../ProtocolModal/ProtocolPlus.jsx"));
 
 import classes from "./Container.module.css";
 
-import { useInput } from "../../store/InputContext.jsx";
+import { useMachines } from "../../store/MachineContext.jsx";
 
 export default function Container() {
     const [companyInfo, setCompanyInfo] = useState({});
@@ -21,7 +19,7 @@ export default function Container() {
     const [error, setError] = useState(false);
     const errorModal = useRef();
 
-    const { listOfMachines } = useInput();
+    const { listOfMachines } = useMachines();
 
     useEffect(() => {
         if (error && errorModal.current) {

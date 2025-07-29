@@ -15,6 +15,7 @@ const CompanyInfoModal = lazy(() =>
 );
 
 import { InputProvider } from "../../store/InputContext.jsx";
+import { MachineProvider } from "../../store/MachineContext.jsx";
 
 export default function MainPortal({ userInfo, logout }) {
     const [selectedComponent, setSelectedComponent] = useState("menu");
@@ -164,20 +165,22 @@ export default function MainPortal({ userInfo, logout }) {
                 onCompanyEdit={handleCompanyChange}
             />
             <InputProvider>
-                <StickyMenu
-                    logout={logout}
-                    handleReturnHome={handleReturnHome}
-                    userInfo={userInfo}
-                    company={companyInfo}
-                    activeComponent={selectedComponent}
-                    setSelectedComponent={setSelectedComponent}
-                    closeContainer={handleToggleContainer}
-                    companyInfoChange={handleCompanyChange}
-                    handleOpenCompanyModal={handleOpenCompanyModal}
-                    toggleProtocol={handleToggleProtocol}
-                />
+                <MachineProvider>
+                    <StickyMenu
+                        logout={logout}
+                        handleReturnHome={handleReturnHome}
+                        userInfo={userInfo}
+                        company={companyInfo}
+                        activeComponent={selectedComponent}
+                        setSelectedComponent={setSelectedComponent}
+                        closeContainer={handleToggleContainer}
+                        companyInfoChange={handleCompanyChange}
+                        handleOpenCompanyModal={handleOpenCompanyModal}
+                        toggleProtocol={handleToggleProtocol}
+                    />
 
-                {selectedComponent === "container" && <Container />}
+                    {selectedComponent === "container" && <Container />}
+                </MachineProvider>
             </InputProvider>
             {selectedComponent === "menu" && (
                 <PortalMenu
