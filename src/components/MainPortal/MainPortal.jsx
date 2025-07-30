@@ -209,7 +209,7 @@ export default function MainPortal({ userInfo, logout }) {
                 />
             )}
             {selectedComponent === "contract" && (
-                <ContractForm company={companyInfo} />
+                <ContractForm company={companyInfo} user={userInfo} />
             )}
         </>
     );

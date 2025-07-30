@@ -2,7 +2,7 @@ import { useRef, useState } from "react";
 import SignatureCanvas from "react-signature-canvas";
 import styles from "./ContractForm.module.css";
 
-export default function ContractForm({ company }) {
+export default function ContractForm({ company, user }) {
     const sigPadA = useRef();
     const sigPadB = useRef();
 
@@ -114,17 +114,17 @@ export default function ContractForm({ company }) {
                     &nbsp;г., между:
                 </p>
                 <>
-                    <p>
+                    <p style={{ margin: "1rem 0" }}>
                         <strong>
                             {company.name} с ЕИК : {company.bulstat} наричан
                             накратко Продавач , от една страна
                         </strong>
                     </p>
                 </>
-                <p>
+                <p style={{ margin: "0.5rem 0" }}>
                     <strong> и </strong>
                 </p>
-                <p>
+                <p style={{ margin: "0.5rem 0" }}>
                     <strong> от друга страна </strong>
                 </p>
 
@@ -133,14 +133,13 @@ export default function ContractForm({ company }) {
                         <p>
                             <strong>Име:</strong> {sideBName}
                         </p>
-                        <p>{sideBInfo}</p>
                     </>
                 ) : (
                     <>
                         <input
                             type="text"
                             name="sideBName"
-                            placeholder="Име на страна Б"
+                            placeholder="Информация за фирмата "
                             value={sideBName}
                             onChange={handleChange}
                             style={{ width: "100%", marginBottom: "0.5rem" }}
@@ -152,7 +151,7 @@ export default function ContractForm({ company }) {
                     </>
                 )}
 
-                <hr style={{ margin: "1rem 0" }} />
+                <hr style={{ margin: "2rem 0" }} />
 
                 <h3>Чл. 1. Предмет на договора</h3>
                 <p>
@@ -232,12 +231,22 @@ export default function ContractForm({ company }) {
                     style={{
                         display: "flex",
                         justifyContent: "space-between",
-                        marginTop: "2rem",
+                        marginTop: "5rem",
                     }}
                 >
                     <div>
                         <p>
-                            <strong>Подпис Страна А:</strong>
+                            <strong>За Продавача</strong>
+                        </p>
+                        <p>
+                            <strong>
+                                {user.name === "Freakx"
+                                    ? "Георги Стойчев"
+                                    : user.name}
+                            </strong>
+                        </p>
+                        <p>
+                            <strong>Подпис:</strong>
                         </p>
                         {signatureAUrl ? (
                             <img
@@ -271,7 +280,28 @@ export default function ContractForm({ company }) {
 
                     <div>
                         <p>
-                            <strong>Подпис Страна Б:</strong>
+                            <strong>За Купувача</strong>
+                        </p>
+
+                        {locked ? (
+                            <p>
+                                <strong>{sideBInfo}</strong>
+                            </p>
+                        ) : (
+                            <input
+                                type="text"
+                                name="sideBInfo"
+                                placeholder="Име и Фамилия"
+                                value={sideBInfo}
+                                onChange={handleChange}
+                                style={{
+                                    width: "100%",
+                                    marginBottom: "0.5rem",
+                                }}
+                            />
+                        )}
+                        <p>
+                            <strong>Подпис:</strong>
                         </p>
                         {signatureBUrl ? (
                             <img

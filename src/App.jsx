@@ -64,17 +64,20 @@ function App() {
                         "userInfo",
                         JSON.stringify(updatedInfo)
                     );
-                    changeUserInfo(updatedInfo); // Преместено тук
+                    changeUserInfo(updatedInfo);
                     return updatedInfo;
                 });
             } else if (email === "tyuliev80@gmail.com") {
                 setUserInfo((prevState) => {
-                    const updatedInfo = { ...prevState, name: "Краси" };
+                    const updatedInfo = {
+                        ...prevState,
+                        name: "Красимир Тюлиев",
+                    };
                     localStorage.setItem(
                         "userInfo",
                         JSON.stringify(updatedInfo)
                     );
-                    changeUserInfo(updatedInfo); // Преместено тук
+                    changeUserInfo(updatedInfo);
                     return updatedInfo;
                 });
             }
