@@ -9,23 +9,13 @@ const AddItemModal = lazy(() => import("../AddItemModal/AddItemModal.jsx"));
 import classes from "./Container.module.css";
 
 import { useMachines } from "../../store/MachineContext.jsx";
+import { useInput } from "../../store/InputContext.jsx";
 
 export default function Container() {
     const [companyInfo, setCompanyInfo] = useState({});
-    const dialog = useRef();
-
-    const handleOpenAddItemModal = () => dialog.current.open();
-
-    const [error, setError] = useState(false);
-    const errorModal = useRef();
 
     const { listOfMachines } = useMachines();
-
-    useEffect(() => {
-        if (error && errorModal.current) {
-            errorModal.current.open();
-        }
-    }, [error]);
+    const { handleAddNewMachine, dialog } = useInput();
 
     //Company Data
     useEffect(() => {
@@ -47,22 +37,8 @@ export default function Container() {
         return () => unsubscribe();
     }, []);
 
-    const handleAddNewMachine = async (newMachineData) => {
-        try {
-            const savedMachine = await addMachineData(newMachineData);
-        } catch (error) {
-            console.error("Грешка при запис на новата машина:", error);
-        }
-    };
-
     return (
         <div className={classes.container}>
-            {/* <Menu
-                userInfo={userInfo}
-                logout={close}
-                openModal={handleOpenAddItemModal}
-                company={companyInfo}
-            /> */}
             <AddItemModal
                 ref={dialog}
                 onAddNewMachine={handleAddNewMachine}

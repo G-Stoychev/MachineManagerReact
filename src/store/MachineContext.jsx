@@ -1,4 +1,3 @@
-// MachineContext.jsx
 import { createContext, useContext, useState, useEffect } from "react";
 import { getDatabase, ref, onValue } from "firebase/database";
 
@@ -10,7 +9,7 @@ export const MachineProvider = ({ children }) => {
     const [listOfMachines, setListOfMachines] = useState([]);
     const [movements, setMovements] = useState([]);
 
-    // Fetch machines
+    // Machines Data
     useEffect(() => {
         const db = getDatabase();
         const refMachines = ref(db, "machines");
@@ -25,7 +24,7 @@ export const MachineProvider = ({ children }) => {
         return () => unsubscribe();
     }, []);
 
-    // Fetch movements
+    //Movements Data
     useEffect(() => {
         const db = getDatabase();
         const refMovements = ref(db, "movements");
@@ -39,7 +38,6 @@ export const MachineProvider = ({ children }) => {
         return () => unsubscribe();
     }, []);
 
-    // Search logic
     const handleSearchMachine = (serial) => {
         if (!serial) {
             setListOfMachines(originalMachineList);

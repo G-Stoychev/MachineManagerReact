@@ -11,8 +11,12 @@ import { useMachines } from "../../store/MachineContext.jsx";
 export default function ContainerMenu({ toggleProtocol }) {
     const [searching, setSearching] = useState(false);
 
-    const { serialNumberInput, setSerialNumberInput, setBulstatNumberInput } =
-        useInput();
+    const {
+        serialNumberInput,
+        setSerialNumberInput,
+        setBulstatNumberInput,
+        handleOpenAddItemModal,
+    } = useInput();
 
     const { handleSearchMachine, handleSearchBulstat } = useMachines();
     const [error, setError] = useState(false);
@@ -141,7 +145,7 @@ export default function ContainerMenu({ toggleProtocol }) {
                 <button
                     className={classes.searchButton}
                     onClick={() => {
-                        openModal();
+                        handleOpenAddItemModal();
                     }}
                 >
                     <i className="fa-solid fa-plus"></i>

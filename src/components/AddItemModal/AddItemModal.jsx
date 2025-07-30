@@ -2,10 +2,12 @@ import { useRef, useImperativeHandle, useState, useEffect, lazy } from "react";
 
 // import ErrorModal from "../ErrorModal/ErrorModal.jsx";
 const ErrorModal = lazy(() => import("../ErrorModal/ErrorModal.jsx"));
+import { useInput } from "../../store/InputContext.jsx";
 
 import classes from "./AddItemModal.module.css";
 
 export default function AddItemModal({ onAddNewMachine, ref, company }) {
+    const { handleAddNewMachine } = useInput();
     const dialog = useRef();
     const [error, setError] = useState(false);
     const errorModal = useRef();
@@ -42,7 +44,7 @@ export default function AddItemModal({ onAddNewMachine, ref, company }) {
             setError(true);
             return;
         }
-        onAddNewMachine(newMachineData);
+        handleAddNewMachine(newMachineData);
         handleCloseDialog();
     };
 
