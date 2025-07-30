@@ -92,7 +92,7 @@
     box-shadow: 3px 3px 3px rgba(26, 25, 25, 0.774);
 }
 
-.searchButton:hover {
+:is(.searchButton:hover, .searchButton:focus-within) {
     transform: translateY(-2%);
     background-color: var(--seasonColor);
 }
