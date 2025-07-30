@@ -100,6 +100,26 @@ export default function StickyMenu({
                             </div>
                         </div>
                     </div>
+                    {activeComponent !== "menu" &&
+                        activeComponent !== "container" && (
+                            <button
+                                className={` ${classes.inputsWrapper} ${classes.searchButton}`}
+                                onClick={handleReturnHome}
+                                onMouseEnter={() => {
+                                    setItsHover(true);
+                                }}
+                                onMouseLeave={() => {
+                                    setItsHover(false);
+                                }}
+                            >
+                                {itsHover ? (
+                                    <i className="fa-solid fa-house"></i>
+                                ) : (
+                                    <i className="fa-solid fa-backward"></i>
+                                )}
+                                Back
+                            </button>
+                        )}
 
                     {activeComponent === "container" && (
                         <>

@@ -13,6 +13,7 @@ const ProtocolPlus = lazy(() => import("../ProtocolModal/ProtocolPlus.jsx"));
 const CompanyInfoModal = lazy(() =>
     import("../CompanyInfoModal/CompanyInfoModal.jsx")
 );
+import ContractForm from "../ContractForm/ContractForm.jsx";
 
 import { InputProvider } from "../../store/InputContext.jsx";
 import { MachineProvider } from "../../store/MachineContext.jsx";
@@ -129,7 +130,7 @@ export default function MainPortal({ userInfo, logout }) {
             prev === "container" ? "menu" : "container"
         );
     };
-    const previousComponentRef = useRef("menu"); // или "container", по подразбиране
+    const previousComponentRef = useRef("menu");
 
     const handleToggleProtocol = () => {
         setSelectedComponent((prev) => {
@@ -144,6 +145,12 @@ export default function MainPortal({ userInfo, logout }) {
 
     const handleReturnHome = () => {
         setSelectedComponent("menu");
+    };
+
+    const handleToggleContract = () => {
+        setSelectedComponent((prev) =>
+            prev === "contract" ? "menu" : "contract"
+        );
     };
 
     return (
@@ -187,6 +194,7 @@ export default function MainPortal({ userInfo, logout }) {
                     toggleCars={handleToogleCars}
                     toggleContainer={handleToggleContainer}
                     toggleProtocol={handleToggleProtocol}
+                    handleToggleContract={handleToggleContract}
                 />
             )}
 
@@ -199,6 +207,9 @@ export default function MainPortal({ userInfo, logout }) {
                     company={companyInfo}
                     toggleProtocol={handleToggleProtocol}
                 />
+            )}
+            {selectedComponent === "contract" && (
+                <ContractForm company={companyInfo} />
             )}
         </>
     );

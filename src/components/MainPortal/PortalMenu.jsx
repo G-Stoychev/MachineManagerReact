@@ -6,6 +6,7 @@ export default function PortalMenu({
     toggleCars,
     toggleContainer,
     toggleProtocol,
+    handleToggleContract,
 }) {
     return (
         <>
@@ -28,7 +29,7 @@ export default function PortalMenu({
                 <ComponentCard
                     text={"Договор"}
                     image={<i className="fa-solid fa-file-signature"></i>}
-                    click={toggleProtocol}
+                    click={handleToggleContract}
                 />
 
                 <ComponentCard
