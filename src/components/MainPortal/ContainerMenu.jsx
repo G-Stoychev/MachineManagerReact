@@ -1,7 +1,7 @@
 import { useEffect, useState, lazy, useRef } from "react";
 
 const ErrorModal = lazy(() => import("../ErrorModal/ErrorModal.jsx"));
-import Filter from "../Menu/Filter.jsx";
+import Filter from "../Filter/Filter.jsx";
 
 import classes from "../MainPortal/StickyMenu.module.css";
 

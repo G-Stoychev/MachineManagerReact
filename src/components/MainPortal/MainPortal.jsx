@@ -3,7 +3,7 @@ import { getDatabase, ref, onValue } from "firebase/database";
 
 import { changeCompanyData } from "../../services/dataService.js";
 
-import CarsData from "../Menu/CarsData.jsx";
+import CarsData from "../CarsData/CarsData.jsx";
 import ErrorModal from "../ErrorModal/ErrorModal.jsx";
 import PortalMenu from "./PortalMenu.jsx";
 import StickyMenu from "./StickyMenu.jsx";

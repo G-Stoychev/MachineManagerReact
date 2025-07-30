@@ -1,7 +1,5 @@
-import { useRef, useState, useEffect, lazy } from "react";
+import { useState, useEffect, lazy } from "react";
 import { getDatabase, ref, onValue } from "firebase/database";
-
-import { addMachineData } from "../../services/dataService.js";
 
 const MachineTable = lazy(() => import("../MachineTable/MachineTable.jsx"));
 const AddItemModal = lazy(() => import("../AddItemModal/AddItemModal.jsx"));
