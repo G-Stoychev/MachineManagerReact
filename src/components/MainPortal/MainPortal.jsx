@@ -14,6 +14,7 @@ const CompanyInfoModal = lazy(() =>
     import("../CompanyInfoModal/CompanyInfoModal.jsx")
 );
 import ContractForm from "../ContractForm/ContractForm.jsx";
+import RepairList from "../RepairList/RepairList.jsx";
 
 import { InputProvider } from "../../store/InputContext.jsx";
 import { MachineProvider } from "../../store/MachineContext.jsx";
@@ -152,6 +153,9 @@ export default function MainPortal({ userInfo, logout }) {
             prev === "contract" ? "menu" : "contract"
         );
     };
+    const handleToggleRepairList = () => {
+        setSelectedComponent((prev) => (prev === "repair" ? "menu" : "repair"));
+    };
 
     return (
         <>
@@ -195,6 +199,7 @@ export default function MainPortal({ userInfo, logout }) {
                     toggleContainer={handleToggleContainer}
                     toggleProtocol={handleToggleProtocol}
                     handleToggleContract={handleToggleContract}
+                    handleToggleRepairList={handleToggleRepairList}
                 />
             )}
 
@@ -210,6 +215,9 @@ export default function MainPortal({ userInfo, logout }) {
             )}
             {selectedComponent === "contract" && (
                 <ContractForm company={companyInfo} user={userInfo} />
+            )}
+            {selectedComponent === "repair" && (
+                <RepairList company={companyInfo} user={userInfo} />
             )}
         </>
     );

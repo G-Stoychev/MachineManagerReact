@@ -7,6 +7,7 @@ export default function PortalMenu({
     toggleContainer,
     toggleProtocol,
     handleToggleContract,
+    handleToggleRepairList,
 }) {
     return (
         <>
@@ -24,7 +25,7 @@ export default function PortalMenu({
                 <ComponentCard
                     text={"Ремонтен лист"}
                     image={<i className="fa-solid fa-sheet-plastic"></i>}
-                    click={toggleProtocol}
+                    click={handleToggleRepairList}
                 />
                 <ComponentCard
                     text={"Договор"}
