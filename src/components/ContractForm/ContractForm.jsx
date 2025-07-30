@@ -124,14 +124,14 @@ export default function ContractForm({ company, user }) {
                 <p style={{ margin: "0.5rem 0" }}>
                     <strong> и </strong>
                 </p>
-                <p style={{ margin: "0.5rem 0" }}>
+                <p style={{ margin: "0.3rem 0" }}>
                     <strong> от друга страна </strong>
                 </p>
 
                 {locked ? (
                     <>
                         <p>
-                            <strong>Име:</strong> {sideBName}
+                            <strong> {sideBName}</strong>
                         </p>
                     </>
                 ) : (
@@ -151,9 +151,9 @@ export default function ContractForm({ company, user }) {
                     </>
                 )}
 
-                <hr style={{ margin: "2rem 0" }} />
+                <hr style={{ margin: "0.5rem 0" }} />
 
-                <h3>Чл. 1. Предмет на договора</h3>
+                <h3 style={{ margin: "1rem 0" }}>Чл. 1. Предмет на договора</h3>
                 <p>
                     1.1. {sideAName || "Продавачът"} предоставя на{" "}
                     {sideBName || "Купувача"} автоматична кафе машина за
@@ -163,7 +163,7 @@ export default function ContractForm({ company, user }) {
                     1.2. {sideBName || "Купувачът"} се задължава да закупува
                     **изключително и само от {sideAName || "Продавача"}**
                     следните стоки:
-                    <ul style={{ paddingLeft: "2.5rem" }}>
+                    <ul style={{ paddingLeft: "2rem" }}>
                         <li>
                             кафе (на зърна или капсули зависи от предоставената
                             машина)
@@ -217,6 +217,12 @@ export default function ContractForm({ company, user }) {
                         предизвестие.
                     </li>
                     <li>
+                        При неспазване на условията от страна на Купувача,
+                        Продавачът си запазва правото да прекрати договора
+                        едностранно и да изземе предоставената кафе машина без
+                        необходимост от съдебно решение.
+                    </li>
+                    <li>
                         Неуредените въпроси се уреждат от българското
                         законодателство.
                     </li>
@@ -232,7 +238,7 @@ export default function ContractForm({ company, user }) {
                     style={{
                         display: "flex",
                         justifyContent: "space-between",
-                        marginTop: "3rem",
+                        marginTop: "2rem",
                     }}
                 >
                     <div>

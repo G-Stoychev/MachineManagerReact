@@ -54,7 +54,7 @@
         background: white;
     }
 
-    .buttons {
+    button {
         display: none;
     }
 
@@ -71,6 +71,7 @@
     .signatureBox {
         border: none;
     }
+
     select {
         border: none;
         appearance: none;
