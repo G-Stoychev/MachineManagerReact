@@ -185,9 +185,10 @@ export default function ContractForm({ company, user }) {
                         value={formData.contractOption}
                         onChange={handleChange}
                     >
-                        <option value="eдна 1">eдна 1</option>
-                        <option value="две 2">две 2</option>
-                        <option value="три 3">три 3</option>
+                        <option value="eдна (1) година">eдна (1) година</option>
+                        <option value="две (2) година">две (2) година</option>
+                        <option value="три (3) година">три (3) година</option>
+                        <option value="шест (6) месеца">шест (6) месеца</option>
                     </select>{" "}
                     година, считано от датата на подписването му.
                 </p>
@@ -231,7 +232,7 @@ export default function ContractForm({ company, user }) {
                     style={{
                         display: "flex",
                         justifyContent: "space-between",
-                        marginTop: "5rem",
+                        marginTop: "3rem",
                     }}
                 >
                     <div>

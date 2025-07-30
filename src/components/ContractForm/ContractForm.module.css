@@ -24,6 +24,8 @@
     border: 1px solid #ccc;
     width: 300px;
     height: 100px;
+    background-color: #f1ebb4;
+    border-radius: 5px;
 }
 
 .buttons {
@@ -65,6 +67,9 @@
 
     .printOnly {
         display: block;
+    }
+    .signatureBox {
+        border: none;
     }
     select {
         border: none;
