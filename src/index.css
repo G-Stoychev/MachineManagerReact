@@ -36,6 +36,31 @@ button:hover {
     cursor: pointer;
 }
 
+/* В globals.css или в <style> в _app.js/index.html */
+
+.exportMode .exportHide {
+    display: none !important;
+}
+
+.exportMode input,
+.exportMode select {
+    border: none !important;
+    box-shadow: none !important;
+    appearance: none;
+    pointer-events: none;
+    line-height: 1.5;
+    font-weight: bold;
+    vertical-align: text-top;
+}
+
+.exportMode p {
+    margin-bottom: 0;
+}
+
+.exportMode input[type="date"]::-webkit-calendar-picker-indicator {
+    display: none !important;
+}
+
 @media only screen and (max-width: 1780px) {
     body {
         font-family: Arial, sans-serif;

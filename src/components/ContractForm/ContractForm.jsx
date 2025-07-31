@@ -1,4 +1,5 @@
 import { useRef, useState } from "react";
+import html2pdf from "html2pdf.js";
 import SignatureCanvas from "react-signature-canvas";
 import styles from "./ContractForm.module.css";
 
@@ -28,28 +29,56 @@ export default function ContractForm({ company, user }) {
         pad.current.clear();
     };
 
-    const handleSaveSignatures = () => {
-        const sigA = sigPadA.current.isEmpty()
-            ? null
-            : sigPadA.current.toDataURL();
-        const sigB = sigPadB.current.isEmpty()
-            ? null
-            : sigPadB.current.toDataURL();
-        setSignatureAUrl(sigA);
-        setSignatureBUrl(sigB);
-        setLocked(true);
+    // const handleSaveSignatures = async () => {
+    //     const sigA = sigPadA.current.isEmpty()
+    //         ? null
+    //         : sigPadA.current.toDataURL();
+    //     const sigB = sigPadB.current.isEmpty()
+    //         ? null
+    //         : sigPadB.current.toDataURL();
+    //     setSignatureAUrl(sigA);
+    //     setSignatureBUrl(sigB);
+    //     setLocked(true);
+    //     setPreservation(true);
 
+    //     await new Promise((resolve) => setTimeout(resolve, 300));
+
+    //     const content = document.getElementById("contract-content").innerHTML;
+    //     const blob = new Blob([content], { type: "text/html" });
+    //     const link = document.createElement("a");
+    //     link.href = URL.createObjectURL(blob);
+    //     link.download = `Договор - ${formData.sideBName || "без_име"}.html`;
+    //     link.click();
+
+    //     setPreservation(false);
+    //     setSaved(true);
+    // };
+
+    function downloadPDF() {
+        const element = document.getElementById("contract-content");
+
+        // Махаме бутоните временно
+        document.body.classList.add("exportMode");
+
+        const opt = {
+            margin: 0,
+            filename: `Договор - ${formData.sideBName || "Клиент"}.pdf`,
+            image: { type: "jpeg", quality: 0.98 },
+            html2canvas: { scale: 2 },
+            jsPDF: { unit: "mm", format: "a4", orientation: "portrait" },
+        };
+
+        // Изчакваме 100ms, за да се обновят стиловете
         setTimeout(() => {
-            const content =
-                document.getElementById("contract-content").innerHTML;
-            const blob = new Blob([content], { type: "text/html" });
-            const link = document.createElement("a");
-            link.href = URL.createObjectURL(blob);
-            link.download = "contract.html";
-            link.click();
-            setSaved(true);
+            html2pdf()
+                .set(opt)
+                .from(element)
+                .save()
+                .then(() => {
+                    document.body.classList.remove("exportMode");
+                });
         }, 100);
-    };
+    }
 
     const printPage = () => {
         const sigA = sigPadA.current.isEmpty()
@@ -78,16 +107,8 @@ export default function ContractForm({ company, user }) {
 
     return (
         <div className={styles.container}>
-            <div id="contract-content" className={styles.a4}>
-                <h1
-                    style={{
-                        textAlign: "center",
-                        fontSize: "20pt",
-                        marginBottom: "1rem",
-                    }}
-                >
-                    ДОГОВОР ЗА ПОКУПКО-ПРОДАЖБА
-                </h1>
+            <div id="contract-content" className={`${styles.a4} `}>
+                <h1>ДОГОВОР ЗА ПОКУПКО-ПРОДАЖБА</h1>
 
                 <p>
                     Днес,&nbsp;
@@ -273,6 +294,7 @@ export default function ContractForm({ company, user }) {
                                     ref={sigPadA}
                                 />
                                 <button
+                                    className={`     exportHide`}
                                     onClick={() => clearSignature(sigPadA)}
                                     style={{
                                         marginTop: "0.5rem",
@@ -327,6 +349,7 @@ export default function ContractForm({ company, user }) {
                                     ref={sigPadB}
                                 />
                                 <button
+                                    className={` exportHide`}
                                     onClick={() => clearSignature(sigPadB)}
                                     style={{
                                         marginTop: "0.5rem",
@@ -340,28 +363,31 @@ export default function ContractForm({ company, user }) {
                     </div>
                 </div>
 
-                <div className={styles.buttons}>
+                <div className={`${styles.buttons} exportHide`}>
                     <button
-                        onClick={handleSaveSignatures}
+                        onClick={downloadPDF}
                         className="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded"
                     >
-                        💾 Запази на устройството
+                        <i className="fa-solid fa-floppy-disk"></i> Запази на
+                        устройството
                     </button>
                     <button
                         onClick={printPage}
                         className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded"
                     >
-                        🖨️ Разпечатай
+                        <i className="fa-solid fa-print"></i> Разпечатай
                     </button>
                     {(signatureAUrl || signatureBUrl || locked) && (
                         <button
                             onClick={resetSignatures}
                             className="bg-yellow-600 hover:bg-yellow-700 text-white px-4 py-2 rounded"
                         >
-                            ✏️ Редактирай данни и подписи
+                            <i className="fa-solid fa-pencil"></i> Редактирай
+                            данни и подписи
                         </button>
                     )}
                 </div>
+
                 {saved && (
                     <div className={styles.status}>✅ Записан успешно!</div>
                 )}
