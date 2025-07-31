@@ -303,7 +303,6 @@ export default function ContractForm({ company, user }) {
                                 onChange={handleChange}
                                 style={{
                                     width: "100%",
-                                    marginBottom: "0.5rem",
                                 }}
                             />
                         )}
