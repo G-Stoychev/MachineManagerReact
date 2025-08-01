@@ -32,6 +32,7 @@ export default function MachineTable({ machines, company }) {
                             <th>Модел</th>
                             <th>Марка</th>
                             <th>Сериен номер</th>
+                            <th>Фирма</th>
                         </tr>
                     </thead>
                     <tbody className="table-body">

@@ -83,8 +83,8 @@ export default function Row({ machine, setModalIsOpen, modalIsOpen, company }) {
             >
                 <td>{machine.brand}</td>
                 <td>{machine.model}</td>
-
                 <td>{machine.serialNumber}</td>
+                <td>{move ? move.partner : company.name}</td>
             </tr>
             {expandedModal &&
                 createPortal(
