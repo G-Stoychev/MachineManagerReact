@@ -3,7 +3,6 @@ import { useState, useEffect, lazy, useRef } from "react";
 import { getDatabase, ref, onValue } from "firebase/database";
 import { addMoveData } from "../../services/dataService.js";
 
-const PartnerSection = lazy(() => import("./PartnerSection.jsx"));
 const PartnerModal = lazy(() => import("./PartnerModal.jsx"));
 const ErrorModal = lazy(() => import("../ErrorModal/ErrorModal.jsx"));
 const Menu = lazy(() => import("./ProtocolMenu.jsx"));
@@ -165,7 +164,7 @@ export default function ProtocolPlus({ company, toggleProtocol }) {
                     ref={dialog}
                     onCreate={handleCreateMove}
                 />
-                <div>
+                <div className={classes.a4}>
                     <h1>Приемо-предавателен Протокол</h1>
                     <div className={classes.section}>
                         <p>Дата: {new Date().toLocaleDateString("en-GB")}</p>
@@ -279,16 +278,15 @@ export default function ProtocolPlus({ company, toggleProtocol }) {
                                     <p>____________________________</p>
                                 </div>
                             </div>
+                            <button
+                                className={classes.printButton}
+                                onClick={() => window.print()}
+                            >
+                                Принтирай протокола
+                            </button>
                         </div>
                     </div>
                 </div>
-
-                <button
-                    className={classes.printButton}
-                    onClick={() => window.print()}
-                >
-                    Принтирай протокола
-                </button>
             </div>
         </>
     );

@@ -137,7 +137,6 @@ s .closeBtn {
         padding: 0;
     }
     @page {
-        size: A4 landscape;
         margin: 10mm;
     }
 

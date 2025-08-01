@@ -8,16 +8,6 @@ export default function MovementsInformation({
         <div className={classes.responsiveModal}>
             <div className={classes.modalMenu}>
                 <h3>История на последни движения:</h3>
-                <div>
-                    <button onClick={handleSetProtocolModal}>
-                        <i className="fa-solid fa-pen-to-square"></i>
-                        Създай протокол
-                    </button>
-                    <button>
-                        <i className="fa-solid fa-pen-to-square"></i>
-                        Създай протокол и договор
-                    </button>
-                </div>
             </div>
 
             <div>
