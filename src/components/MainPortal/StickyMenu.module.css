@@ -40,18 +40,12 @@
 }
 
 .logoutBtn {
-    background-color: none;
     border: none;
     box-shadow: none;
     margin: 0;
     font-size: clamp(0.6rem, 1vw, 0.9rem);
+    color: #f44336;
 }
-
-.logoutBtn:hover {
-    transform: translateY(-2%);
-}
-
-/* Menu CSS styles*/
 
 .searchInput {
     border: none;

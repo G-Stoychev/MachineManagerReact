@@ -1,9 +1,6 @@
 import classes from "./ExpandedContainer.module.css";
 
-export default function MovementsInformation({
-    movements,
-    handleSetProtocolModal,
-}) {
+export default function MovementsInformation({ movements }) {
     return (
         <div className={classes.responsiveModal}>
             <div className={classes.modalMenu}>

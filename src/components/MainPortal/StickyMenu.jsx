@@ -149,7 +149,7 @@ export default function StickyMenu({
                         </div>
                         <button
                             onClick={logout}
-                            className={` ${classes.inputsWrapper} ${classes.searchButton}`}
+                            className={` ${classes.inputsWrapper} ${classes.searchButton} ${classes.logoutBtn}`}
                         >
                             <i className="fa-solid fa-arrow-right-from-bracket"></i>{" "}
                             Logout

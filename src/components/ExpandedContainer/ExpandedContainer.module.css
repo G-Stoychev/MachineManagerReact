@@ -73,6 +73,8 @@ form {
     margin-top: 15px;
     width: 100%;
     border-collapse: collapse;
+    word-break: break-word;
+    white-space: normal; /* или nowrap ако искаш да се скролира */
 }
 
 .modal table thead th {
@@ -121,6 +123,9 @@ form {
 
 @media only screen and (max-width: 780px) {
     .modal {
+        position: absolute;
+        height: 99vh;
+        top: 7%;
         height: 100vh;
         width: 100%;
     }
