@@ -1,15 +1,17 @@
 import { useState, useEffect, lazy, useRef } from "react";
+import SignatureCanvas from "react-signature-canvas";
+import styles from "../ContractForm/ContractForm.module.css";
 
-import { getDatabase, ref, onValue } from "firebase/database";
 import { addMoveData } from "../../services/dataService.js";
 
 const PartnerModal = lazy(() => import("./PartnerModal.jsx"));
 const ErrorModal = lazy(() => import("../ErrorModal/ErrorModal.jsx"));
 const Menu = lazy(() => import("./ProtocolMenu.jsx"));
-import classes from "./ProtocolPlus.module.css";
 
-export default function ProtocolPlus({ company, toggleProtocol }) {
-    const [listOfMachines, setListOfMachines] = useState([]);
+import classes from "./ProtocolPlus.module.css";
+import { useMachines } from "../../store/MachineContext.jsx";
+
+export default function ProtocolPlus({ company, toggleProtocol, user }) {
     const [selectedMachines, setSelectedMachines] = useState([]);
     const inputRef = useRef(null);
     const [addingMachine, setAddingMachine] = useState(false);
@@ -19,6 +21,46 @@ export default function ProtocolPlus({ company, toggleProtocol }) {
     const dialog = useRef();
     const [partner, setPartner] = useState([]);
     const [isReturn, setIsReturn] = useState(false);
+    const { listOfMachines } = useMachines();
+
+    // singatures
+    const sigPadA = useRef();
+    const sigPadB = useRef();
+
+    const [signatureAUrl, setSignatureAUrl] = useState(null);
+    const [signatureBUrl, setSignatureBUrl] = useState(null);
+    const [saved, setSaved] = useState(false);
+
+    const [locked, setLocked] = useState(false);
+
+    const clearSignature = (pad) => {
+        pad.current.clear();
+    };
+
+    const printPage = () => {
+        const sigA = sigPadA.current.isEmpty()
+            ? null
+            : sigPadA.current.toDataURL();
+        const sigB = sigPadB.current.isEmpty()
+            ? null
+            : sigPadB.current.toDataURL();
+        setSignatureAUrl(sigA);
+        setSignatureBUrl(sigB);
+        setLocked(true);
+
+        setTimeout(() => {
+            window.print();
+        }, 100);
+    };
+
+    const resetSignatures = () => {
+        setSignatureAUrl(null);
+        setSignatureBUrl(null);
+        setLocked(false);
+        setSaved(false);
+    };
+
+    // signatures end
 
     const handleOpenPratnerModal = () => {
         dialog.current.open();
@@ -29,26 +71,6 @@ export default function ProtocolPlus({ company, toggleProtocol }) {
             errorModal.current.open();
         }
     }, [error]);
-
-    useEffect(() => {
-        const database = getDatabase();
-        const machinesRef = ref(database, "machines");
-        const unsubscribe = onValue(
-            machinesRef,
-            (snapshot) => {
-                if (snapshot.exists()) {
-                    const data = snapshot.val();
-                    const machinesArray = Object.values(data);
-                    setListOfMachines(machinesArray);
-                }
-            },
-            {
-                onlyOnce: false,
-            }
-        );
-
-        return () => unsubscribe();
-    }, []);
 
     const handleSearchMachine = () => {
         const inputRefNumber = inputRef.current.value.trim();
@@ -144,6 +166,11 @@ export default function ProtocolPlus({ company, toggleProtocol }) {
 
     return (
         <>
+            <Menu
+                closeProtocolmodal={toggleProtocol}
+                handleOpenPratnerModal={handleOpenPratnerModal}
+                handleSaveNewMove={handOnSaveMovement}
+            />
             {error && (
                 <ErrorModal
                     title={errorText.title}
@@ -154,11 +181,6 @@ export default function ProtocolPlus({ company, toggleProtocol }) {
             )}
 
             <div className={classes.protocolModal}>
-                <Menu
-                    closeProtocolmodal={toggleProtocol}
-                    handleOpenPratnerModal={handleOpenPratnerModal}
-                    handleSaveNewMove={handOnSaveMovement}
-                />
                 <PartnerModal
                     lastmove={partner}
                     ref={dialog}
@@ -265,17 +287,82 @@ export default function ProtocolPlus({ company, toggleProtocol }) {
                             <h2>Подписи</h2>
                             <div className={classes.signatures}>
                                 <div>
-                                    <select className={classes.employee}>
-                                        <option>Георги Стойчев</option>
-                                        <option>Красимир Тюлиев</option>
-                                    </select>
-                                    <p>Подпис на предаващата страна:</p>
-                                    <p>____________________________</p>
+                                    <p>Подпис на приемащата страна:</p>
+                                    {user.name === "Freakx" ? (
+                                        <p>Георги Стойчев</p>
+                                    ) : (
+                                        <p>{user.name}</p>
+                                    )}
+
+                                    {signatureAUrl ? (
+                                        <img
+                                            src={signatureAUrl}
+                                            alt="Подпис А"
+                                            className={styles.signatureBox}
+                                        />
+                                    ) : (
+                                        <>
+                                            <SignatureCanvas
+                                                penColor="black"
+                                                canvasProps={{
+                                                    width: 300,
+                                                    height: 100,
+                                                    className:
+                                                        styles.signatureBox,
+                                                }}
+                                                ref={sigPadA}
+                                            />
+                                            <button
+                                                className={`     exportHide`}
+                                                onClick={() =>
+                                                    clearSignature(sigPadA)
+                                                }
+                                                style={{
+                                                    marginTop: "0.5rem",
+                                                    fontSize: "12px",
+                                                }}
+                                            >
+                                                Изчисти подпис
+                                            </button>
+                                        </>
+                                    )}
                                 </div>
                                 <div>
-                                    <p>{partner.contact}</p>
                                     <p>Подпис на приемащата страна:</p>
-                                    <p>____________________________</p>
+                                    <p>{partner.contact}</p>
+
+                                    {signatureBUrl ? (
+                                        <img
+                                            src={signatureBUrl}
+                                            alt="Подпис Б"
+                                            className={styles.signatureBox}
+                                        />
+                                    ) : (
+                                        <>
+                                            <SignatureCanvas
+                                                penColor="black"
+                                                canvasProps={{
+                                                    width: 300,
+                                                    height: 100,
+                                                    className:
+                                                        styles.signatureBox,
+                                                }}
+                                                ref={sigPadB}
+                                            />
+                                            <button
+                                                className={` exportHide`}
+                                                onClick={() =>
+                                                    clearSignature(sigPadB)
+                                                }
+                                                style={{
+                                                    marginTop: "0.5rem",
+                                                    fontSize: "12px",
+                                                }}
+                                            >
+                                                Изчисти подпис
+                                            </button>
+                                        </>
+                                    )}
                                 </div>
                             </div>
                             <button

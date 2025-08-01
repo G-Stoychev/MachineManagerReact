@@ -1,4 +1,4 @@
-import classes from "./ProtocolModal.module.css";
+import classes from "./ProtocolPlus.module.css";
 
 export default function Menu({
     closeProtocolmodal,

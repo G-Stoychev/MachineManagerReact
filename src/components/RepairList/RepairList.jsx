@@ -111,45 +111,11 @@ export default function RepairList({ company, user }) {
                             }}
                         />
                     )}
-                    &nbsp;г., между:
+                    , се състави настоящият ремонтен протокол във връзка с
+                    възникнала авария на автоматична кафе машина, инсталирана в
+                    обект: [име на обекта], в град: [име на града]. Сигналът за
+                    аварията е подаден от: [име на лицето].
                 </p>
-                <>
-                    <p style={{ margin: "1rem 0" }}>
-                        <strong>
-                            {company.name} с ЕИК : {company.bulstat} наричан
-                            накратко Продавач , от една страна
-                        </strong>
-                    </p>
-                </>
-                <p style={{ margin: "0.5rem 0" }}>
-                    <strong> и </strong>
-                </p>
-                <p style={{ margin: "0.3rem 0" }}>
-                    <strong> от друга страна </strong>
-                </p>
-
-                {locked ? (
-                    <>
-                        <p>
-                            <strong> {sideBName}</strong>
-                        </p>
-                    </>
-                ) : (
-                    <>
-                        <input
-                            type="text"
-                            name="sideBName"
-                            placeholder="Информация за фирмата "
-                            value={sideBName}
-                            onChange={handleChange}
-                            style={{ width: "100%", marginBottom: "0.5rem" }}
-                        />
-
-                        <p>
-                            <strong>наричан накратко Купувач</strong>
-                        </p>
-                    </>
-                )}
 
                 <hr style={{ margin: "0.5rem 0" }} />
                 <div className="repair-container">

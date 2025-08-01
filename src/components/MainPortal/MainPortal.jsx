@@ -191,6 +191,13 @@ export default function MainPortal({ userInfo, logout }) {
                     />
 
                     {selectedComponent === "container" && <Container />}
+                    {selectedComponent === "protocol" && (
+                        <ProtocolPlus
+                            company={companyInfo}
+                            toggleProtocol={handleToggleProtocol}
+                            user={userInfo}
+                        />
+                    )}
                 </MachineProvider>
             </InputProvider>
             {selectedComponent === "menu" && (
@@ -207,12 +214,6 @@ export default function MainPortal({ userInfo, logout }) {
                 <CarsData toggle={handleToogleCars} cars={cars} />
             )}
 
-            {selectedComponent === "protocol" && (
-                <ProtocolPlus
-                    company={companyInfo}
-                    toggleProtocol={handleToggleProtocol}
-                />
-            )}
             {selectedComponent === "contract" && (
                 <ContractForm company={companyInfo} user={userInfo} />
             )}

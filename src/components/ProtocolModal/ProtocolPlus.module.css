@@ -17,8 +17,9 @@
     display: flex;
     justify-content: end;
     position: absolute;
-    left: 30%;
+    left: 60%;
     top: 7%;
+    z-index: 100;
 }
 s .closeBtn {
     color: red;

@@ -4,6 +4,7 @@ import { getDatabase, ref, onValue } from "firebase/database";
 import { changeThema, themeSets } from "../../services/dataService.js";
 
 import ContainerMenu from "./ContainerMenu.jsx";
+import ProtocolMenu from "../ProtocolModal/ProtocolMenu.jsx";
 
 import classes from "../MainPortal/StickyMenu.module.css";
 
@@ -58,12 +59,6 @@ export default function StickyMenu({
 
             return newIndex;
         });
-    };
-
-    const handleToogleProtocol = () => {
-        setSelectedComponent((prev) =>
-            prev === "protocol" ? "container" : "protocol"
-        );
     };
 
     return (

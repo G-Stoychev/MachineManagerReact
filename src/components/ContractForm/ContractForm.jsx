@@ -29,35 +29,9 @@ export default function ContractForm({ company, user }) {
         pad.current.clear();
     };
 
-    // const handleSaveSignatures = async () => {
-    //     const sigA = sigPadA.current.isEmpty()
-    //         ? null
-    //         : sigPadA.current.toDataURL();
-    //     const sigB = sigPadB.current.isEmpty()
-    //         ? null
-    //         : sigPadB.current.toDataURL();
-    //     setSignatureAUrl(sigA);
-    //     setSignatureBUrl(sigB);
-    //     setLocked(true);
-    //     setPreservation(true);
-
-    //     await new Promise((resolve) => setTimeout(resolve, 300));
-
-    //     const content = document.getElementById("contract-content").innerHTML;
-    //     const blob = new Blob([content], { type: "text/html" });
-    //     const link = document.createElement("a");
-    //     link.href = URL.createObjectURL(blob);
-    //     link.download = `Договор - ${formData.sideBName || "без_име"}.html`;
-    //     link.click();
-
-    //     setPreservation(false);
-    //     setSaved(true);
-    // };
-
     function downloadPDF() {
         const element = document.getElementById("contract-content");
 
-        // Махаме бутоните временно
         document.body.classList.add("exportMode");
 
         const opt = {
@@ -68,7 +42,6 @@ export default function ContractForm({ company, user }) {
             jsPDF: { unit: "mm", format: "a4", orientation: "portrait" },
         };
 
-        // Изчакваме 100ms, за да се обновят стиловете
         setTimeout(() => {
             html2pdf()
                 .set(opt)
