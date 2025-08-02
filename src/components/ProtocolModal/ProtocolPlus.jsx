@@ -229,6 +229,7 @@ export default function ProtocolPlus({ company, toggleProtocol, user }) {
                             <div className={classes.headerWrapper}>
                                 <h2>Данни за предадената машина</h2>
                                 <button
+                                    className={classes.installBtn}
                                     onClick={() => {
                                         setIsReturn(!isReturn);
                                     }}
