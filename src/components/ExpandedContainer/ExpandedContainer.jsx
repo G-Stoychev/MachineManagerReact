@@ -10,15 +10,8 @@ import {
     changeRepairData,
 } from "../../services/dataService.js";
 
-// import ProtocolModal from "../ProtocolModal/ProtocolModal.jsx";
-// import MachineInformation from "./MachineInformation.jsx";
-// import RepairsInformation from "./RepairsInformation.jsx";
-// import MovementsInformation from "./MovementsInformation.jsx";
-// import ErrorModal from "../ErrorModal/ErrorModal.jsx";
-
 const MachineInformation = lazy(() => import("./MachineInformation.jsx"));
 const ErrorModal = lazy(() => import("../ErrorModal/ErrorModal.jsx"));
-const ProtocolModal = lazy(() => import("../ProtocolModal/ProtocolModal.jsx"));
 const RepairsInformation = lazy(() => import("./RepairsInformation.jsx"));
 const MovementsInformation = lazy(() => import("./MovementsInformation.jsx"));
 

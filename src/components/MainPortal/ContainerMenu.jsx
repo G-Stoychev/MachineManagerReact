@@ -10,6 +10,7 @@ import { useMachines } from "../../store/MachineContext.jsx";
 
 export default function ContainerMenu({ toggleProtocol }) {
     const [searching, setSearching] = useState(false);
+    const [isMenuOpen, setIsMenuOpen] = useState(false);
 
     const {
         serialNumberInput,
@@ -62,16 +63,18 @@ export default function ContainerMenu({ toggleProtocol }) {
             )}
             <div className={classes.inputWrapper}>
                 <input
+                    className={classes.searchInput}
+                    name="търсачка"
                     value={serialNumberInput}
                     type="text"
-                    title="Въведи сериен номер/булстат на фирма"
-                    placeholder="Въведи сериен номер/булстат на фирма"
+                    title="Въведи сериен номер/булстат"
+                    placeholder="Въведи сериен номер/булстат"
                     onChange={(e) => setSerialNumberInput(e.target.value)}
                 />
                 <div className={classes.dropdown}>
                     {searching ? undefined : (
                         <button
-                            className={` ${classes.searchInput} ${classes.searchButton} ${classes.dropOpenBtn}`}
+                            className={`  ${classes.searchButton} ${classes.dropOpenBtn}`}
                         >
                             <i className="fa-solid fa-magnifying-glass"></i>
                         </button>
@@ -87,7 +90,7 @@ export default function ContainerMenu({ toggleProtocol }) {
                                     toggleSearch();
                                 }
                             }}
-                            className={` ${classes.searchInput} ${classes.searchButton} ${classes.dropDownBtn}`}
+                            className={`${classes.dropSearchBtn}  ${classes.dropDownBtn}`}
                         >
                             <i className="fa-solid fa-magnifying-glass"></i>
                             Търси машина
@@ -102,7 +105,7 @@ export default function ContainerMenu({ toggleProtocol }) {
                                     toggleSearch();
                                 }
                             }}
-                            className={` ${classes.searchInput} ${classes.searchButton} ${classes.dropDownBtn}`}
+                            className={` ${classes.dropSearchBtn} ${classes.dropDownBtn}`}
                         >
                             <i className="fa-solid fa-magnifying-glass"></i>
                             Търси фирма
@@ -143,23 +146,40 @@ export default function ContainerMenu({ toggleProtocol }) {
 
             <div className={classes.btnWrapper}>
                 <button
-                    className={classes.searchButton}
-                    onClick={() => {
-                        handleOpenAddItemModal();
-                    }}
+                    className={classes.hamburgerButton}
+                    onClick={() => setIsMenuOpen(!isMenuOpen)}
                 >
-                    <i className="fa-solid fa-plus"></i>
-                    Добави
-                </button>
-                <button
-                    className={` ${classes.inputsWrapper} ${classes.searchButton}`}
-                    onClick={toggleProtocol}
-                >
-                    <i className="fa-solid fa-pen-to-square"></i> Протокол
+                    <i className="fa-solid fa-bars"></i>
                 </button>
 
-                <div>
-                    <Filter />
+                <div
+                    className={`${classes.menuContent} ${
+                        isMenuOpen ? classes.showMenu : ""
+                    }`}
+                >
+                    <button
+                        className={classes.searchButton}
+                        onClick={() => {
+                            handleOpenAddItemModal();
+                            setIsMenuOpen(false);
+                        }}
+                    >
+                        <i className="fa-solid fa-plus"></i>
+                        Добави
+                    </button>
+                    <button
+                        className={`${classes.inputsWrapper} ${classes.searchButton}`}
+                        onClick={() => {
+                            toggleProtocol();
+                            setIsMenuOpen(false);
+                        }}
+                    >
+                        <i className="fa-solid fa-pen-to-square"></i> Протокол
+                    </button>
+
+                    <div>
+                        <Filter />
+                    </div>
                 </div>
             </div>
         </>

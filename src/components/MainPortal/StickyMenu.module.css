@@ -48,11 +48,11 @@
 }
 
 .searchInput {
-    border: none;
     outline: none;
-    background-color: inherit;
-    margin: 0;
-    padding: 15px;
+    border: none;
+    border-radius: 15px;
+    padding: 3px;
+    width: 230px;
     font-weight: bold;
 }
 .searchInput::placeholder {
@@ -103,17 +103,29 @@ nav {
     justify-content: center;
     gap: 15px;
 }
-.inputWrapper {
-    border: 1px solid #646664;
+
+.hamburgerButton {
+    display: none;
+    border: none;
     border-radius: 5px;
+    padding: 5px;
+    font-size: 1rem;
+    background-color: unset;
+    box-shadow: none;
 }
 
-.inputWrapper input {
-    border: none;
-    padding-left: 6px;
-    border-radius: 15px;
-    outline: none;
-    min-width: 260px;
+.menuContent {
+    display: flex;
+    align-items: center;
+}
+
+.inputWrapper {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #646664;
+    border-radius: 5px;
 }
 
 .inputWrapper button:hover {
@@ -137,10 +149,6 @@ nav {
     z-index: 1;
 }
 
-.dropdown button {
-    display: flex;
-    width: 100%;
-}
 .dropdown:hover .dropDownMenu {
     display: flex;
 }
@@ -154,8 +162,57 @@ nav {
     background-color: var(--seasonColor);
     color: black;
 }
+
+.dropSearchBtn {
+    padding: 5px;
+    box-shadow: none;
+}
 @media print {
     .menu {
         display: none;
+    }
+}
+
+@media (max-width: 768px) {
+    .companyInfo {
+        display: none;
+    }
+
+    .searchInput {
+        border: none;
+        outline: none;
+        width: 150px;
+    }
+
+    .searchInput::placeholder {
+        font-size: 0.6rem;
+    }
+    .searchButton {
+        padding: 3px;
+        margin: 0;
+    }
+    .btnWrapper {
+        gap: 5px;
+    }
+    .hamburgerButton {
+        display: block;
+    }
+
+    .menuContent {
+        display: none;
+        position: absolute;
+        top: 50px;
+        background-color: white;
+        flex-direction: column;
+        gap: 20px;
+        padding: 15px;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+        z-index: 1000;
+        width: 200px;
+    }
+
+    .showMenu {
+        display: flex;
     }
 }

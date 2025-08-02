@@ -57,6 +57,15 @@ button:hover {
     margin-bottom: 0;
 }
 
+.exportMode #signatureBox {
+    background-color: unset;
+    border: none;
+}
+
+.exportMode button {
+    display: none;
+}
+
 .exportMode input[type="date"]::-webkit-calendar-picker-indicator {
     display: none !important;
 }

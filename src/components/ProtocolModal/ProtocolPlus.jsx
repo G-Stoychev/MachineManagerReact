@@ -1,5 +1,8 @@
 import { useState, useEffect, lazy, useRef } from "react";
+
 import SignatureCanvas from "react-signature-canvas";
+import html2pdf from "html2pdf.js";
+
 import styles from "../ContractForm/ContractForm.module.css";
 
 import { addMoveData } from "../../services/dataService.js";
@@ -117,6 +120,30 @@ export default function ProtocolPlus({ company, toggleProtocol, user }) {
         setPartner(newMoveInput);
     };
 
+    function downloadPDF() {
+        const element = document.getElementById("contract-content");
+
+        document.body.classList.add("exportMode");
+
+        const opt = {
+            margin: 0,
+            filename: `Договор - ${partner.name || "Клиент"}.pdf`,
+            image: { type: "jpeg", quality: 0.98 },
+            html2canvas: { scale: 2 },
+            jsPDF: { unit: "mm", format: "a4", orientation: "portrait" },
+        };
+
+        setTimeout(() => {
+            html2pdf()
+                .set(opt)
+                .from(element)
+                .save()
+                .then(() => {
+                    document.body.classList.remove("exportMode");
+                });
+        }, 100);
+    }
+
     const handOnSaveMovement = async () => {
         if (selectedMachines.length === 0 || partner.length === 0) {
             setError(true);
@@ -140,6 +167,7 @@ export default function ProtocolPlus({ company, toggleProtocol, user }) {
             };
             try {
                 const savedMove = await addMoveData(newMove);
+                downloadPDF();
                 toggleProtocol();
             } catch (error) {
                 console.error("Грешка при запис на движение:", error);
@@ -153,6 +181,7 @@ export default function ProtocolPlus({ company, toggleProtocol, user }) {
 
             try {
                 const savedMove = await addMoveData(newMove);
+                downloadPDF();
                 toggleProtocol();
             } catch (error) {
                 console.error("Грешка при запис на движение:", error);
@@ -186,7 +215,7 @@ export default function ProtocolPlus({ company, toggleProtocol, user }) {
                     ref={dialog}
                     onCreate={handleCreateMove}
                 />
-                <div className={classes.a4}>
+                <div id="contract-content" className={classes.a4}>
                     <h1>Приемо-предавателен Протокол</h1>
                     <div className={classes.section}>
                         <p>Дата: {new Date().toLocaleDateString("en-GB")}</p>
@@ -307,6 +336,7 @@ export default function ProtocolPlus({ company, toggleProtocol, user }) {
                                                 canvasProps={{
                                                     width: 300,
                                                     height: 100,
+                                                    id: "signatureBox",
                                                     className:
                                                         styles.signatureBox,
                                                 }}
@@ -344,6 +374,7 @@ export default function ProtocolPlus({ company, toggleProtocol, user }) {
                                                 canvasProps={{
                                                     width: 300,
                                                     height: 100,
+                                                    id: "signatureBox",
                                                     className:
                                                         styles.signatureBox,
                                                 }}

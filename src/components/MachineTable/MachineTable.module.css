@@ -10,17 +10,13 @@
 
 .table thead tr {
     text-align: left;
-    font-size: clamp(0.7rem, 2vw, 0.9rem);
+    font-size: clamp(0.7rem, 2vw, 1rem);
     border-bottom: 3px solid rgb(27, 27, 27);
 }
 .table thead tr:last-child,
 .table tbody td {
+    padding-top: 5px;
     text-align: center;
-}
-
-.table th,
-.table td {
-    padding: 5px;
 }
 
 .table tbody tr {
@@ -33,14 +29,9 @@
     cursor: pointer;
 }
 
-@media only screen and (min-width: 760px) {
-    .table {
-        font-size: 0.5rem;
-    }
-
+@media only screen and (max-width: 760px) {
     .table thead tr {
         text-align: left;
-        font-size: 0.6rem;
         border-bottom: 2px solid rgb(27, 27, 27);
     }
     .table tbody tr {

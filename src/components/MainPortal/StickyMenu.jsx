@@ -1,10 +1,9 @@
-import { useRef, useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 
 import { getDatabase, ref, onValue } from "firebase/database";
 import { changeThema, themeSets } from "../../services/dataService.js";
 
 import ContainerMenu from "./ContainerMenu.jsx";
-import ProtocolMenu from "../ProtocolModal/ProtocolMenu.jsx";
 
 import classes from "../MainPortal/StickyMenu.module.css";
 
@@ -14,7 +13,6 @@ export default function StickyMenu({
     userInfo,
     company,
     activeComponent,
-    setSelectedComponent,
     closeContainer,
     handleOpenCompanyModal,
     toggleProtocol,
@@ -65,7 +63,7 @@ export default function StickyMenu({
         <>
             <div className={classes.menu}>
                 <div className={classes.menuContainer}>
-                    <div className={classes.topContactBar}>
+                    <div className={classes.companyInfo}>
                         <span onClick={handleReturnHome}>
                             <i className="fa-solid fa-house"></i>
                             {company.name}
