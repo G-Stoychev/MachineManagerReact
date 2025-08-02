@@ -1,0 +1,34 @@
+.wrapper {
+    background-image: radial-gradient(circle, var(--seasonColor), white);
+    position: sticky;
+    width: 200px;
+    height: 97vh;
+}
+
+.btnWrapper {
+    display: flex;
+    justify-content: end;
+}
+
+.wrapper h2 {
+    font-size: 1rem;
+}
+
+.wrapper ul {
+    padding-left: 10px;
+    transition: transform 0.3s ease;
+    font-size: 0.8rem;
+}
+
+.wrapper li {
+    margin: 5px 15px;
+    padding: 5px;
+    font-weight: bold;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.664);
+}
+
+.wrapper li:hover {
+    transform: translateY(-2%);
+    background-color: var(--seasonColor);
+    cursor: pointer;
+}

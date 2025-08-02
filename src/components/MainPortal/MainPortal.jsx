@@ -3,7 +3,7 @@ import { getDatabase, ref, onValue } from "firebase/database";
 
 import { changeCompanyData } from "../../services/dataService.js";
 
-import CarsData from "../CarsData/CarsData.jsx";
+import CarsComponent from "../CarsData/CarsComponent.jsx";
 import ErrorModal from "../ErrorModal/ErrorModal.jsx";
 import PortalMenu from "./PortalMenu.jsx";
 import StickyMenu from "./StickyMenu.jsx";
@@ -15,6 +15,7 @@ const CompanyInfoModal = lazy(() =>
 );
 import ContractForm from "../ContractForm/ContractForm.jsx";
 import RepairList from "../RepairList/RepairList.jsx";
+import ASide from "../aSide/aSide.jsx";
 
 import { InputProvider } from "../../store/InputContext.jsx";
 import { MachineProvider } from "../../store/MachineContext.jsx";
@@ -210,9 +211,7 @@ export default function MainPortal({ userInfo, logout }) {
                 />
             )}
 
-            {selectedComponent === "cars" && (
-                <CarsData toggle={handleToogleCars} cars={cars} />
-            )}
+            {selectedComponent === "cars" && <CarsComponent cars={cars} />}
 
             {selectedComponent === "contract" && (
                 <ContractForm company={companyInfo} user={userInfo} />

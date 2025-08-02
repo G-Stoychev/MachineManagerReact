@@ -31,7 +31,6 @@ export default function ExpandedContainer({ machine, closeRow, company }) {
 
     const handleSetInformation = () => setContent("information");
     const handleSetNewRepair = () => setContent("repairModal");
-    const handleSetProtocolModal = () => setContent("protocolModal");
     const handleCloseModal = (id) => {
         if (content === "repairModal") {
             setError(true);
@@ -148,73 +147,61 @@ export default function ExpandedContainer({ machine, closeRow, company }) {
                     ref={errorModal}
                 />
             )}
-            {content === "protocolModal" ? (
-                <ProtocolModal
+
+            <div className={classes.modal}>
+                <MachineInformation
+                    onClose={handleCloseModal}
                     company={company}
+                    lastmove={lastmove}
                     machine={machine}
-                    lastmove={lastmove ? lastmove : {}}
-                    closeProtocolmodal={handleSetInformation}
-                    onSaveMove={handOnSaveMovement}
                 />
-            ) : (
-                <div className={classes.modal}>
-                    <MachineInformation
-                        onClose={handleCloseModal}
-                        company={company}
-                        lastmove={lastmove}
-                        machine={machine}
+                {content === "repairModal" ? (
+                    <RepairModal
+                        closeRepairModal={handleSetRepairs}
+                        repair={selectedRepair}
+                        onCreate={handleOnCreate}
+                        onUpdate={handleOnUpdate}
+                        setError={setError}
                     />
-                    {content === "repairModal" ? (
-                        <RepairModal
-                            closeRepairModal={handleSetRepairs}
-                            repair={selectedRepair}
-                            onCreate={handleOnCreate}
-                            onUpdate={handleOnUpdate}
-                            setError={setError}
-                        />
-                    ) : (
-                        <div className={classes.rowMenu}>
-                            <div>
-                                <button
-                                    className={
-                                        content === "repairs"
-                                            ? classes.selectedBtn
-                                            : undefined
-                                    }
-                                    onClick={handleSetRepairs}
-                                >
-                                    Ремонти
-                                </button>
-                                <button
-                                    className={
-                                        content === "information"
-                                            ? classes.selectedBtn
-                                            : undefined
-                                    }
-                                    onClick={handleSetInformation}
-                                >
-                                    Движения
-                                </button>
-                            </div>
+                ) : (
+                    <div className={classes.rowMenu}>
+                        <div>
+                            <button
+                                className={
+                                    content === "repairs"
+                                        ? classes.selectedBtn
+                                        : undefined
+                                }
+                                onClick={handleSetRepairs}
+                            >
+                                Ремонти
+                            </button>
+                            <button
+                                className={
+                                    content === "information"
+                                        ? classes.selectedBtn
+                                        : undefined
+                                }
+                                onClick={handleSetInformation}
+                            >
+                                Движения
+                            </button>
                         </div>
-                    )}
+                    </div>
+                )}
 
-                    {content === "repairs" && (
-                        <RepairsInformation
-                            repairsList={repairsList}
-                            handleSetUpdateRepair={handleSetUpdateRepair}
-                            handleSetNewRepair={handleSetNewRepair}
-                        />
-                    )}
+                {content === "repairs" && (
+                    <RepairsInformation
+                        repairsList={repairsList}
+                        handleSetUpdateRepair={handleSetUpdateRepair}
+                        handleSetNewRepair={handleSetNewRepair}
+                    />
+                )}
 
-                    {content === "information" && (
-                        <MovementsInformation
-                            movements={movements}
-                            handleSetProtocolModal={handleSetProtocolModal}
-                        />
-                    )}
-                </div>
-            )}
+                {content === "information" && (
+                    <MovementsInformation movements={movements} />
+                )}
+            </div>
         </>
     );
 }
