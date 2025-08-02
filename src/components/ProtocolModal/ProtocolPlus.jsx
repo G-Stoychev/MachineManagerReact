@@ -32,35 +32,9 @@ export default function ProtocolPlus({ company, toggleProtocol, user }) {
 
     const [signatureAUrl, setSignatureAUrl] = useState(null);
     const [signatureBUrl, setSignatureBUrl] = useState(null);
-    const [saved, setSaved] = useState(false);
-
-    const [locked, setLocked] = useState(false);
 
     const clearSignature = (pad) => {
         pad.current.clear();
-    };
-
-    const printPage = () => {
-        const sigA = sigPadA.current.isEmpty()
-            ? null
-            : sigPadA.current.toDataURL();
-        const sigB = sigPadB.current.isEmpty()
-            ? null
-            : sigPadB.current.toDataURL();
-        setSignatureAUrl(sigA);
-        setSignatureBUrl(sigB);
-        setLocked(true);
-
-        setTimeout(() => {
-            window.print();
-        }, 100);
-    };
-
-    const resetSignatures = () => {
-        setSignatureAUrl(null);
-        setSignatureBUrl(null);
-        setLocked(false);
-        setSaved(false);
     };
 
     // signatures end
@@ -120,14 +94,27 @@ export default function ProtocolPlus({ company, toggleProtocol, user }) {
         setPartner(newMoveInput);
     };
 
-    function downloadPDF() {
+    const prepareTableForPDF = () => {
+        const table = document.querySelector("#protocol-table");
+
+        if (table) {
+            table.style.borderSpacing = "10px 5px";
+
+            table.querySelectorAll("td, th").forEach((cell) => {
+                cell.style.padding = "10px";
+            });
+        }
+    };
+
+    function downloadPDF(moveInfo) {
         const element = document.getElementById("contract-content");
+        prepareTableForPDF();
 
         document.body.classList.add("exportMode");
 
         const opt = {
             margin: 0,
-            filename: `Договор - ${partner.name || "Клиент"}.pdf`,
+            filename: `Протокол - с ${moveInfo.partner || "Клиент"}.pdf`,
             image: { type: "jpeg", quality: 0.98 },
             html2canvas: { scale: 2 },
             jsPDF: { unit: "mm", format: "a4", orientation: "portrait" },
@@ -181,7 +168,7 @@ export default function ProtocolPlus({ company, toggleProtocol, user }) {
 
             try {
                 const savedMove = await addMoveData(newMove);
-                downloadPDF();
+                downloadPDF(newMove);
                 toggleProtocol();
             } catch (error) {
                 console.error("Грешка при запис на движение:", error);
@@ -250,7 +237,7 @@ export default function ProtocolPlus({ company, toggleProtocol, user }) {
                                 </button>
                             </div>
 
-                            <table>
+                            <table id={"protocol-table"}>
                                 <thead>
                                     <tr>
                                         <th>Модел</th>
