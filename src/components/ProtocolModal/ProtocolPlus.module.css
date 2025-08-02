@@ -219,6 +219,11 @@ tbody p {
     .status {
         display: none;
     }
+    .protocolModal table,
+    .protocolModal th,
+    .protocolModal td {
+        border: none;
+    }
 
     select,
     input,
