@@ -111,41 +111,55 @@ export default function RepairList({ company, user }) {
                             }}
                         />
                     )}
-                    , се състави настоящият ремонтен протокол във връзка с
-                    възникнала авария на автоматична кафе машина, инсталирана в
-                    обект: [име на обекта], в град: [име на града]. Сигналът за
-                    аварията е подаден от: [име на лицето].
+                    ,
+                    <p>
+                        се състави настоящият ремонтен протокол във връзка с
+                        възникнала авария на кафе машина, инсталирана при:
+                    </p>
+                    <p>
+                        <input name type="text" placeholder="Име на Фирма" />,
+                    </p>
+                    <p>
+                        на обект
+                        <input name type="text" placeholder="Име на обект" />.
+                    </p>
+                    <p>
+                        Сигналът за аварията е подаден от:
+                        <input name type="text" placeholder="Име и Фамилия" />.
+                    </p>
                 </p>
 
                 <hr style={{ margin: "0.5rem 0" }} />
-                <div className="repair-container">
-                    <h2 className="repair-title">Ремонтен лист</h2>
-                    <form className="repair-form">
-                        <div className="repair-field">
-                            <label htmlFor="issue" className="repair-label">
+                <div className={styles.repairContainer}>
+                    <form className={styles.repairForm}>
+                        <div className={styles.repairField}>
+                            <label
+                                htmlFor="issue"
+                                className={styles.repairLabel}
+                            >
                                 Постъпена авария:
                             </label>
                             <textarea
                                 id="issue"
                                 placeholder="Опиши постъпилата авария..."
-                                className="repair-textarea"
+                                className={styles.repairTextarea}
                                 required
                             />
                         </div>
-                        <div className="repair-field">
-                            <label htmlFor="repairs" className="repair-label">
+                        <div className={styles.repairField}>
+                            <label
+                                htmlFor="repairs"
+                                className={styles.repairLabel}
+                            >
                                 Извършени ремонтни дейности:
                             </label>
                             <textarea
                                 id="repairs"
                                 placeholder="Опиши извършените ремонти дейности..."
-                                className="repair-textarea"
+                                className={styles.repairTextarea}
                                 required
                             />
                         </div>
-                        <button type="submit" className="repair-button">
-                            Запази
-                        </button>
                     </form>
                 </div>
                 <div

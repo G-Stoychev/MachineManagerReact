@@ -1,47 +1,40 @@
-.repair-container {
-    max-width: 600px;
-    margin: 30px auto;
-    padding: 20px;
-    background-color: #1f1f1f;
-    color: #ffffff;
+.repairContainer {
+    width: 100%;
     border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-    font-family: Arial, sans-serif;
 }
 
-.repair-title {
+.repairTitle {
     text-align: center;
     margin-bottom: 20px;
     font-size: 24px;
 }
 
-.repair-form {
+.repairForm {
     display: flex;
     flex-direction: column;
     gap: 15px;
 }
 
-.repair-field {
+.repairField {
     display: flex;
     flex-direction: column;
 }
 
-.repair-label {
+.repairLabel {
     margin-bottom: 5px;
     font-weight: bold;
 }
 
-.repair-textarea {
+.repairTextarea {
     padding: 10px;
     border-radius: 5px;
     border: 1px solid #444;
-    background-color: #2a2a2a;
     color: #fff;
     min-height: 80px;
     resize: vertical;
 }
 
-.repair-button {
+.repairButton {
     padding: 12px;
     background-color: #4caf50;
     color: #fff;
