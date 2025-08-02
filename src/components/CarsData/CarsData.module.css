@@ -9,9 +9,20 @@
     z-index: 9999;
     width: fit-content;
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     justify-content: space-around;
     row-gap: 10px;
+}
+
+.headerContainer {
+    display: flex;
+    justify-content: space-between;
+}
+
+.carsData {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
 }
 
 .title {
@@ -21,14 +32,15 @@
     text-align: center;
 }
 
-.grid {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 1rem;
+.carRepairs {
+    width: 100%;
+}
+
+.carMoveHistory {
+    width: 100%;
 }
 
 .button {
-    width: 100%;
     color: rgb(223, 6, 6);
     background-color: unset;
 }
@@ -37,12 +49,6 @@
     color: white;
     background-color: rgb(223, 6, 6);
     cursor: pointer;
-}
-
-@media (min-width: 768px) {
-    .grid {
-        grid-template-columns: repeat(2, 1fr);
-    }
 }
 
 .card {
@@ -58,4 +64,27 @@
 
 .card strong {
     color: #1d1d1c;
+}
+
+@media (max-width: 768px) {
+    .container {
+        padding: 1rem;
+        background-image: radial-gradient(circle, var(--seasonColor), white);
+        border-radius: 8px;
+        position: absolute;
+        top: 10;
+        left: 50%;
+        z-index: 9999;
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+        row-gap: 10px;
+    }
+
+    .carsData {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
 }

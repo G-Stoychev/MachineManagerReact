@@ -125,6 +125,16 @@ export default function MainPortal({ userInfo, logout }) {
     const handleToogleCars = () => {
         setSelectedComponent((prev) => (prev === "cars" ? "menu" : "cars"));
     };
+
+    const handleAddCar = () => {
+        const newCar = {
+            plate: "НОВ редактирай",
+            insurance: "",
+            vignette: "",
+            inspection: "",
+        };
+        setCars((prev) => [...prev, newCar]);
+    };
     //end Cars
 
     const handleToggleContainer = () => {
@@ -211,7 +221,9 @@ export default function MainPortal({ userInfo, logout }) {
                 />
             )}
 
-            {selectedComponent === "cars" && <CarsComponent cars={cars} />}
+            {selectedComponent === "cars" && (
+                <CarsComponent cars={cars} handleAddCar={handleAddCar} />
+            )}
 
             {selectedComponent === "contract" && (
                 <ContractForm company={companyInfo} user={userInfo} />

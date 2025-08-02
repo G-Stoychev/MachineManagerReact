@@ -3,7 +3,7 @@ import { useState } from "react";
 import ASide from "../aSide/aSide";
 import CarData from "./CarData";
 
-export default function CarsComponent({ cars }) {
+export default function CarsComponent({ cars, handleAddCar }) {
     const [openCarInfo, setOpenCarInfo] = useState(false);
     const [selectedIndex, setSelectedIndex] = useState(null);
 
@@ -14,6 +14,7 @@ export default function CarsComponent({ cars }) {
     return (
         <div>
             <ASide
+                handleAddCar={handleAddCar}
                 toggle={openCarInformation}
                 cars={cars}
                 title={"Aвтомобили"}

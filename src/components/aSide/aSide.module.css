@@ -15,9 +15,9 @@
 }
 
 .wrapper ul {
-    padding-left: 10px;
     transition: transform 0.3s ease;
     font-size: 0.8rem;
+    list-style: none;
 }
 
 .wrapper li {
