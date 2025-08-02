@@ -1,4 +1,5 @@
-import { getDatabase, ref, set, push } from "firebase/database";
+import { getDatabase, ref, set, push, get } from "firebase/database";
+import { app } from "../firebase.js";
 
 export const addMachineData = async (machine) => {
     const db = getDatabase();
@@ -95,3 +96,39 @@ export const themeSets = [
         bgImg: " url(/images/autumn-bg.jpg)",
     },
 ];
+
+export const uploadPDFToRealtimeDB = async (pdfDataURL) => {
+    try {
+        const db = getDatabase(app);
+        const newRef = push(ref(db, "repairsPDF"));
+        const pdfKey = newRef.key;
+
+        await set(newRef, {
+            id: pdfKey,
+            pdfData: pdfDataURL,
+            date: new Date(formData.repairDate).toLocaleDateString("bg-BG"),
+            name: `Ремонтен лист с ${formData.partner}`,
+        });
+
+        return { success: true, id: pdfKey };
+    } catch (error) {
+        console.error("Грешка при качване PDF в Firebase:", error);
+        return { success: false, error };
+    }
+};
+
+export const getPDFById = async (pdfId) => {
+    try {
+        const db = getDatabase(app);
+        const pdfRef = ref(db, `repairsPDF/${pdfId}`);
+        const snapshot = await get(pdfRef);
+
+        if (snapshot.exists()) {
+            return { success: true, data: snapshot.val() };
+        } else {
+            return { success: false, error: "PDF не е намерен" };
+        }
+    } catch (error) {
+        return { success: false, error };
+    }
+};
