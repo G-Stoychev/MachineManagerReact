@@ -9,6 +9,11 @@
     font-size: 24px;
 }
 
+.reapairInputs {
+    border: 1px solid #ccc;
+    margin: 2px 4px;
+}
+
 .repairForm {
     display: flex;
     flex-direction: column;
