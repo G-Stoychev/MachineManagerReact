@@ -70,7 +70,7 @@ export default function StickyMenu({
                         </span>
                         <div className={classes.dropdown}>
                             <button
-                                className={` ${classes.searchInput} ${classes.searchButton} ${classes.dropOpenBtn}`}
+                                className={` ${classes.searchButton} ${classes.dropOpenBtn}`}
                             >
                                 <i className="fa-solid fa-gear"></i>
                             </button>
