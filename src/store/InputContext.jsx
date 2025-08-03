@@ -8,6 +8,7 @@ export const InputProvider = ({ children }) => {
     const [serialNumberInput, setSerialNumberInput] = useState("");
     const [bulstatNumberInput, setBulstatNumberInput] = useState("");
     const dialog = useRef();
+
     const [aSideIsOpen, setASideIsOpen] = useState(true);
 
     const openASide = () => {

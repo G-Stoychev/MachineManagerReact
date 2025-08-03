@@ -20,7 +20,7 @@ export default function ASide({
                         <li
                             onClick={() => {
                                 open();
-                                openFunction(item.title, index);
+                                openFunction(item.title, item.id, index);
                             }}
                             key={item.title}
                         >

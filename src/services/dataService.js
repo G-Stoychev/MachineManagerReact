@@ -38,6 +38,27 @@ export const changeRepairData = (id, repair) => {
     set(ref(db, `repairs/` + id), repair);
 };
 
+export const addTaskData = async (task) => {
+    const db = getDatabase();
+    const pushTask = push(ref(db, `tasks`));
+    const taskKey = pushTask.key;
+
+    await set(pushTask, {
+        ...task,
+        id: taskKey,
+    });
+
+    return {
+        ...task,
+        id: taskKey,
+    };
+};
+
+export const changeTaskData = (id, task) => {
+    const db = getDatabase();
+    set(ref(db, `tasks/` + id), task);
+};
+
 export const addMoveData = async (move) => {
     const db = getDatabase();
     const pushMove = push(ref(db, `movements`));

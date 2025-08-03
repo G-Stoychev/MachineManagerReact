@@ -118,21 +118,6 @@ export default function ExpandedContainer({ machine, closeRow, company }) {
         handleSetRepairs();
     };
 
-    const handOnSaveMovement = async (lastmove) => {
-        const newMove = {
-            ...lastmove,
-            machineId: machine.id,
-            date: new Date().toISOString().split("T")[0],
-        };
-        try {
-            const savedMove = await addMoveData(newMove);
-            setMovements((m) => [...m, savedMove]);
-            handleSetInformation();
-        } catch (error) {
-            console.error("Грешка при запис на движение:", error);
-        }
-    };
-
     const lastmove = movements[movements.length - 1];
 
     return (

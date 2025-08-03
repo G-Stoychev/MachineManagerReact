@@ -1,0 +1,103 @@
+.dialog {
+    font-family: inherit;
+    font-weight: bold;
+    font-size: 1rem;
+    padding: 0.625rem;
+    gap: 10px;
+    background-color: rgb(255, 255, 255);
+    border-radius: 5px;
+    border: unset;
+    position: absolute;
+    height: fit-content;
+    z-index: 15;
+    top: 22%;
+    left: 35%;
+    box-shadow: 5px 5px 5px rgba(26, 25, 25, 0.774);
+    animation: showModal 0.5s;
+}
+dialog::backdrop {
+    background-color: rgba(152, 154, 155, 0.781);
+}
+
+.dialogMenu {
+    display: flex;
+    justify-content: space-between;
+}
+
+.dialogMenu button {
+    box-shadow: unset;
+    color: rgb(223, 6, 6);
+    background-color: unset;
+    font-weight: 800;
+}
+
+.dialogMenu button:hover {
+    color: white;
+    background-color: rgb(223, 6, 6);
+    cursor: pointer;
+}
+
+.sectionWrapper {
+    margin-top: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.sectionWrapper input {
+    width: 60%;
+    height: 1.4rem;
+}
+
+.btnSection {
+    display: flex;
+    justify-content: center;
+}
+
+@media only screen and (max-width: 480px) {
+    .dialog {
+        top: 12%;
+        left: 15%;
+    }
+
+    .dialog h2 {
+        font-size: 1rem;
+    }
+}
+
+@media only screen and (max-width: 780px) {
+    .dialog {
+        top: 12%;
+        left: 15%;
+    }
+
+    .dialog h2 {
+        font-size: 1rem;
+    }
+}
+
+@keyframes showModal {
+    0% {
+        scale: 0;
+    }
+    10% {
+        width: 0.4;
+    }
+
+    25% {
+        width: 1;
+    }
+}
+
+@keyframes hideModal {
+    0% {
+        scale: 1;
+    }
+    10% {
+        width: 0.4;
+    }
+
+    25% {
+        width: 0;
+    }
+}

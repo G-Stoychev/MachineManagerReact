@@ -6,7 +6,7 @@ import { useInput } from "../../store/InputContext.jsx";
 
 import classes from "./AddItemModal.module.css";
 
-export default function AddItemModal({ onAddNewMachine, ref, company }) {
+export default function AddItemModal({ ref, company }) {
     const { handleAddNewMachine } = useInput();
     const dialog = useRef();
     const [error, setError] = useState(false);
