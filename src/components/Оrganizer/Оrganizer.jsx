@@ -91,6 +91,8 @@ export default function Organizer() {
         handleOpenAddModal();
     };
 
+    const handleChangeStatus = () => {};
+
     return (
         <div className={`${styles.wrapper} `}>
             <TaskModal
