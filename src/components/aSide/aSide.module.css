@@ -3,6 +3,7 @@
     position: sticky;
     width: 200px;
     height: 97vh;
+    flex-shrink: 0;
 }
 
 .btnWrapper {

@@ -3,7 +3,7 @@ import classes from "./aSide.module.css";
 export default function ASide({
     cars,
     title,
-    toggle,
+    open,
     handleAddCar,
     carInformation,
 }) {
@@ -19,7 +19,7 @@ export default function ASide({
                     {cars.map((car, index) => (
                         <li
                             onClick={() => {
-                                toggle();
+                                open();
                                 carInformation(car.plate, index);
                             }}
                             key={car.plate}

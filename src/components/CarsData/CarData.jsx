@@ -3,7 +3,7 @@ import styles from "./CarsData.module.css";
 
 import { changeCarsData } from "../../services/dataService";
 
-const CarsData = ({ toggle, cars, index, carRepairs }) => {
+const CarsData = ({ close, cars, index, carRepairs }) => {
     const [tempPlate, setTempPlate] = useState({});
     const car = cars[index];
 
@@ -30,7 +30,7 @@ const CarsData = ({ toggle, cars, index, carRepairs }) => {
                         <h2 className={styles.title}>
                             Информация за автомобил
                         </h2>
-                        <button className={styles.button} onClick={toggle}>
+                        <button className={styles.button} onClick={close}>
                             X
                         </button>
                     </div>
@@ -115,9 +115,9 @@ const CarsData = ({ toggle, cars, index, carRepairs }) => {
                                 <strong>Километри : 160000</strong>
                             </p>
                         </div>
-                        <div>
+                        <div className={` ${styles.card}`}>
                             <div
-                                className={`${styles.carRepairs} ${styles.card} ${styles.headerContainer}`}
+                                className={`${styles.carRepairs}  ${styles.headerContainer}`}
                             >
                                 <h4>Ремонти по автомобила</h4>
                                 <button className={`${styles.addBtn} `}>
@@ -151,9 +151,9 @@ const CarsData = ({ toggle, cars, index, carRepairs }) => {
                                 </tbody>
                             </table>
                         </div>
-                        <div>
+                        <div className={` ${styles.card}`}>
                             <div
-                                className={`${styles.carMoveHistory} ${styles.card}  ${styles.headerContainer}`}
+                                className={`${styles.carMoveHistory}  ${styles.headerContainer}`}
                             >
                                 <h4>Пътна книжка</h4>
                                 <button className={`${styles.addBtn} `}>

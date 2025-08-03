@@ -8,7 +8,7 @@ export default function CarsComponent({ cars, handleAddCar }) {
     const [selectedIndex, setSelectedIndex] = useState(null);
     const [carsRepairs, setCarsRepairs] = useState([
         {
-            carPlate: "А4831НТ",
+            carPlate: "А4831НТ НИСАН",
             repairDate: "08.08.2025",
             service: "Д Авто",
             kmOnRepair: "156000",
@@ -19,7 +19,10 @@ export default function CarsComponent({ cars, handleAddCar }) {
     const [carRepairs, setCarRepairs] = useState();
 
     const openCarInformation = () => {
-        setOpenCarInfo(!openCarInfo);
+        setOpenCarInfo(true);
+    };
+    const closeCarInformation = () => {
+        setOpenCarInfo(false);
     };
 
     const handleCarInformation = (carPlate, index) => {
@@ -30,10 +33,10 @@ export default function CarsComponent({ cars, handleAddCar }) {
         setCarRepairs(filtredCarRepairs);
     };
     return (
-        <div>
+        <div style={{ display: "flex" }}>
             <ASide
                 handleAddCar={handleAddCar}
-                toggle={openCarInformation}
+                open={openCarInformation}
                 carInformation={handleCarInformation}
                 cars={cars}
                 title={"Aвтомобили"}
@@ -42,7 +45,7 @@ export default function CarsComponent({ cars, handleAddCar }) {
                 <CarData
                     cars={cars}
                     index={selectedIndex}
-                    toggle={openCarInformation}
+                    close={closeCarInformation}
                     carRepairs={carRepairs}
                 />
             )}
