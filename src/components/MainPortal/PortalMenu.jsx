@@ -1,3 +1,4 @@
+import { useInput } from "../../store/InputContext.jsx";
 import classes from "../MainPortal/MainPortal.module.css";
 
 import ComponentCard from "./ComponentCard.jsx";
@@ -10,6 +11,12 @@ export default function PortalMenu({
     handleToggleRepairList,
     handleToggleOrganizer,
 }) {
+    const { setASideIsOpen } = useInput();
+    const openOrganizer = () => {
+        handleToggleOrganizer();
+        setASideIsOpen(true);
+    };
+
     return (
         <>
             <div className={classes.wrapper}>
@@ -42,7 +49,7 @@ export default function PortalMenu({
                 <ComponentCard
                     text={"Органайзер"}
                     image={<i className="fa-solid fa-calendar-days"></i>}
-                    click={handleToggleOrganizer}
+                    click={openOrganizer}
                 />
             </div>
         </>

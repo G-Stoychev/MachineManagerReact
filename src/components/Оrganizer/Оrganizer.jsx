@@ -9,15 +9,13 @@ import { useInput } from "../../store/InputContext";
 export default function Organizer() {
     const [openTask, setOpenTask] = useState(false);
     const [selectedIndex, setSelectedIndex] = useState(null);
-
     const [listOfTask, setListOfTask] = useState([
         {
             title: "Ремонт Дюни",
-            repairDate: "08.08.2025",
-            service: "Д Авто",
-            kmOnRepair: "156000",
-            repairInfo: "Смяна накладки и  ремонт климатик",
-            kmOnNextRepair: "166000",
+            createDate: "08.08.2025",
+            deadline: "28.08.2025",
+            description: "Смяна накладки и  ремонт климатик",
+            status: "В прогрес",
         },
     ]);
 

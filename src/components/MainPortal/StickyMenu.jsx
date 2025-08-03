@@ -7,8 +7,6 @@ import ContainerMenu from "./ContainerMenu.jsx";
 
 import classes from "../MainPortal/StickyMenu.module.css";
 
-import { useInput } from "../../store/InputContext.jsx";
-
 export default function StickyMenu({
     logout,
     handleReturnHome,
@@ -22,7 +20,6 @@ export default function StickyMenu({
     const [thema, setTheme] = useState([]);
     const [currentIndex, setCurrentIndex] = useState(0);
     const [itsHover, setItsHover] = useState(false);
-    const { openASide } = useInput();
 
     useEffect(() => {
         const database = getDatabase();
@@ -96,19 +93,7 @@ export default function StickyMenu({
                             </div>
                         </div>
                     </div>
-                    {activeComponent === "cars" ||
-                        (activeComponent === "organizer" && (
-                            <button
-                                className={` ${classes.inputsWrapper} ${classes.searchButton}`}
-                                onClick={() => {
-                                    openASide();
-                                }}
-                            >
-                                {activeComponent === "cars"
-                                    ? "Меню Коли"
-                                    : "Меню Задачи"}
-                            </button>
-                        ))}
+
                     {activeComponent !== "menu" &&
                         activeComponent !== "container" && (
                             <button

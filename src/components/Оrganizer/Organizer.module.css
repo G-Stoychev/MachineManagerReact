@@ -34,10 +34,10 @@
 .taskTable th,
 .taskTable td {
     text-align: left;
-    padding: 9px 10px; /* повече вътрешен отстъп */
-    white-space: nowrap; /* не позволява да се пренася на нов ред */
-    overflow: hidden; /* скрива излишъка */
-    text-overflow: ellipsis; /* слага многоточие */
+    padding: 9px 10px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
     font-size: clamp(0.7rem, 1vw, 1.2rem);
 }
 
@@ -47,10 +47,15 @@
     font-size: clamp(0.7rem, 1vw, 1rem);
 }
 .taskTable td {
-    white-space: normal; /* Позволява пренасяне на текста */
+    white-space: normal;
 }
 
 .taskTable tr {
     border-radius: 12px;
     overflow: hidden;
+}
+.btnRow button {
+    padding: 1px 5px;
+    border: 1px solid rgba(255, 255, 255, 0.233);
+    border-radius: 5px;
 }

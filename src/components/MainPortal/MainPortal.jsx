@@ -30,6 +30,7 @@ export default function MainPortal({ userInfo, logout }) {
 
     const [companyInfo, setCompanyInfo] = useState({});
     const CompanyDialog = useRef();
+
     const handleOpenCompanyModal = () => CompanyDialog.current.open();
 
     useEffect(() => {
@@ -186,16 +187,6 @@ export default function MainPortal({ userInfo, logout }) {
                     ref={errorModal}
                 />
             )}
-            {selectedComponent === "menu" && (
-                <PortalMenu
-                    toggleCars={handleToogleCars}
-                    toggleContainer={handleToggleContainer}
-                    toggleProtocol={handleToggleProtocol}
-                    handleToggleContract={handleToggleContract}
-                    handleToggleRepairList={handleToggleRepairList}
-                    handleToggleOrganizer={handleToggleOrganizer}
-                />
-            )}
 
             <CompanyInfoModal
                 ref={CompanyDialog}
@@ -203,6 +194,17 @@ export default function MainPortal({ userInfo, logout }) {
                 onCompanyEdit={handleCompanyChange}
             />
             <InputProvider>
+                {selectedComponent === "menu" && (
+                    <PortalMenu
+                        toggleCars={handleToogleCars}
+                        toggleContainer={handleToggleContainer}
+                        toggleProtocol={handleToggleProtocol}
+                        handleToggleContract={handleToggleContract}
+                        handleToggleRepairList={handleToggleRepairList}
+                        handleToggleOrganizer={handleToggleOrganizer}
+                    />
+                )}
+
                 <MachineProvider>
                     <StickyMenu
                         logout={logout}

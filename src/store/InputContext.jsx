@@ -9,6 +9,7 @@ export const InputProvider = ({ children }) => {
     const [bulstatNumberInput, setBulstatNumberInput] = useState("");
     const dialog = useRef();
     const [aSideIsOpen, setASideIsOpen] = useState(true);
+
     const openASide = () => {
         setASideIsOpen(!aSideIsOpen);
     };
@@ -34,6 +35,7 @@ export const InputProvider = ({ children }) => {
                 dialog,
                 handleOpenAddItemModal,
                 aSideIsOpen,
+                setASideIsOpen,
                 openASide,
             }}
         >
