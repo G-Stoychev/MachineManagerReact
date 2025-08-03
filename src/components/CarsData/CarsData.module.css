@@ -77,7 +77,7 @@
     display: flex;
 }
 
-table {
+.carTables {
     width: 100%;
     border-collapse: separate;
     border-spacing: 0 5px;
@@ -87,12 +87,12 @@ table {
     border-collapse: collapse;
 }
 
-thead {
+.carTables thead {
     background-color: transparent;
 }
 
-th,
-td {
+.carTables th,
+.carTables td {
     text-align: left;
     padding: 9px 10px; /* повече вътрешен отстъп */
     white-space: nowrap; /* не позволява да се пренася на нов ред */
@@ -101,16 +101,16 @@ td {
     font-size: clamp(0.7rem, 1vw, 1rem);
 }
 
-th {
+.carTables th {
     font-weight: 600;
     letter-spacing: 0.5px;
     font-size: clamp(0.7rem, 1vw, 1rem);
 }
-td {
+.carTables td {
     white-space: normal; /* Позволява пренасяне на текста */
 }
 
-tr {
+.carTables tr {
     border-radius: 12px;
     overflow: hidden;
 }

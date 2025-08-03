@@ -124,7 +124,7 @@ const CarsData = ({ close, cars, index, carRepairs }) => {
                                     <i className="fa-solid fa-plus"></i>
                                 </button>
                             </div>
-                            <table>
+                            <table className={`${styles.carTables} `}>
                                 <thead>
                                     <tr className="info-row">
                                         <th>Дата</th>
@@ -160,7 +160,7 @@ const CarsData = ({ close, cars, index, carRepairs }) => {
                                     <i className="fa-solid fa-plus"></i>
                                 </button>
                             </div>
-                            <table>
+                            <table className={`${styles.carTables} `}>
                                 <thead>
                                     <tr className="info-row">
                                         <th>Дата</th>
