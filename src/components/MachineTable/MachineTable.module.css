@@ -10,7 +10,7 @@
 
 .table thead tr {
     text-align: left;
-    font-size: clamp(0.7rem, 2vw, 1rem);
+    font-size: clamp(0.7rem, 1.5vw, 1rem);
     border-bottom: 3px solid rgb(27, 27, 27);
 }
 .table thead tr:last-child,
@@ -21,7 +21,7 @@
 
 .table tbody tr {
     border-bottom: 1px solid rgb(27, 27, 27);
-    font-size: clamp(0.7rem, 2vw, 1rem);
+    font-size: clamp(0.7rem, 1vw, 1rem);
 }
 
 .table tbody tr:hover {
@@ -37,4 +37,7 @@
     .table tbody tr {
         padding: 0;
     }
+}
+
+@media only screen and (max-width: 1780px) {
 }

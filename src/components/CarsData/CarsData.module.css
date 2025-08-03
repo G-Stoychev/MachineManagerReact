@@ -4,12 +4,13 @@
     border-radius: 8px;
     position: fixed;
     top: 10%;
-    left: 50%;
+    left: 55%;
     transform: translate(-50%, -10%);
     z-index: 9999;
     width: fit-content;
     display: flex;
     flex-direction: row;
+    flex-wrap: wrap;
     justify-content: space-around;
     row-gap: 10px;
 }
@@ -17,6 +18,7 @@
 .headerContainer {
     display: flex;
     justify-content: space-between;
+    align-items: center;
 }
 
 .carsData {
@@ -64,6 +66,59 @@
 
 .card strong {
     color: #1d1d1c;
+}
+
+.addBtn {
+    background-color: unset;
+    box-shadow: none;
+}
+
+.addBtn:hover,
+.addBtn:focus-within {
+    background-color: unset;
+    color: rgb(143, 233, 59);
+    animation: spin 1s ease-in-out;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0 5px;
+    background-color: transparent;
+}
+
+thead {
+    background-color: transparent;
+}
+
+th,
+td {
+    text-align: left;
+    padding: 9px 10px; /* повече вътрешен отстъп */
+}
+
+th {
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 13px;
+    letter-spacing: 0.5px;
+}
+td {
+    white-space: normal; /* Позволява пренасяне на текста */
+}
+
+tr {
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+@keyframes spin {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(180deg);
+    }
 }
 
 @media (max-width: 768px) {

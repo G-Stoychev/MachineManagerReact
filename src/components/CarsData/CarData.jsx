@@ -7,6 +7,17 @@ const CarsData = ({ toggle, cars, index }) => {
     const [tempPlate, setTempPlate] = useState({});
     const car = cars[index];
 
+    const [carRepairs, setCarRepairs] = useState([
+        {
+            carPlate: "А8341MP",
+            repairDate: "08.08.2025",
+            service: "Д Авто",
+            kmOnRepair: "156000",
+            repairInfo: "Смяна накладки и  ремонт климатик",
+            kmOnNextRepair: "166000",
+        },
+    ]);
+
     const handleTempChange = (index, value) => {
         setTempPlate((prev) => ({ ...prev, [index]: value }));
     };
@@ -111,16 +122,82 @@ const CarsData = ({ toggle, cars, index }) => {
                                     }
                                 />
                             </p>
+                            <p>
+                                <strong>Километри : 160000</strong>
+                            </p>
                         </div>
-                        <div className={`${styles.carRepairs} ${styles.card}`}>
-                            <h2 className={styles.title}>
-                                Ремонти по автомобила
-                            </h2>
+                        <div>
+                            <div
+                                className={`${styles.carRepairs} ${styles.card} ${styles.headerContainer}`}
+                            >
+                                <h4>Ремонти по автомобила</h4>
+                                <button className={`${styles.addBtn} `}>
+                                    <i className="fa-solid fa-plus"></i>
+                                </button>
+                            </div>
+                            <table>
+                                <thead>
+                                    <tr className="info-row">
+                                        <th>Дата</th>
+                                        <th>Серивиз</th>
+                                        <th>Километри</th>
+                                        <th>Ремонт</th>
+                                        <th>Следваща смяна</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {carRepairs.map((repair) => (
+                                        <tr>
+                                            <td className={styles.routeColumn}>
+                                                {repair.repairDate}
+                                            </td>
+                                            <td>{repair.service}</td>
+                                            <td>{repair.kmOnRepair}</td>
+                                            <td className={styles.routeColumn}>
+                                                {repair.repairInfo}
+                                            </td>
+                                            <td>{repair.kmOnNextRepair}</td>
+                                        </tr>
+                                    ))}
+                                </tbody>
+                            </table>
                         </div>
-                        <div
-                            className={`${styles.carMoveHistory} ${styles.card}`}
-                        >
-                            <h2 className={styles.title}>Пътна книжка</h2>
+                        <div>
+                            <div
+                                className={`${styles.carMoveHistory} ${styles.card}  ${styles.headerContainer}`}
+                            >
+                                <h4>Пътна книжка</h4>
+                                <button className={`${styles.addBtn} `}>
+                                    <i className="fa-solid fa-plus"></i>
+                                </button>
+                            </div>
+                            <table>
+                                <thead>
+                                    <tr className="info-row">
+                                        <th>Дата</th>
+                                        <th>Път на движенние</th>
+                                        <th>КМ на тръгване</th>
+                                        <th>КМ на Пристигане</th>
+                                        <th>Изминати КМ</th>
+                                        <th>Шофьор</th>
+                                    </tr>
+                                </thead>
+                                <tbody className={styles.roadTable}>
+                                    <tr>
+                                        <td className={styles.routeColumn}>
+                                            08.08.2025
+                                        </td>
+                                        <td className={styles.routeColumn}>
+                                            Бургас-Поморие - Сл.Бряг - Влас
+                                            -Бургас{" "}
+                                        </td>
+                                        <td>156000</td>
+                                        <td>166000</td>
+                                        <td>1000</td>
+                                        <td>Георги Стойчев</td>
+                                    </tr>
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                 </div>
