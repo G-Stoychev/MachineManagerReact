@@ -2,6 +2,9 @@ import { useState } from "react";
 
 import ASide from "../aSide/aSide";
 import CarData from "./CarData";
+import styles from "./CarsData.module.css";
+
+import { useInput } from "../../store/InputContext";
 
 export default function CarsComponent({ cars, handleAddCar }) {
     const [openCarInfo, setOpenCarInfo] = useState(false);
@@ -18,6 +21,8 @@ export default function CarsComponent({ cars, handleAddCar }) {
     ]);
     const [carRepairs, setCarRepairs] = useState();
 
+    const { aSideIsOpen } = useInput();
+
     const openCarInformation = () => {
         setOpenCarInfo(true);
     };
@@ -33,14 +38,16 @@ export default function CarsComponent({ cars, handleAddCar }) {
         setCarRepairs(filtredCarRepairs);
     };
     return (
-        <div style={{ display: "flex" }}>
-            <ASide
-                handleAddCar={handleAddCar}
-                open={openCarInformation}
-                carInformation={handleCarInformation}
-                cars={cars}
-                title={"Aвтомобили"}
-            />
+        <div className={`${styles.wrapper}  `}>
+            {aSideIsOpen && (
+                <ASide
+                    handleAddCar={handleAddCar}
+                    open={openCarInformation}
+                    carInformation={handleCarInformation}
+                    cars={cars}
+                    title={"Aвтомобили"}
+                />
+            )}
             {openCarInfo && (
                 <CarData
                     cars={cars}

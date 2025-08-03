@@ -15,7 +15,6 @@ const CompanyInfoModal = lazy(() =>
 );
 import ContractForm from "../ContractForm/ContractForm.jsx";
 import RepairList from "../RepairList/RepairList.jsx";
-import ASide from "../aSide/aSide.jsx";
 
 import { InputProvider } from "../../store/InputContext.jsx";
 import { MachineProvider } from "../../store/MachineContext.jsx";
@@ -210,20 +209,21 @@ export default function MainPortal({ userInfo, logout }) {
                         />
                     )}
                 </MachineProvider>
-            </InputProvider>
-            {selectedComponent === "menu" && (
-                <PortalMenu
-                    toggleCars={handleToogleCars}
-                    toggleContainer={handleToggleContainer}
-                    toggleProtocol={handleToggleProtocol}
-                    handleToggleContract={handleToggleContract}
-                    handleToggleRepairList={handleToggleRepairList}
-                />
-            )}
 
-            {selectedComponent === "cars" && (
-                <CarsComponent cars={cars} handleAddCar={handleAddCar} />
-            )}
+                {selectedComponent === "menu" && (
+                    <PortalMenu
+                        toggleCars={handleToogleCars}
+                        toggleContainer={handleToggleContainer}
+                        toggleProtocol={handleToggleProtocol}
+                        handleToggleContract={handleToggleContract}
+                        handleToggleRepairList={handleToggleRepairList}
+                    />
+                )}
+
+                {selectedComponent === "cars" && (
+                    <CarsComponent cars={cars} handleAddCar={handleAddCar} />
+                )}
+            </InputProvider>
 
             {selectedComponent === "contract" && (
                 <ContractForm company={companyInfo} user={userInfo} />

@@ -29,9 +29,6 @@ export default function ContainerMenu({ toggleProtocol }) {
         }
     }, [error]);
 
-    // const toggleSearch = () => {
-    //     setSearching((prev) => (prev === true ? false : true));
-    // };
     const toggleSearch = () => {
         setSearching((prev) => !prev);
     };

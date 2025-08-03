@@ -8,6 +8,10 @@ export const InputProvider = ({ children }) => {
     const [serialNumberInput, setSerialNumberInput] = useState("");
     const [bulstatNumberInput, setBulstatNumberInput] = useState("");
     const dialog = useRef();
+    const [aSideIsOpen, setASideIsOpen] = useState(true);
+    const openASide = () => {
+        setASideIsOpen(!aSideIsOpen);
+    };
 
     const handleOpenAddItemModal = () => dialog.current.open();
 
@@ -29,6 +33,8 @@ export const InputProvider = ({ children }) => {
                 handleAddNewMachine,
                 dialog,
                 handleOpenAddItemModal,
+                aSideIsOpen,
+                openASide,
             }}
         >
             {children}

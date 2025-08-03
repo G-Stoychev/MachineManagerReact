@@ -73,12 +73,18 @@
     color: rgb(143, 233, 59);
     animation: spin 1s ease-in-out;
 }
+.wrapper {
+    display: flex;
+}
 
 table {
     width: 100%;
     border-collapse: separate;
     border-spacing: 0 5px;
     background-color: transparent;
+    font-size: clamp(0.7rem, 1vw, 1rem);
+    table-layout: fixed;
+    border-collapse: collapse;
 }
 
 thead {
@@ -89,13 +95,16 @@ th,
 td {
     text-align: left;
     padding: 9px 10px; /* повече вътрешен отстъп */
+    white-space: nowrap; /* не позволява да се пренася на нов ред */
+    overflow: hidden; /* скрива излишъка */
+    text-overflow: ellipsis; /* слага многоточие */
+    font-size: clamp(0.7rem, 1vw, 1rem);
 }
 
 th {
     font-weight: 600;
-    text-transform: uppercase;
-    font-size: 13px;
     letter-spacing: 0.5px;
+    font-size: clamp(0.7rem, 1vw, 1rem);
 }
 td {
     white-space: normal; /* Позволява пренасяне на текста */
@@ -116,21 +125,6 @@ tr {
 }
 
 @media (max-width: 768px) {
-    .container {
-        padding: 1rem;
-        background-image: radial-gradient(circle, var(--seasonColor), white);
-        border-radius: 8px;
-        position: absolute;
-        top: 10;
-        left: 50%;
-        z-index: 9999;
-        width: 100%;
-        display: flex;
-        flex-direction: row;
-        justify-content: space-around;
-        row-gap: 10px;
-    }
-
     .carsData {
         display: flex;
         flex-direction: column;

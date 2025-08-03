@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import styles from "./CarsData.module.css";
 
 import { changeCarsData } from "../../services/dataService";
@@ -165,8 +165,8 @@ const CarsData = ({ close, cars, index, carRepairs }) => {
                                     <tr className="info-row">
                                         <th>Дата</th>
                                         <th>Път на движенние</th>
-                                        <th>КМ на тръгване</th>
-                                        <th>КМ на Пристигане</th>
+                                        <th>Начални КМ</th>
+                                        <th>Крайни КМ</th>
                                         <th>Изминати КМ</th>
                                         <th>Шофьор</th>
                                     </tr>
