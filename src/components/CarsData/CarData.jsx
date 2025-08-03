@@ -3,20 +3,9 @@ import styles from "./CarsData.module.css";
 
 import { changeCarsData } from "../../services/dataService";
 
-const CarsData = ({ toggle, cars, index }) => {
+const CarsData = ({ toggle, cars, index, carRepairs }) => {
     const [tempPlate, setTempPlate] = useState({});
     const car = cars[index];
-
-    const [carRepairs, setCarRepairs] = useState([
-        {
-            carPlate: "А8341MP",
-            repairDate: "08.08.2025",
-            service: "Д Авто",
-            kmOnRepair: "156000",
-            repairInfo: "Смяна накладки и  ремонт климатик",
-            kmOnNextRepair: "166000",
-        },
-    ]);
 
     const handleTempChange = (index, value) => {
         setTempPlate((prev) => ({ ...prev, [index]: value }));
@@ -147,7 +136,7 @@ const CarsData = ({ toggle, cars, index }) => {
                                 </thead>
                                 <tbody>
                                     {carRepairs.map((repair) => (
-                                        <tr>
+                                        <tr key={new Date()}>
                                             <td className={styles.routeColumn}>
                                                 {repair.repairDate}
                                             </td>

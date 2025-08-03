@@ -1,6 +1,12 @@
 import classes from "./aSide.module.css";
 
-export default function ASide({ cars, title, toggle, handleAddCar }) {
+export default function ASide({
+    cars,
+    title,
+    toggle,
+    handleAddCar,
+    carInformation,
+}) {
     return (
         <>
             <div className={classes.wrapper}>
@@ -13,7 +19,8 @@ export default function ASide({ cars, title, toggle, handleAddCar }) {
                     {cars.map((car, index) => (
                         <li
                             onClick={() => {
-                                toggle(index);
+                                toggle();
+                                carInformation(car.plate, index);
                             }}
                             key={car.plate}
                         >
