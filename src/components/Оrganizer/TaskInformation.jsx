@@ -7,6 +7,7 @@ export default function TaskInformation({
     deleteTask,
     handleEditTask,
     close,
+    handleChangeStatus,
 }) {
     if (!task) {
         return (
@@ -66,7 +67,11 @@ export default function TaskInformation({
                                 >
                                     <i className="fa-solid fa-pencil"></i>
                                 </button>
-                                <button>
+                                <button
+                                    onClick={() => {
+                                        handleChangeStatus(task);
+                                    }}
+                                >
                                     <i className="fa-solid fa-circle-check"></i>
                                 </button>
                                 <button

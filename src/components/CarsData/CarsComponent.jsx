@@ -30,7 +30,7 @@ export default function CarsComponent({ cars, handleAddCar }) {
         setOpenCarInfo(false);
     };
 
-    const handleCarInformation = (carPlate, index) => {
+    const handleCarInformation = (carPlate, id, index) => {
         setSelectedIndex(index);
         const filtredCarRepairs = carsRepairs.filter(
             (repair) => repair.carPlate === carPlate

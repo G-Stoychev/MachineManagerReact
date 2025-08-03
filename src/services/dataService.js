@@ -1,4 +1,4 @@
-import { getDatabase, ref, set, push, get } from "firebase/database";
+import { getDatabase, ref, set, push, get, update } from "firebase/database";
 import { app } from "../firebase.js";
 
 export const addMachineData = async (machine) => {
@@ -54,9 +54,11 @@ export const addTaskData = async (task) => {
     };
 };
 
-export const changeTaskData = (id, task) => {
+export const changeTaskData = (taskId, updatedFields) => {
     const db = getDatabase();
-    set(ref(db, `tasks/` + id), task);
+    const taskRef = ref(db, `tasks/${taskId}`);
+
+    return update(taskRef, updatedFields);
 };
 
 export const addMoveData = async (move) => {

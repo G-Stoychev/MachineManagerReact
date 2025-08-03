@@ -17,6 +17,7 @@ export default function Organizer() {
 
     const [listOfTask, setListOfTask] = useState([]);
     const [selectectTask, setSelectedTask] = useState();
+    const [taskDone, setTaskDone] = useState(false);
 
     const handleOpenAddModal = () => taskDialog.current.open();
 
@@ -70,7 +71,7 @@ export default function Organizer() {
 
     const handleOnUpdate = (task) => {
         changeTaskData(task.id, task);
-        selectectTask(undefined);
+        setSelectedTask(undefined);
     };
 
     const deleteTask = async (taskId) => {
@@ -91,7 +92,16 @@ export default function Organizer() {
         handleOpenAddModal();
     };
 
-    const handleChangeStatus = () => {};
+    const handleChangeStatus = (task) => {
+        if (!task?.id) {
+            console.error("Task ID is missing!");
+            return;
+        }
+
+        changeTaskData(task.id, { status: "Done" });
+        setSelectedTask(undefined);
+        setTaskDone(true);
+    };
 
     return (
         <div className={`${styles.wrapper} `}>
@@ -100,6 +110,7 @@ export default function Organizer() {
                 handleAddNewTask={handleAddNewTask}
                 handleOnUpdate={handleOnUpdate}
                 {...(selectectTask && { selectectTask })}
+                taskDone={taskDone}
             />
 
             {aSideIsOpen && (
@@ -118,6 +129,7 @@ export default function Organizer() {
                     deleteTask={deleteTask}
                     handleEditTask={handleEditTask}
                     close={closeTaskInformation}
+                    handleChangeStatus={handleChangeStatus}
                 />
             )}
         </div>
