@@ -103,7 +103,7 @@ export default function StickyMenu({
                                 openASide();
                             }}
                         >
-                            Aside
+                            Меню коли
                         </button>
                     )}
                     {activeComponent !== "menu" &&
@@ -123,7 +123,7 @@ export default function StickyMenu({
                                 ) : (
                                     <i className="fa-solid fa-backward"></i>
                                 )}
-                                Back
+                                Назад
                             </button>
                         )}
 
@@ -144,7 +144,7 @@ export default function StickyMenu({
                                 ) : (
                                     <i className="fa-solid fa-backward"></i>
                                 )}
-                                Back
+                                Назад
                             </button>
                             <ContainerMenu
                                 closeContainer={closeContainer}
@@ -163,7 +163,7 @@ export default function StickyMenu({
                             className={` ${classes.inputsWrapper} ${classes.searchButton} ${classes.logoutBtn}`}
                         >
                             <i className="fa-solid fa-arrow-right-from-bracket"></i>{" "}
-                            Logout
+                            Изход
                         </button>
                     </div>
                 </div>
