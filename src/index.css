@@ -35,8 +35,6 @@ button:hover {
     cursor: pointer;
 }
 
-/* В globals.css или в <style> в _app.js/index.html */
-
 .exportMode .exportHide {
     display: none !important;
 }

@@ -63,10 +63,12 @@ export default function ContractForm({ company, user }) {
         setSignatureAUrl(sigA);
         setSignatureBUrl(sigB);
         setLocked(true);
+        document.body.classList.add("exportMode");
 
         setTimeout(() => {
             window.print();
         }, 100);
+        document.body.classList.remove("exportMode");
     };
 
     const resetSignatures = () => {
@@ -267,7 +269,7 @@ export default function ContractForm({ company, user }) {
                                     ref={sigPadA}
                                 />
                                 <button
-                                    className={`     exportHide`}
+                                    className={`exportHide`}
                                     onClick={() => clearSignature(sigPadA)}
                                     style={{
                                         marginTop: "0.5rem",
