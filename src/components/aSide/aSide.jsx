@@ -1,30 +1,30 @@
 import classes from "./aSide.module.css";
 
 export default function ASide({
-    cars,
+    listItems,
     title,
     open,
-    handleAddCar,
-    carInformation,
+    handleAddBtn,
+    openFunction,
 }) {
     return (
         <>
             <div className={classes.wrapper}>
                 <h2>{title}</h2>
                 <div className={classes.btnWrapper}>
-                    <button onClick={handleAddCar}>Добави</button>
+                    <button onClick={handleAddBtn}>Добави</button>
                 </div>
 
                 <ul>
-                    {cars.map((car, index) => (
+                    {listItems.map((item, index) => (
                         <li
                             onClick={() => {
                                 open();
-                                carInformation(car.plate, index);
+                                openFunction(item.title, index);
                             }}
-                            key={car.plate}
+                            key={item.title}
                         >
-                            {car.plate}
+                            {item.title}
                         </li>
                     ))}
                 </ul>

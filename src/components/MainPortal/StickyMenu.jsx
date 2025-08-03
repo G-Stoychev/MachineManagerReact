@@ -96,16 +96,19 @@ export default function StickyMenu({
                             </div>
                         </div>
                     </div>
-                    {activeComponent === "cars" && (
-                        <button
-                            className={` ${classes.inputsWrapper} ${classes.searchButton}`}
-                            onClick={() => {
-                                openASide();
-                            }}
-                        >
-                            Меню коли
-                        </button>
-                    )}
+                    {activeComponent === "cars" ||
+                        (activeComponent === "organizer" && (
+                            <button
+                                className={` ${classes.inputsWrapper} ${classes.searchButton}`}
+                                onClick={() => {
+                                    openASide();
+                                }}
+                            >
+                                {activeComponent === "cars"
+                                    ? "Меню Коли"
+                                    : "Меню Задачи"}
+                            </button>
+                        ))}
                     {activeComponent !== "menu" &&
                         activeComponent !== "container" && (
                             <button

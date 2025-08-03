@@ -15,6 +15,7 @@ const CompanyInfoModal = lazy(() =>
 );
 import ContractForm from "../ContractForm/ContractForm.jsx";
 import RepairList from "../RepairList/RepairList.jsx";
+import Organizer from "../Оrganizer/Оrganizer.jsx";
 
 import { InputProvider } from "../../store/InputContext.jsx";
 import { MachineProvider } from "../../store/MachineContext.jsx";
@@ -97,7 +98,7 @@ export default function MainPortal({ userInfo, logout }) {
 
                     if (daysLeft === 10 || (daysLeft < 10 && daysLeft >= 0)) {
                         expiringList.push(
-                            `🚗 ${car.plate}: ${labels[field]} изтича след ${daysLeft} дни (${car[field]})`
+                            `🚗 ${car.title}: ${labels[field]} изтича след ${daysLeft} дни (${car[field]})`
                         );
                     }
                 }
@@ -167,6 +168,12 @@ export default function MainPortal({ userInfo, logout }) {
         setSelectedComponent((prev) => (prev === "repair" ? "menu" : "repair"));
     };
 
+    const handleToggleOrganizer = () => {
+        setSelectedComponent((prev) =>
+            prev === "organizer" ? "menu" : "organizer"
+        );
+    };
+
     return (
         <>
             {error && (
@@ -177,6 +184,16 @@ export default function MainPortal({ userInfo, logout }) {
                     ))}
                     setError={setError}
                     ref={errorModal}
+                />
+            )}
+            {selectedComponent === "menu" && (
+                <PortalMenu
+                    toggleCars={handleToogleCars}
+                    toggleContainer={handleToggleContainer}
+                    toggleProtocol={handleToggleProtocol}
+                    handleToggleContract={handleToggleContract}
+                    handleToggleRepairList={handleToggleRepairList}
+                    handleToggleOrganizer={handleToggleOrganizer}
                 />
             )}
 
@@ -198,6 +215,7 @@ export default function MainPortal({ userInfo, logout }) {
                         companyInfoChange={handleCompanyChange}
                         handleOpenCompanyModal={handleOpenCompanyModal}
                         toggleProtocol={handleToggleProtocol}
+                        handleToggleOrganizer={handleToggleOrganizer}
                     />
 
                     {selectedComponent === "container" && <Container />}
@@ -210,19 +228,10 @@ export default function MainPortal({ userInfo, logout }) {
                     )}
                 </MachineProvider>
 
-                {selectedComponent === "menu" && (
-                    <PortalMenu
-                        toggleCars={handleToogleCars}
-                        toggleContainer={handleToggleContainer}
-                        toggleProtocol={handleToggleProtocol}
-                        handleToggleContract={handleToggleContract}
-                        handleToggleRepairList={handleToggleRepairList}
-                    />
-                )}
-
                 {selectedComponent === "cars" && (
                     <CarsComponent cars={cars} handleAddCar={handleAddCar} />
                 )}
+                {selectedComponent === "organizer" && <Organizer />}
             </InputProvider>
 
             {selectedComponent === "contract" && (

@@ -8,6 +8,7 @@ export default function PortalMenu({
     toggleProtocol,
     handleToggleContract,
     handleToggleRepairList,
+    handleToggleOrganizer,
 }) {
     return (
         <>
@@ -41,6 +42,7 @@ export default function PortalMenu({
                 <ComponentCard
                     text={"Органайзер"}
                     image={<i className="fa-solid fa-calendar-days"></i>}
+                    click={handleToggleOrganizer}
                 />
             </div>
         </>

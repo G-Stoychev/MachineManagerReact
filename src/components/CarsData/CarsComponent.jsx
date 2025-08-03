@@ -41,10 +41,10 @@ export default function CarsComponent({ cars, handleAddCar }) {
         <div className={`${styles.wrapper}  `}>
             {aSideIsOpen && (
                 <ASide
-                    handleAddCar={handleAddCar}
+                    handleAddBtn={handleAddCar}
                     open={openCarInformation}
-                    carInformation={handleCarInformation}
-                    cars={cars}
+                    openFunction={handleCarInformation}
+                    listItems={cars}
                     title={"Aвтомобили"}
                 />
             )}

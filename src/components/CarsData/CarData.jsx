@@ -17,7 +17,7 @@ const CarsData = ({ close, cars, index, carRepairs }) => {
             tempPlate[index] !== cars[index].plate
         ) {
             const updatedCars = [...cars];
-            updatedCars[index].plate = tempPlate[index];
+            updatedCars[index].title = tempPlate[index];
             changeCarsData(updatedCars);
         }
     };
@@ -44,7 +44,7 @@ const CarsData = ({ close, cars, index, carRepairs }) => {
                                     value={
                                         tempPlate[index] !== undefined
                                             ? tempPlate[index]
-                                            : car.plate
+                                            : car.title
                                     }
                                     onChange={(e) =>
                                         handleTempChange(index, e.target.value)
