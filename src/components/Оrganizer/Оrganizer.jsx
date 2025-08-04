@@ -7,6 +7,7 @@ import TaskInformation from "./TaskInformation";
 
 import styles from "./Organizer.module.css";
 import { useInput } from "../../store/InputContext";
+import { useTasks } from "../../store/TaskContext.jsx";
 import { addTaskData, changeTaskData } from "../../services/dataService.js";
 
 export default function Organizer() {
@@ -15,7 +16,8 @@ export default function Organizer() {
     const { aSideIsOpen } = useInput();
     const taskDialog = useRef();
 
-    const [listOfTask, setListOfTask] = useState([]);
+    // const [listOfTask, setListOfTask] = useState([]);
+    const { listOfTask } = useTasks();
     const [selectectTask, setSelectedTask] = useState();
     const [taskDone, setTaskDone] = useState(false);
 
@@ -23,27 +25,6 @@ export default function Organizer() {
         setSelectedTask(undefined);
         taskDialog.current.open();
     };
-
-    useEffect(() => {
-        const database = getDatabase();
-        const tasksRef = ref(database, "tasks");
-        const unsubscribe = onValue(
-            tasksRef,
-            (snapshot) => {
-                if (snapshot.exists()) {
-                    const data = snapshot.val();
-                    const tasksArray = Object.values(data);
-
-                    setListOfTask(tasksArray);
-                }
-            },
-            {
-                onlyOnce: false,
-            }
-        );
-
-        return () => unsubscribe();
-    }, []);
 
     const closeTaskInformation = () => {
         setOpenTask(false);
@@ -64,7 +45,7 @@ export default function Organizer() {
     const handleAddNewTask = async (task) => {
         try {
             const savedTask = await addTaskData(task);
-            setListOfTask([...listOfTask, savedTask]);
+            // setListOfTask([...listOfTask, savedTask]);
             setSelectedTask(undefined);
         } catch (error) {
             console.error("Грешка при запис на ремонт:", error);
@@ -82,7 +63,7 @@ export default function Organizer() {
             const taskRef = ref(database, `tasks/${taskId}`);
             await remove(taskRef);
 
-            setListOfTask((prev) => prev.filter((task) => task.id !== taskId));
+            // setListOfTask((prev) => prev.filter((task) => task.id !== taskId));
             setSelectedTask(undefined);
         } catch (error) {
             console.error("Error deleting task:", error);

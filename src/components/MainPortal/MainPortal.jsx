@@ -20,8 +20,12 @@ import Organizer from "../Оrganizer/Оrganizer.jsx";
 import { InputProvider } from "../../store/InputContext.jsx";
 import { MachineProvider } from "../../store/MachineContext.jsx";
 
+import { useTasks } from "../../store/TaskContext.jsx";
+import Notifications from "../Notifications/Notifications.jsx";
+
 export default function MainPortal({ userInfo, logout }) {
     const [selectedComponent, setSelectedComponent] = useState("menu");
+    const [toDayTasks, setToDayTask] = useState([]);
 
     const [cars, setCars] = useState([]);
 
@@ -30,6 +34,7 @@ export default function MainPortal({ userInfo, logout }) {
 
     const [companyInfo, setCompanyInfo] = useState({});
     const CompanyDialog = useRef();
+    const { listOfTask } = useTasks();
 
     const handleOpenCompanyModal = () => CompanyDialog.current.open();
 
@@ -175,6 +180,27 @@ export default function MainPortal({ userInfo, logout }) {
         );
     };
 
+    const checkForToDayTasks = () => {
+        const todayDate = new Date();
+
+        const toDayTasks = listOfTask.filter((task) => {
+            if (!task.deadline) return false;
+
+            const taskDate = new Date(task.deadline);
+
+            return (
+                taskDate.getDate() === todayDate.getDate() &&
+                taskDate.getMonth() === todayDate.getMonth() &&
+                taskDate.getFullYear() === todayDate.getFullYear()
+            );
+        });
+        setToDayTask(toDayTasks);
+    };
+
+    useEffect(() => {
+        checkForToDayTasks();
+    }, [listOfTask]);
+
     return (
         <>
             {error && (
@@ -187,6 +213,8 @@ export default function MainPortal({ userInfo, logout }) {
                     ref={errorModal}
                 />
             )}
+
+            {toDayTasks.length > 0 && <Notifications toDayTasks={toDayTasks} />}
 
             <CompanyInfoModal
                 ref={CompanyDialog}

@@ -8,6 +8,7 @@ import {
 import { getDatabase, ref, onValue } from "firebase/database";
 
 import { changeUserInfo } from "./services/dataService.js";
+import { TaskProvider } from "./store/TaskContext.jsx";
 
 const MainPortal = lazy(() => import("./components/MainPortal/MainPortal.jsx"));
 
@@ -107,7 +108,9 @@ function App() {
     return (
         <>
             {isValid ? (
-                <MainPortal userInfo={userInfo} logout={handleSignOut} />
+                <TaskProvider>
+                    <MainPortal userInfo={userInfo} logout={handleSignOut} />
+                </TaskProvider>
             ) : (
                 <AuthForm
                     error={error}

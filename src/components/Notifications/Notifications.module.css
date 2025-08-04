@@ -1,0 +1,28 @@
+.notification {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-color: #f0f8ff;
+    border: 1px solid #2196f3;
+    color: #0d47a1;
+    padding: 12px 20px;
+    border-radius: 8px;
+    font-weight: 600;
+    max-width: 300px;
+    box-shadow: 0 2px 6px rgba(33, 150, 243, 0.3);
+    text-align: center;
+    z-index: 1000; /* за да е над другите елементи */
+}
+
+/* За малки устройства (мобилни) - центрирано горе или друг стил */
+@media (max-width: 768px) {
+    .notification {
+        position: static; /* нормален поток */
+        margin: 15px auto;
+        max-width: 90%;
+        box-shadow: none;
+        border: none;
+        background-color: #e3f2fd;
+        color: #0d47a1;
+    }
+}

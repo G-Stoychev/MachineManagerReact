@@ -86,7 +86,11 @@ export default function TaskInformation({
                                 {task.createDate}
                             </td>
                             <td>{task.description}</td>
-                            <td>{task.deadline}</td>
+                            <td>
+                                {new Date(task.deadline).toLocaleDateString(
+                                    "bg-BG"
+                                )}
+                            </td>
                             <td>{task.status}</td>
                             <td>{task.important ? "ВАЖНО!!!" : ""}</td>
                             <td className={styles.btnRow} id="btnRow">
