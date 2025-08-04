@@ -38,9 +38,7 @@ export default function TaskInformation({
                         <i className="fa-solid fa-forward"></i>
                     )}
                 </button>
-                <div
-                    style={{ display: "flex", justifyContent: "space-between" }}
-                >
+                <div className={styles.headerContainer}>
                     <h2
                         className={
                             taskDone
@@ -91,29 +89,25 @@ export default function TaskInformation({
                             <td>{task.deadline}</td>
                             <td>{task.status}</td>
                             <td>{task.important ? "ВАЖНО!!!" : ""}</td>
-                            <td className={styles.btnRow}>
-                                <div
-                                    style={{
-                                        display: "flex",
-                                    }}
-                                >
+                            <td className={styles.btnRow} id="btnRow">
+                                <div className={styles.divBtnRow}>
                                     {!taskDone && (
-                                        <div>
-                                            <button
-                                                onClick={() => {
-                                                    handleEditTask(task);
-                                                }}
-                                            >
-                                                <i className="fa-solid fa-pencil"></i>
-                                            </button>
-                                            <button
-                                                onClick={() => {
-                                                    handleChangeStatus(task);
-                                                }}
-                                            >
-                                                <i className="fa-solid fa-circle-check"></i>
-                                            </button>
-                                        </div>
+                                        <button
+                                            onClick={() => {
+                                                handleEditTask(task);
+                                            }}
+                                        >
+                                            <i className="fa-solid fa-pencil"></i>
+                                        </button>
+                                    )}
+                                    {!taskDone && (
+                                        <button
+                                            onClick={() => {
+                                                handleChangeStatus(task);
+                                            }}
+                                        >
+                                            <i className="fa-solid fa-circle-check"></i>
+                                        </button>
                                     )}
                                     <button
                                         onClick={() => {

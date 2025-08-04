@@ -54,6 +54,12 @@
     border-radius: 12px;
     overflow: hidden;
 }
+
+.divBtnRow {
+    display: flex;
+    flex-direction: row;
+}
+
 .btnRow button {
     padding: 1px 5px;
     border: 1px solid rgba(255, 255, 255, 0.233);
@@ -64,6 +70,7 @@
     color: rgb(223, 6, 6);
     background-color: unset;
     box-shadow: none;
+    font-size: 2rem;
 }
 
 .important {
@@ -72,4 +79,11 @@
 }
 .done {
     text-decoration: line-through;
+}
+
+@media (max-width: 850px) {
+    .divBtnRow {
+        display: flex;
+        flex-direction: column;
+    }
 }
