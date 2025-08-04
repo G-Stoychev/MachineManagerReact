@@ -26,6 +26,7 @@ import Notifications from "../Notifications/Notifications.jsx";
 export default function MainPortal({ userInfo, logout }) {
     const [selectedComponent, setSelectedComponent] = useState("menu");
     const [toDayTasks, setToDayTask] = useState([]);
+    const [openNotifications, setOpenNotificatios] = useState(false);
 
     const [cars, setCars] = useState([]);
 
@@ -195,11 +196,16 @@ export default function MainPortal({ userInfo, logout }) {
             );
         });
         setToDayTask(toDayTasks);
+        setOpenNotificatios(true);
     };
 
     useEffect(() => {
         checkForToDayTasks();
     }, [listOfTask]);
+
+    const handleCloseNotificatios = () => {
+        setOpenNotificatios(false);
+    };
 
     return (
         <>
@@ -214,7 +220,12 @@ export default function MainPortal({ userInfo, logout }) {
                 />
             )}
 
-            {toDayTasks.length > 0 && <Notifications toDayTasks={toDayTasks} />}
+            {openNotifications && (
+                <Notifications
+                    toDayTasks={toDayTasks}
+                    close={handleCloseNotificatios}
+                />
+            )}
 
             <CompanyInfoModal
                 ref={CompanyDialog}
