@@ -18,14 +18,6 @@ export default function TaskInformation({
         );
     }
 
-    const [taskDone, setTaskDone] = useState(false);
-
-    useEffect(() => {
-        if (task.status === "Done") {
-            setTaskDone(true);
-        }
-    }, [task]);
-
     const { aSideIsOpen, openASide } = useInput();
 
     return (
@@ -41,7 +33,7 @@ export default function TaskInformation({
                 <div className={styles.headerContainer}>
                     <h2
                         className={
-                            taskDone
+                            task.status === "Done"
                                 ? styles.done
                                 : task.important
                                 ? styles.important
@@ -49,7 +41,7 @@ export default function TaskInformation({
                         }
                     >
                         {task.title}
-                        {taskDone
+                        {task.status === "Done"
                             ? " ЗАВЪРШЕНА"
                             : task.important
                             ? "ВАЖНО!!!"
@@ -65,7 +57,7 @@ export default function TaskInformation({
                 <p>Данни за задачата</p>
                 <table
                     className={
-                        taskDone
+                        task.status === "Done"
                             ? `${styles.taskTable}  ${styles.done} `
                             : `${styles.taskTable}  `
                     }
@@ -92,10 +84,10 @@ export default function TaskInformation({
                                 )}
                             </td>
                             <td>{task.status}</td>
-                            <td>{task.important ? "ВАЖНО!!!" : ""}</td>
+                            <td>{task.important ? "ВАЖНО!!!" : "Не"}</td>
                             <td className={styles.btnRow} id="btnRow">
                                 <div className={styles.divBtnRow}>
-                                    {!taskDone && (
+                                    {task.status !== "Done" && (
                                         <button
                                             onClick={() => {
                                                 handleEditTask(task);
@@ -104,7 +96,7 @@ export default function TaskInformation({
                                             <i className="fa-solid fa-pencil"></i>
                                         </button>
                                     )}
-                                    {!taskDone && (
+                                    {task.status !== "Done" && (
                                         <button
                                             onClick={() => {
                                                 handleChangeStatus(task);

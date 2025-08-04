@@ -42,7 +42,7 @@ export default function TaskModal({
     const handleSubmit = (prevState, formData) => {
         const task = {
             title: formData.get("title"),
-            status: "inProgress",
+            status: "За изпълнение",
             deadline: formData.get("deadline"),
             createDate: new Date().toLocaleDateString("bg-BG"),
             description: formData.get("description"),

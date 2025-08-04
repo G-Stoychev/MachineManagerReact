@@ -29,7 +29,7 @@ export function TaskProvider({ children }) {
         return () => unsubscribe();
     }, []);
     return (
-        <TaskContext.Provider value={{ listOfTask }}>
+        <TaskContext.Provider value={{ listOfTask, setListOfTask }}>
             {children}
         </TaskContext.Provider>
     );

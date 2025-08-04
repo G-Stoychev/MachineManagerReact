@@ -17,7 +17,7 @@ export default function Organizer() {
     const taskDialog = useRef();
 
     // const [listOfTask, setListOfTask] = useState([]);
-    const { listOfTask } = useTasks();
+    const { listOfTask, setListOfTask } = useTasks();
     const [selectectTask, setSelectedTask] = useState();
     const [taskDone, setTaskDone] = useState(false);
 
@@ -63,7 +63,7 @@ export default function Organizer() {
             const taskRef = ref(database, `tasks/${taskId}`);
             await remove(taskRef);
 
-            // setListOfTask((prev) => prev.filter((task) => task.id !== taskId));
+            setListOfTask((prev) => prev.filter((task) => task.id !== taskId));
             setSelectedTask(undefined);
         } catch (error) {
             console.error("Error deleting task:", error);
