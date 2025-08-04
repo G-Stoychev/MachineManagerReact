@@ -29,7 +29,7 @@
 
 @media (max-width: 768px) {
     .notification {
-        position: static; /* нормален поток */
+        top: 10%;
         margin: 15px auto;
         max-width: 90%;
         box-shadow: none;
