@@ -3,7 +3,6 @@ import classes from "./aSide.module.css";
 export default function ASide({
     listItems,
     title,
-    open,
     handleAddBtn,
     openFunction,
 }) {
@@ -19,7 +18,6 @@ export default function ASide({
                     {listItems.map((item, index) => (
                         <li
                             onClick={() => {
-                                open();
                                 openFunction(item.title, item.id, index);
                             }}
                             key={item.title}

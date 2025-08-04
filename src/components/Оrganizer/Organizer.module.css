@@ -65,3 +65,11 @@
     background-color: unset;
     box-shadow: none;
 }
+
+.important {
+    color: red;
+    font-weight: bold;
+}
+.done {
+    text-decoration: line-through;
+}

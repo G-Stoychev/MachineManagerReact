@@ -23,9 +23,6 @@ export default function CarsComponent({ cars, handleAddCar }) {
 
     const { aSideIsOpen } = useInput();
 
-    const openCarInformation = () => {
-        setOpenCarInfo(true);
-    };
     const closeCarInformation = () => {
         setOpenCarInfo(false);
     };
@@ -36,13 +33,13 @@ export default function CarsComponent({ cars, handleAddCar }) {
             (repair) => repair.carPlate === carPlate
         );
         setCarRepairs(filtredCarRepairs);
+        setOpenCarInfo(true);
     };
     return (
         <div className={`${styles.wrapper}  `}>
             {aSideIsOpen && (
                 <ASide
                     handleAddBtn={handleAddCar}
-                    open={openCarInformation}
                     openFunction={handleCarInformation}
                     listItems={cars}
                     title={"Aвтомобили"}

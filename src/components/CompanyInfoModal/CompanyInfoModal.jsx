@@ -31,7 +31,7 @@ export default function CompanyInfoModal({ ref, onCompanyEdit, company }) {
 
     const handleCloseDialog = () => CompanyDialog.current.close();
     const handleChange = (e) => {
-        formState[e.target.name] = e.target.value; // Обновяване на formState
+        formState[e.target.name] = e.target.value;
     };
 
     const handleSubmit = (prevState, formData) => {

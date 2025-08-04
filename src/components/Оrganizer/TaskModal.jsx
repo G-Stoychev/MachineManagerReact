@@ -40,19 +40,23 @@ export default function TaskModal({
     const handleCloseTaskDialog = () => taskDialog.current.close();
 
     const handleSubmit = (prevState, formData) => {
-        const deadlineInput = formData.get("deadline");
-        const deadlineDate = new Date(deadlineInput);
         const task = {
             title: formData.get("title"),
             status: "inProgress",
-            deadline: deadlineDate.toLocaleDateString("bg-BG"),
+            deadline: formData.get("deadline"),
             createDate: new Date().toLocaleDateString("bg-BG"),
             description: formData.get("description"),
+            important: formData.has("important"),
         };
-        if (Object.values(task).some((value) => value.trim() === "")) {
+        if (
+            Object.values(task).some(
+                (value) => typeof value === "string" && value.trim() === ""
+            )
+        ) {
             setError(true);
             return;
         }
+
         if (isEdit) {
             handleOnUpdate({ ...selectectTask, ...task });
             handleCloseTaskDialog();
@@ -87,7 +91,7 @@ export default function TaskModal({
                         <input
                             type="text"
                             name="title"
-                            defaultChecked={formState?.title}
+                            defaultValue={selectectTask?.title}
                         />
                     </div>
 
@@ -96,7 +100,7 @@ export default function TaskModal({
                         <input
                             type="date"
                             name="deadline"
-                            defaultChecked={formState?.deadline}
+                            defaultValue={selectectTask?.deadline}
                         />
                     </div>
                     <div className={classes.sectionWrapper}>
@@ -105,11 +109,19 @@ export default function TaskModal({
                             type="text"
                             placeholder="Въведи модел"
                             name="description"
-                            defaultChecked={formState?.description}
+                            defaultValue={selectectTask?.description}
+                        />
+                    </div>
+                    <div className={classes.sectionWrapper}>
+                        <label>ВАЖНО ?</label>
+                        <input
+                            type="checkbox"
+                            name="important"
+                            defaultChecked={selectectTask?.description}
                         />
                     </div>
                     <div className={classes.btnSection}>
-                        <button>Добави</button>
+                        <button>{isEdit ? "Промени" : "Добави"}</button>
                     </div>
                 </form>
             </dialog>

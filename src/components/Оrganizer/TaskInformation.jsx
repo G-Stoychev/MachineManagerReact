@@ -1,5 +1,6 @@
 import styles from "./Organizer.module.css";
 import { useInput } from "../../store/InputContext";
+import { useEffect, useState } from "react";
 
 export default function TaskInformation({
     task,
@@ -17,6 +18,14 @@ export default function TaskInformation({
         );
     }
 
+    const [taskDone, setTaskDone] = useState(false);
+
+    useEffect(() => {
+        if (task.status === "Done") {
+            setTaskDone(true);
+        }
+    }, [task]);
+
     const { aSideIsOpen, openASide } = useInput();
 
     return (
@@ -32,7 +41,22 @@ export default function TaskInformation({
                 <div
                     style={{ display: "flex", justifyContent: "space-between" }}
                 >
-                    <h2>{task.title}</h2>
+                    <h2
+                        className={
+                            taskDone
+                                ? styles.done
+                                : task.important
+                                ? styles.important
+                                : ""
+                        }
+                    >
+                        {task.title}
+                        {taskDone
+                            ? " ЗАВЪРШЕНА"
+                            : task.important
+                            ? "ВАЖНО!!!"
+                            : ""}
+                    </h2>
                     <button className={styles.closeBtn} onClick={close}>
                         x
                     </button>
@@ -41,13 +65,20 @@ export default function TaskInformation({
 
             <div>
                 <p>Данни за задачата</p>
-                <table className={`${styles.taskTable} `}>
+                <table
+                    className={
+                        taskDone
+                            ? `${styles.taskTable}  ${styles.done} `
+                            : `${styles.taskTable}  `
+                    }
+                >
                     <thead>
                         <tr>
                             <th>Дата на създаване </th>
                             <th>Описание на задачата</th>
                             <th>Крайна дата за изпълнение</th>
                             <th>Статус</th>
+                            <th>Важно </th>
                             <th>Бутони за действие</th>
                         </tr>
                     </thead>
@@ -59,28 +90,39 @@ export default function TaskInformation({
                             <td>{task.description}</td>
                             <td>{task.deadline}</td>
                             <td>{task.status}</td>
+                            <td>{task.important ? "ВАЖНО!!!" : ""}</td>
                             <td className={styles.btnRow}>
-                                <button
-                                    onClick={() => {
-                                        handleEditTask(task);
+                                <div
+                                    style={{
+                                        display: "flex",
                                     }}
                                 >
-                                    <i className="fa-solid fa-pencil"></i>
-                                </button>
-                                <button
-                                    onClick={() => {
-                                        handleChangeStatus(task);
-                                    }}
-                                >
-                                    <i className="fa-solid fa-circle-check"></i>
-                                </button>
-                                <button
-                                    onClick={() => {
-                                        deleteTask(task.id);
-                                    }}
-                                >
-                                    <i className="fa-solid fa-trash"></i>
-                                </button>
+                                    {!taskDone && (
+                                        <div>
+                                            <button
+                                                onClick={() => {
+                                                    handleEditTask(task);
+                                                }}
+                                            >
+                                                <i className="fa-solid fa-pencil"></i>
+                                            </button>
+                                            <button
+                                                onClick={() => {
+                                                    handleChangeStatus(task);
+                                                }}
+                                            >
+                                                <i className="fa-solid fa-circle-check"></i>
+                                            </button>
+                                        </div>
+                                    )}
+                                    <button
+                                        onClick={() => {
+                                            deleteTask(task.id);
+                                        }}
+                                    >
+                                        <i className="fa-solid fa-trash"></i>
+                                    </button>
+                                </div>
                             </td>
                         </tr>
                     </tbody>

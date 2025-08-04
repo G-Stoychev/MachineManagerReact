@@ -19,7 +19,10 @@ export default function Organizer() {
     const [selectectTask, setSelectedTask] = useState();
     const [taskDone, setTaskDone] = useState(false);
 
-    const handleOpenAddModal = () => taskDialog.current.open();
+    const handleOpenAddModal = () => {
+        setSelectedTask(undefined);
+        taskDialog.current.open();
+    };
 
     useEffect(() => {
         const database = getDatabase();
@@ -42,11 +45,9 @@ export default function Organizer() {
         return () => unsubscribe();
     }, []);
 
-    const openTaskInformation = () => {
-        setOpenTask(true);
-    };
     const closeTaskInformation = () => {
         setOpenTask(false);
+        setSelectedTask(undefined);
     };
 
     const selectedTaskFromAside = (index) => {
@@ -57,6 +58,7 @@ export default function Organizer() {
     const handleTaskInformation = (title, id, index) => {
         setSelectedIndex(index);
         selectedTaskFromAside(index);
+        setOpenTask(true);
     };
 
     const handleAddNewTask = async (task) => {
@@ -71,7 +73,7 @@ export default function Organizer() {
 
     const handleOnUpdate = (task) => {
         changeTaskData(task.id, task);
-        setSelectedTask(undefined);
+        setSelectedTask(task);
     };
 
     const deleteTask = async (taskId) => {
@@ -89,7 +91,7 @@ export default function Organizer() {
 
     const handleEditTask = (task) => {
         setSelectedTask(task);
-        handleOpenAddModal();
+        taskDialog.current.open();
     };
 
     const handleChangeStatus = (task) => {
@@ -99,7 +101,7 @@ export default function Organizer() {
         }
 
         changeTaskData(task.id, { status: "Done" });
-        setSelectedTask(undefined);
+        setSelectedTask({ ...task, status: "Done" });
         setTaskDone(true);
     };
 
@@ -110,14 +112,12 @@ export default function Organizer() {
                 handleAddNewTask={handleAddNewTask}
                 handleOnUpdate={handleOnUpdate}
                 {...(selectectTask && { selectectTask })}
-                taskDone={taskDone}
             />
 
             {aSideIsOpen && (
                 <ASide
                     listItems={listOfTask}
                     title={"Задачи"}
-                    open={openTaskInformation}
                     handleAddBtn={handleOpenAddModal}
                     openFunction={handleTaskInformation}
                 />
@@ -130,6 +130,7 @@ export default function Organizer() {
                     handleEditTask={handleEditTask}
                     close={closeTaskInformation}
                     handleChangeStatus={handleChangeStatus}
+                    taskDone={taskDone}
                 />
             )}
         </div>
