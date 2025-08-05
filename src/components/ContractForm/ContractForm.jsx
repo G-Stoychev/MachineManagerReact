@@ -155,7 +155,7 @@ export default function ContractForm({ company, user }) {
                     {sideBName || "Купувача"} автоматична кафе машина за
                     временно ползване безвъзмездно.
                 </p>
-                <p>
+                <div>
                     1.2. {sideBName || "Купувачът"} се задължава да закупува
                     **изключително и само от {sideAName || "Продавача"}**
                     следните стоки:
@@ -170,7 +170,7 @@ export default function ContractForm({ company, user }) {
                         </li>
                         <li>консумативи. (чаши, бъркалки , захар )</li>
                     </ul>
-                </p>
+                </div>
 
                 <h3>Чл. 2. Срок на договора</h3>
                 <p>

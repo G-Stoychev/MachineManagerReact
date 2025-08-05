@@ -167,6 +167,10 @@ nav {
     padding: 5px;
     box-shadow: none;
 }
+
+.hidden {
+    display: none;
+}
 @media print {
     .menu {
         display: none;
@@ -174,10 +178,6 @@ nav {
 }
 
 @media (max-width: 768px) {
-    .companyInfo {
-        display: none;
-    }
-
     .searchInput {
         border: none;
         outline: none;

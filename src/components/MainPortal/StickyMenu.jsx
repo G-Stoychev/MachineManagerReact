@@ -20,6 +20,7 @@ export default function StickyMenu({
     const [thema, setTheme] = useState([]);
     const [currentIndex, setCurrentIndex] = useState(0);
     const [itsHover, setItsHover] = useState(false);
+    const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
 
     useEffect(() => {
         const database = getDatabase();
@@ -47,6 +48,19 @@ export default function StickyMenu({
         document.body.style.backgroundImage = thema.bgImg;
     }, [thema]);
 
+    useEffect(() => {
+        const handleResize = () => {
+            setIsMobile(window.innerWidth <= 768);
+        };
+
+        window.addEventListener("resize", handleResize);
+
+        // Почистване при размонтиране
+        return () => {
+            window.removeEventListener("resize", handleResize);
+        };
+    }, []);
+
     const handleChangeTheme = () => {
         setCurrentIndex((prevIndex) => {
             const newIndex = (prevIndex + 1) % themeSets.length;
@@ -63,7 +77,13 @@ export default function StickyMenu({
         <>
             <div className={classes.menu}>
                 <div className={classes.menuContainer}>
-                    <div className={classes.companyInfo}>
+                    <div
+                        className={
+                            isMobile && activeComponent === "container"
+                                ? ` ${classes.companyInfo} ${classes.hidden}`
+                                : classes.companyInfo
+                        }
+                    >
                         <span onClick={handleReturnHome}>
                             <i className="fa-solid fa-house"></i>
                             {company.name}
