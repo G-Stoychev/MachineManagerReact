@@ -50,7 +50,8 @@ export default function TaskInformation({
                         className={styles.closeBtn}
                         onClick={() => {
                             {
-                                !aSideIsOpen && openASide(), close();
+                                !aSideIsOpen && openASide();
+                                close();
                             }
                         }}
                     >
@@ -114,6 +115,7 @@ export default function TaskInformation({
                                     <button
                                         onClick={() => {
                                             deleteTask(task.id);
+                                            !aSideIsOpen && openASide();
                                         }}
                                     >
                                         <i className="fa-solid fa-trash"></i>
