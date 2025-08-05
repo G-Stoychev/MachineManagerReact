@@ -1,4 +1,6 @@
+import { useEffect, useState } from "react";
 import classes from "./aSide.module.css";
+import { useInput } from "../../store/InputContext";
 
 export default function ASide({
     listItems,
@@ -6,6 +8,21 @@ export default function ASide({
     handleAddBtn,
     openFunction,
 }) {
+    const { aSideIsOpen, openASide } = useInput();
+    const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
+
+    useEffect(() => {
+        const handleResize = () => {
+            setIsMobile(window.innerWidth <= 768);
+        };
+
+        window.addEventListener("resize", handleResize);
+
+        // Почистване при размонтиране
+        return () => {
+            window.removeEventListener("resize", handleResize);
+        };
+    }, []);
     return (
         <>
             <div className={classes.wrapper}>
@@ -18,7 +35,15 @@ export default function ASide({
                     {listItems.map((item, index) => (
                         <li
                             onClick={() => {
-                                openFunction(item.title, item.id, index);
+                                {
+                                    !aSideIsOpen && openASide(),
+                                        aSideIsOpen && isMobile && openASide(),
+                                        openFunction(
+                                            item.title,
+                                            item.id,
+                                            index
+                                        );
+                                }
                             }}
                             key={item.title}
                         >

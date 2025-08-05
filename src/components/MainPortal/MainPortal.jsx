@@ -224,6 +224,7 @@ export default function MainPortal({ userInfo, logout }) {
                 <Notifications
                     toDayTasks={toDayTasks}
                     close={handleCloseNotificatios}
+                    handleToggleOrganizer={handleToggleOrganizer}
                 />
             )}
 

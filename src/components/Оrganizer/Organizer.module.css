@@ -37,14 +37,15 @@
     padding: 9px 10px;
     white-space: nowrap;
     overflow: hidden;
-    text-overflow: ellipsis;
-    font-size: clamp(0.7rem, 1vw, 1.2rem);
+    font-size: clamp(0.6rem, 1vw, 1.2rem);
 }
 
 .taskTable th {
     font-weight: 600;
     letter-spacing: 0.5px;
-    font-size: clamp(0.7rem, 1vw, 1rem);
+    font-size: clamp(0.6rem, 1vw, 1rem);
+    white-space: normal; /* Пренася текста */
+    overflow: visible; /* Премахва скриването */
 }
 .taskTable td {
     white-space: normal;

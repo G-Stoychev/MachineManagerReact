@@ -1,10 +1,20 @@
 import styles from "./Notifications.module.css";
 
-export default function Notifications({ toDayTasks, close }) {
+export default function Notifications({
+    toDayTasks,
+    close,
+    handleToggleOrganizer,
+}) {
     const toDayDate = new Date().toLocaleDateString("bg-BG");
     return (
         <div className={styles.notification}>
-            <div style={{ display: "flex", alignItems: "center" }}>
+            <div
+                onClick={() => {
+                    close();
+                    handleToggleOrganizer();
+                }}
+                style={{ display: "flex", alignItems: "center" }}
+            >
                 <h2>
                     Имаш {toDayTasks.length} задач
                     {toDayTasks.length > 1 ? "и" : "а"} за днес {toDayDate}

@@ -1,6 +1,5 @@
 import styles from "./Organizer.module.css";
 import { useInput } from "../../store/InputContext";
-import { useEffect, useState } from "react";
 
 export default function TaskInformation({
     task,
@@ -47,7 +46,14 @@ export default function TaskInformation({
                             ? "ВАЖНО!!!"
                             : ""}
                     </h2>
-                    <button className={styles.closeBtn} onClick={close}>
+                    <button
+                        className={styles.closeBtn}
+                        onClick={() => {
+                            {
+                                !aSideIsOpen && openASide(), close();
+                            }
+                        }}
+                    >
                         x
                     </button>
                 </div>
@@ -64,9 +70,9 @@ export default function TaskInformation({
                 >
                     <thead>
                         <tr>
-                            <th>Дата на създаване </th>
+                            <th>От дата </th>
                             <th>Описание на задачата</th>
-                            <th>Крайна дата за изпълнение</th>
+                            <th>Дата за изпълнение</th>
                             <th>Статус</th>
                             <th>Важно </th>
                             <th>Бутони за действие</th>

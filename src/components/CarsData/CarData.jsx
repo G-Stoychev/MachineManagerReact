@@ -2,6 +2,7 @@ import { useState } from "react";
 import styles from "./CarsData.module.css";
 
 import { changeCarsData } from "../../services/dataService";
+import { useInput } from "../../store/InputContext";
 
 const CarsData = ({ close, cars, index, carRepairs }) => {
     const [tempPlate, setTempPlate] = useState({});
@@ -22,6 +23,8 @@ const CarsData = ({ close, cars, index, carRepairs }) => {
         }
     };
 
+    const { aSideIsOpen, openASide } = useInput();
+
     return (
         <>
             <div className={styles.container}>
@@ -30,8 +33,15 @@ const CarsData = ({ close, cars, index, carRepairs }) => {
                         <h2 className={styles.title}>
                             Информация за автомобил
                         </h2>
-                        <button className={styles.button} onClick={close}>
-                            X
+                        <button
+                            className={styles.closeBtn}
+                            onClick={() => {
+                                {
+                                    !aSideIsOpen && openASide(), close();
+                                }
+                            }}
+                        >
+                            x
                         </button>
                     </div>
 
