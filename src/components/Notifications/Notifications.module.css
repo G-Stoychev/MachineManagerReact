@@ -29,12 +29,13 @@
 
 @media (max-width: 768px) {
     .notification {
-        top: 10%;
         margin: 15px auto;
         max-width: 90%;
+        max-height: 45%;
         box-shadow: none;
         border: none;
         background-color: #e3f2fd;
         color: #0d47a1;
+        bottom: 1%;
     }
 }

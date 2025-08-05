@@ -54,10 +54,13 @@
     .wrapper {
         background-color: rgba(240, 248, 255, 0.349);
         display: flex;
+        min-width: 300px;
         justify-content: space-evenly;
         gap: 15px;
         position: absolute;
-        margin-top: 150px;
+        top: 10%;
+        transform: translateX(-40%);
+        left: 45%;
     }
 
     .card {
