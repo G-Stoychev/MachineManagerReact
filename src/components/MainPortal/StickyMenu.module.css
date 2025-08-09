@@ -117,9 +117,8 @@ nav {
 
 .menuContent {
     display: flex;
-    align-items: center;
+    align-items: start;
 }
-
 .inputWrapper {
     display: flex;
     flex-direction: row;

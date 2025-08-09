@@ -11,16 +11,14 @@
     cursor: pointer;
 }
 
-@media only screen and (max-width: 600px) {
+@media only screen and (max-width: 760px) {
     .select {
-        width: 200px;
+        width: fit-content;
+        max-width: 170px;
         border: none;
+        padding: 2px;
         border-radius: 5px;
-        padding: 10px 25px;
-        font-size: 0.8rem;
-        margin: 2px;
+        font-size: 0.7rem;
         font-weight: bold;
-        box-shadow: 3px 3px 3px rgba(26, 25, 25, 0.774);
-        scale: 0.8;
     }
 }

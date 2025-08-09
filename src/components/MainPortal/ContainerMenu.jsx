@@ -109,25 +109,6 @@ export default function ContainerMenu({ toggleProtocol }) {
                         </button>
                     </div>
                 </div>
-                {/* <button
-                        className={classes.searchButton}
-                        onClick={() => {
-                            handleSearchMachine(serialNumberInput);
-                            toggleSearch();
-                        }}
-                    >
-                        <i className="fa-solid fa-magnifying-glass"></i>
-                    </button>
-
-                    <button
-                        className={classes.searchButton}
-                        onClick={() => {
-                            handleSearchBulstat(serialNumberInput);
-                            toggleSearch();
-                        }}
-                    >
-                        <i className="fa-solid fa-magnifying-glass"></i>
-                    </button> */}
                 {searching && !error ? (
                     <button
                         className={classes.searchButton}
@@ -174,9 +155,7 @@ export default function ContainerMenu({ toggleProtocol }) {
                         <i className="fa-solid fa-pen-to-square"></i> Протокол
                     </button>
 
-                    <div>
-                        <Filter />
-                    </div>
+                    <Filter />
                 </div>
             </div>
         </>

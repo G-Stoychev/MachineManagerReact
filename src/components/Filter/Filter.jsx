@@ -23,7 +23,7 @@ export default function Filter({}) {
     };
 
     return (
-        <div>
+        <>
             <select className={classes.select} onChange={selectFilterItem}>
                 <option value="">Всички машини</option>
 
@@ -38,6 +38,6 @@ export default function Filter({}) {
                     </optgroup>
                 ))}
             </select>
-        </div>
+        </>
     );
 }
