@@ -34,7 +34,7 @@
 
 .card:hover {
     cursor: pointer;
-    background-color: rgba(151, 212, 212, 0.438);
+    background-color: var(--seasonColor);
     transform: translateY(-5px);
 }
 
