@@ -13,6 +13,10 @@
     font-size: clamp(0.7rem, 1.5vw, 1rem);
     border-bottom: 3px solid rgb(27, 27, 27);
 }
+
+.table th {
+    padding-left: 10px;
+}
 .table thead tr:last-child,
 .table tbody td {
     padding-top: 5px;

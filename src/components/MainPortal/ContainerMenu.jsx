@@ -127,7 +127,11 @@ export default function ContainerMenu({ toggleProtocol }) {
                     className={classes.hamburgerButton}
                     onClick={() => setIsMenuOpen(!isMenuOpen)}
                 >
-                    <i className="fa-solid fa-bars"></i>
+                    {isMenuOpen ? (
+                        <i className="fa-solid fa-x"></i>
+                    ) : (
+                        <i className="fa-solid fa-bars"></i>
+                    )}
                 </button>
 
                 <div
