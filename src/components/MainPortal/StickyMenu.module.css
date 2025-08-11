@@ -100,9 +100,13 @@ nav {
 
 .btnWrapper {
     display: flex;
-    flex-direction: row;
     justify-content: center;
+    align-items: center;
     gap: 15px;
+}
+
+.btnWrapper .fa-solid {
+    margin-right: 0;
 }
 
 .hamburgerButton {
@@ -195,7 +199,7 @@ nav {
         gap: 5px;
     }
     .hamburgerButton {
-        display: block;
+        display: flex;
     }
 
     .menuContent {
