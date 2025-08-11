@@ -29,8 +29,8 @@ export default function MachineTable({ machines, company }) {
                 <table className={classes.table}>
                     <thead>
                         <tr className="info-row">
-                            <th>Модел</th>
                             <th>Марка</th>
+                            <th>Модел</th>
                             <th>Сериен номер</th>
                             <th>Фирма</th>
                         </tr>
@@ -51,8 +51,8 @@ export default function MachineTable({ machines, company }) {
                 <table className={classes.table}>
                     <thead>
                         <tr className="info-row">
-                            <th>Модел</th>
                             <th>Марка</th>
+                            <th>Модел</th>
                             <th>Профилактика</th>
                             <th>Сериен номер</th>
                             <th>Движение</th>

@@ -7,14 +7,14 @@ export default function Notifications({
 }) {
     const toDayDate = new Date().toLocaleDateString("bg-BG");
     return (
-        <div className={styles.notification}>
-            <div
-                onClick={() => {
-                    close();
-                    handleToggleOrganizer();
-                }}
-                style={{ display: "flex", alignItems: "center" }}
-            >
+        <div
+            onClick={() => {
+                close();
+                handleToggleOrganizer();
+            }}
+            className={styles.notification}
+        >
+            <div style={{ display: "flex", alignItems: "center" }}>
                 <h2>
                     Имаш {toDayTasks.length} задач
                     {toDayTasks.length > 1 ? "и" : "а"} за днес {toDayDate}
