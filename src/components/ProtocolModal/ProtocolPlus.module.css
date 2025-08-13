@@ -140,7 +140,6 @@ s .closeBtn {
 .protocolModal input {
     display: block;
     border: none;
-    margin-bottom: 12px;
     font-size: inherit;
 }
 
