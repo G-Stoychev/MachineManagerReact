@@ -26,6 +26,13 @@
     box-shadow: none;
 }
 
+.hoverTask:hover {
+    cursor: pointer;
+    background-color: var(--seasonColor);
+    border-radius: 25px;
+    color: white;
+}
+
 @media (max-width: 768px) {
     .notification {
         margin: 15px auto;

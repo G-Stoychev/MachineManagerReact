@@ -7,13 +7,7 @@ export default function Notifications({
 }) {
     const toDayDate = new Date().toLocaleDateString("bg-BG");
     return (
-        <div
-            onClick={() => {
-                close();
-                handleToggleOrganizer();
-            }}
-            className={styles.notification}
-        >
+        <div className={styles.notification}>
             <div style={{ display: "flex", alignItems: "center" }}>
                 <h2>
                     Имаш {toDayTasks.length} задач
@@ -24,8 +18,14 @@ export default function Notifications({
                 </button>
             </div>
 
-            {toDayTasks.map((task) => (
-                <div key={task.id}>
+            {toDayTasks.map((task, index) => (
+                <div
+                    className={styles.hoverTask}
+                    onClick={() => {
+                        handleToggleOrganizer(index);
+                    }}
+                    key={task.id}
+                >
                     <h3
                         className={
                             task.status === "Done"

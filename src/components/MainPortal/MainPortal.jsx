@@ -3,6 +3,8 @@ import { getDatabase, ref, onValue } from "firebase/database";
 
 import { changeCompanyData } from "../../services/dataService.js";
 
+import styles from "./MainPortal.module.css";
+
 import CarsComponent from "../CarsData/CarsComponent.jsx";
 import ErrorModal from "../ErrorModal/ErrorModal.jsx";
 import PortalMenu from "./PortalMenu.jsx";
@@ -29,6 +31,8 @@ export default function MainPortal({ userInfo, logout }) {
     const [openNotifications, setOpenNotificatios] = useState(false);
 
     const [cars, setCars] = useState([]);
+    const [selectedNotificationTaskIndex, setSelectedNotificationTaskIndex] =
+        useState();
 
     const [error, setError] = useState(false);
     const errorModal = useRef();
@@ -181,6 +185,11 @@ export default function MainPortal({ userInfo, logout }) {
         );
     };
 
+    const hanleTaskOpenFromNotification = (index) => {
+        setSelectedComponent("organizer");
+        setSelectedNotificationTaskIndex(index);
+    };
+
     const checkForToDayTasks = () => {
         const todayDate = new Date();
 
@@ -220,12 +229,28 @@ export default function MainPortal({ userInfo, logout }) {
                 />
             )}
 
-            {openNotifications && (
+            {openNotifications ? (
                 <Notifications
                     toDayTasks={toDayTasks}
                     close={handleCloseNotificatios}
-                    handleToggleOrganizer={handleToggleOrganizer}
+                    handleToggleOrganizer={hanleTaskOpenFromNotification}
                 />
+            ) : (
+                <button
+                    className={styles.notificationBtn}
+                    onClick={() => {
+                        setOpenNotificatios(true);
+                    }}
+                >
+                    {toDayTasks.length > 0 ? (
+                        <i
+                            style={{ color: "red", fontSize: "25px" }}
+                            className="fa-solid fa-bell"
+                        ></i>
+                    ) : (
+                        <i className="fa-solid fa-bell-slash"></i>
+                    )}
+                </button>
             )}
 
             <CompanyInfoModal
@@ -273,7 +298,12 @@ export default function MainPortal({ userInfo, logout }) {
                 {selectedComponent === "cars" && (
                     <CarsComponent cars={cars} handleAddCar={handleAddCar} />
                 )}
-                {selectedComponent === "organizer" && <Organizer />}
+                {selectedComponent === "organizer" && (
+                    <Organizer
+                        selectectTaskIndex={selectedNotificationTaskIndex}
+                        setSelectectTaskIndex={setSelectedNotificationTaskIndex}
+                    />
+                )}
             </InputProvider>
 
             {selectedComponent === "contract" && (

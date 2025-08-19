@@ -10,7 +10,10 @@ import { useInput } from "../../store/InputContext";
 import { useTasks } from "../../store/TaskContext.jsx";
 import { addTaskData, changeTaskData } from "../../services/dataService.js";
 
-export default function Organizer() {
+export default function Organizer({
+    selectectTaskIndex,
+    setSelectectTaskIndex,
+}) {
     const [openTask, setOpenTask] = useState(false);
     const [selectedIndex, setSelectedIndex] = useState(null);
     const { aSideIsOpen } = useInput();
@@ -40,6 +43,7 @@ export default function Organizer() {
         setSelectedIndex(index);
         selectedTaskFromAside(index);
         setOpenTask(true);
+        setSelectectTaskIndex(undefined);
     };
 
     const handleAddNewTask = async (task) => {
@@ -85,6 +89,15 @@ export default function Organizer() {
         setSelectedTask({ ...task, status: "Done" });
         setTaskDone(true);
     };
+
+    useEffect(() => {
+        if (selectectTaskIndex !== undefined) {
+            setSelectedIndex(selectectTaskIndex);
+            const task = listOfTask[selectectTaskIndex];
+            setSelectedTask(task);
+            setOpenTask(true);
+        }
+    }, [selectectTaskIndex]);
 
     return (
         <div className={`${styles.wrapper} `}>
