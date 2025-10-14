@@ -132,14 +132,6 @@ export default function ProtocolPlus({ company, toggleProtocol, user }) {
     }
 
     const handOnSaveMovement = async () => {
-        if (selectedMachines.length === 0 || partner.length === 0) {
-            setError(true);
-            setErrorText({
-                title: "Грешка",
-                text: "Не може да запазите протокол без да въведете данни за машини и клиент",
-            });
-            return;
-        }
         if (isReturn) {
             const newMove = {
                 id: Date.now().toString(),
@@ -154,12 +146,20 @@ export default function ProtocolPlus({ company, toggleProtocol, user }) {
             };
             try {
                 const savedMove = await addMoveData(newMove);
-                downloadPDF();
+                downloadPDF(newMove);
                 toggleProtocol();
             } catch (error) {
                 console.error("Грешка при запис на движение:", error);
             }
         } else {
+            if (selectedMachines.length === 0 || partner.length === 0) {
+                setError(true);
+                setErrorText({
+                    title: "Грешка",
+                    text: "Не може да запазите протокол без да въведете данни за машини и клиент",
+                });
+                return;
+            }
             const newMove = {
                 ...partner,
                 machineId: machinesIds,
@@ -186,6 +186,7 @@ export default function ProtocolPlus({ company, toggleProtocol, user }) {
                 closeProtocolmodal={toggleProtocol}
                 handleOpenPratnerModal={handleOpenPratnerModal}
                 handleSaveNewMove={handOnSaveMovement}
+                isReturn={isReturn}
             />
             {error && (
                 <ErrorModal
@@ -228,6 +229,7 @@ export default function ProtocolPlus({ company, toggleProtocol, user }) {
                         <div>
                             <div className={classes.headerWrapper}>
                                 <h2>Данни за предадената машина</h2>
+
                                 <button
                                     className={classes.installBtn}
                                     onClick={() => {
@@ -237,6 +239,12 @@ export default function ProtocolPlus({ company, toggleProtocol, user }) {
                                     {isReturn ? "Демонтаж" : " Mонтаж"}
                                 </button>
                             </div>
+                            {isReturn && (
+                                <p style={{ color: "red" }}>
+                                    Не е нужно при демонтаж да попълвате данни
+                                    за клиент !!
+                                </p>
+                            )}
 
                             <table id={"protocol-table"}>
                                 <thead>
