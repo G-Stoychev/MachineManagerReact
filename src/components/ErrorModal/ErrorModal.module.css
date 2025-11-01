@@ -14,11 +14,10 @@ dialog {
     top: 22%;
     left: 35%;
     box-shadow: 5px 5px 5px rgba(26, 25, 25, 0.774);
-    /* animation: animateModal  500ms; */
+
     transition: ease-in 10ms;
 }
 dialog::backdrop {
-    /* background-color: rgba(68, 132, 148, 0.712); */
     background-color: rgba(152, 154, 155, 0.781);
 }
 
@@ -43,4 +42,17 @@ dialog::backdrop {
 
 span {
     display: inline-block;
+}
+
+@media (max-width: 768px) {
+    .errorModal {
+        position: absolute;
+        width: fit-content;
+        max-width: 300px;
+        height: fit-content;
+        z-index: 15;
+        top: 22%;
+        left: 20%;
+        font-size: small;
+    }
 }
