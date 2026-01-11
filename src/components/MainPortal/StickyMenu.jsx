@@ -183,6 +183,27 @@ export default function StickyMenu({
                             </div>
                         </>
                     )}
+                    {activeComponent === "sales" && (
+                        <>
+                            <div>
+                                <button
+                                    className={` ${classes.inputsWrapper} ${classes.searchButton}`}
+                                >
+                                    Добави клиент
+                                </button>
+                                <button
+                                    className={` ${classes.inputsWrapper} ${classes.searchButton}`}
+                                >
+                                    Клиенти
+                                </button>
+                                <button
+                                    className={` ${classes.inputsWrapper} ${classes.searchButton}`}
+                                >
+                                    Продажба
+                                </button>
+                            </div>
+                        </>
+                    )}
 
                     <div className={classes.rightWrapper}>
                         <div>

@@ -23,9 +23,24 @@ export default function PortalMenu({
         <>
             <div className={classes.wrapper}>
                 <ComponentCard
+                    text={"Продажби"}
+                    image={<i className="fa-solid fa-sack-dollar"></i>}
+                    click={toggleSales}
+                />
+                <ComponentCard
                     text={"Машини"}
                     image={<i className="fa-solid fa-hard-drive"></i>}
                     click={toggleContainer}
+                />
+                <ComponentCard
+                    text={"Коли"}
+                    image={<i className="fa-solid fa-car-side"></i>}
+                    click={toggleCars}
+                />
+                <ComponentCard
+                    text={"Органайзер"}
+                    image={<i className="fa-solid fa-calendar-days"></i>}
+                    click={openOrganizer}
                 />
                 <ComponentCard
                     text={"Протокол"}
@@ -44,24 +59,9 @@ export default function PortalMenu({
                 />
 
                 <ComponentCard
-                    text={"Коли"}
-                    image={<i className="fa-solid fa-car-side"></i>}
-                    click={toggleCars}
-                />
-                <ComponentCard
-                    text={"Органайзер"}
-                    image={<i className="fa-solid fa-calendar-days"></i>}
-                    click={openOrganizer}
-                />
-                <ComponentCard
                     text={"Последни документи"}
                     image={<i className="fa-solid fa-folder"></i>}
                     click={toggleDocuments}
-                />
-                <ComponentCard
-                    text={"Продажби"}
-                    image={<i className="fa-solid fa-sack-dollar"></i>}
-                    click={toggleSales}
                 />
             </div>
         </>
