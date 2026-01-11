@@ -16,6 +16,7 @@ export default function StickyMenu({
     closeContainer,
     handleOpenCompanyModal,
     toggleProtocol,
+    setActiveDocsContent,
 }) {
     const [thema, setTheme] = useState([]);
     const [currentIndex, setCurrentIndex] = useState(0);
@@ -55,7 +56,6 @@ export default function StickyMenu({
 
         window.addEventListener("resize", handleResize);
 
-        // Почистване при размонтиране
         return () => {
             window.removeEventListener("resize", handleResize);
         };
@@ -158,6 +158,29 @@ export default function StickyMenu({
                                 closeContainer={closeContainer}
                                 toggleProtocol={toggleProtocol}
                             />
+                        </>
+                    )}
+
+                    {activeComponent === "documents" && (
+                        <>
+                            <div className={classes.docsMenu}>
+                                <button
+                                    className={` ${classes.inputsWrapper} ${classes.searchButton}`}
+                                    onClick={() => {
+                                        setActiveDocsContent("repairs");
+                                    }}
+                                >
+                                    Ремонти
+                                </button>
+                                <button
+                                    className={` ${classes.inputsWrapper} ${classes.searchButton}`}
+                                    onClick={() => {
+                                        setActiveDocsContent("movements");
+                                    }}
+                                >
+                                    Движения
+                                </button>
+                            </div>
                         </>
                     )}
 

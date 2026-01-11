@@ -1,0 +1,18 @@
+.wrapper {
+    height: 100vh;
+    background-color: rgba(238, 238, 238, 0.76);
+    overflow-y: scroll;
+}
+
+.tableDocs {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    border-radius: 15px;
+}
+
+.tableDocs th,
+td {
+    border: 1px solid #ccc;
+    padding: 8px;
+}

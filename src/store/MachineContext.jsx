@@ -82,6 +82,7 @@ export const MachineProvider = ({ children }) => {
                 handleSearchMachine,
                 handleSearchBulstat,
                 handleSelectMachine,
+                movements,
             }}
         >
             {children}

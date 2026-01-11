@@ -10,6 +10,8 @@ export default function PortalMenu({
     handleToggleContract,
     handleToggleRepairList,
     handleToggleOrganizer,
+    toggleSales,
+    toggleDocuments,
 }) {
     const { setASideIsOpen } = useInput();
     const openOrganizer = () => {
@@ -50,6 +52,16 @@ export default function PortalMenu({
                     text={"Органайзер"}
                     image={<i className="fa-solid fa-calendar-days"></i>}
                     click={openOrganizer}
+                />
+                <ComponentCard
+                    text={"Последни документи"}
+                    image={<i className="fa-solid fa-folder"></i>}
+                    click={toggleDocuments}
+                />
+                <ComponentCard
+                    text={"Продажби"}
+                    image={<i className="fa-solid fa-sack-dollar"></i>}
+                    click={toggleSales}
                 />
             </div>
         </>

@@ -18,6 +18,8 @@ const CompanyInfoModal = lazy(() =>
 import ContractForm from "../ContractForm/ContractForm.jsx";
 import RepairList from "../RepairList/RepairList.jsx";
 import Organizer from "../Оrganizer/Оrganizer.jsx";
+import Sales from "../Sales/Sales.jsx";
+import LastDocs from "../LastDocs/LastDocs.jsx";
 
 import { InputProvider } from "../../store/InputContext.jsx";
 import { MachineProvider } from "../../store/MachineContext.jsx";
@@ -29,6 +31,7 @@ export default function MainPortal({ userInfo, logout }) {
     const [selectedComponent, setSelectedComponent] = useState("menu");
     const [toDayTasks, setToDayTask] = useState([]);
     const [openNotifications, setOpenNotificatios] = useState(false);
+    const [activeDocsContent, setActiveDocsContent] = useState("repairs");
 
     const [cars, setCars] = useState([]);
     const [selectedNotificationTaskIndex, setSelectedNotificationTaskIndex] =
@@ -175,6 +178,10 @@ export default function MainPortal({ userInfo, logout }) {
             prev === "contract" ? "menu" : "contract"
         );
     };
+
+    const handletoggleSales = () => {
+        setSelectedComponent((prev) => (prev === "sales" ? "menu" : "sales"));
+    };
     const handleToggleRepairList = () => {
         setSelectedComponent((prev) => (prev === "repair" ? "menu" : "repair"));
     };
@@ -185,6 +192,11 @@ export default function MainPortal({ userInfo, logout }) {
         );
     };
 
+    const handleToggleDocs = () => {
+        setSelectedComponent((prev) =>
+            prev === "documents" ? "menu" : "documents"
+        );
+    };
     const hanleTaskOpenFromNotification = (index) => {
         setSelectedComponent("organizer");
         setSelectedNotificationTaskIndex(index);
@@ -267,6 +279,8 @@ export default function MainPortal({ userInfo, logout }) {
                         handleToggleContract={handleToggleContract}
                         handleToggleRepairList={handleToggleRepairList}
                         handleToggleOrganizer={handleToggleOrganizer}
+                        toggleSales={handletoggleSales}
+                        toggleDocuments={handleToggleDocs}
                     />
                 )}
 
@@ -282,7 +296,7 @@ export default function MainPortal({ userInfo, logout }) {
                         companyInfoChange={handleCompanyChange}
                         handleOpenCompanyModal={handleOpenCompanyModal}
                         toggleProtocol={handleToggleProtocol}
-                        handleToggleOrganizer={handleToggleOrganizer}
+                        setActiveDocsContent={setActiveDocsContent}
                     />
 
                     {selectedComponent === "container" && <Container />}
@@ -292,6 +306,10 @@ export default function MainPortal({ userInfo, logout }) {
                             toggleProtocol={handleToggleProtocol}
                             user={userInfo}
                         />
+                    )}
+
+                    {selectedComponent === "documents" && (
+                        <LastDocs activeDocsContent={activeDocsContent} />
                     )}
                 </MachineProvider>
 
@@ -312,6 +330,7 @@ export default function MainPortal({ userInfo, logout }) {
             {selectedComponent === "repair" && (
                 <RepairList company={companyInfo} user={userInfo} />
             )}
+            {selectedComponent === "sales" && <Sales user={userInfo} />}
         </>
     );
 }
