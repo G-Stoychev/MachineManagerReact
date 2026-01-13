@@ -1,0 +1,118 @@
+.wrapper {
+    width: 70%;
+    height: 70vh;
+    background-color: rgb(255, 255, 255);
+    overflow: auto;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.newClientDialog {
+    width: 70%;
+    height: 70vh;
+    z-index: 1000;
+    background-color: rgb(255, 255, 255);
+    overflow: auto;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+/* .hs {
+    padding-left: 20px;
+    padding: 2px;
+}
+
+.tableDocs {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+
+    border-radius: 15px;
+}
+
+.tableDocs th,
+.tableDocs td {
+    border: 1px solid #ccc;
+    padding: 8px;
+} */
+.tableClients {
+    width: 100%;
+    margin: auto;
+    border-collapse: collapse;
+    overflow: scroll;
+    color: rgb(32, 32, 32);
+}
+
+.tableClients thead tr {
+    text-align: start;
+    font-size: clamp(0.7rem, 1.5vw, 1rem);
+    border-bottom: 3px solid rgb(27, 27, 27);
+}
+
+.tableClients th {
+    padding-left: 20px;
+    text-align: start;
+}
+
+.tableClients thead tr:last-child,
+.tableClients tbody td {
+    padding-top: 5px;
+    text-align: start;
+    padding-left: 20px;
+}
+
+.tableClients tbody tr {
+    border-bottom: 1px solid rgb(27, 27, 27);
+    font-size: clamp(0.7rem, 1vw, 1rem);
+}
+
+.tableClients tbody tr:hover {
+    background-color: rgba(255, 255, 255, 0.137);
+    cursor: pointer;
+}
+
+.clientNav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.tableClientSeparator {
+    display: flex;
+    flex-direction: row; /* по хоризонтала */
+    align-items: flex-start; /* подравняване по вертикала */
+    justify-content: flex-start;
+    gap: 16px;
+}
+
+.clientFormWrapper {
+    margin-top: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.formNewClient {
+    align-items: center;
+    width: 80%;
+    height: 80%;
+    margin: auto;
+}
+
+.navClientForm {
+    display: flex;
+    justify-content: space-between;
+}
+
+.clientFormWrapper input {
+    width: 60%;
+    height: 1.4rem;
+}
+
+.clientFormWrapperBtn {
+    width: 100%;
+}

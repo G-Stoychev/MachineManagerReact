@@ -1,4 +1,12 @@
-import { getDatabase, ref, set, push, get, update } from "firebase/database";
+import {
+    getDatabase,
+    ref,
+    set,
+    push,
+    get,
+    update,
+    remove,
+} from "firebase/database";
 import { app } from "../firebase.js";
 
 export const addMachineData = async (machine) => {
@@ -154,4 +162,30 @@ export const getPDFById = async (pdfId) => {
     } catch (error) {
         return { success: false, error };
     }
+};
+
+export const addClient = async (client) => {
+    const db = getDatabase();
+    const pushClient = push(ref(db, `clients`));
+    const clientKey = pushClient.key;
+
+    await set(pushClient, {
+        ...client,
+        id: clientKey,
+    });
+
+    return {
+        ...client,
+        id: clientKey,
+    };
+};
+
+export const deleteClient = async (clientId) => {
+    const db = getDatabase();
+
+    const clientRef = ref(db, `clients/${clientId}`);
+
+    await remove(clientRef);
+
+    return clientId;
 };

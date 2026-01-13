@@ -1,9 +1,10 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 
 import { getDatabase, ref, onValue } from "firebase/database";
 import { changeThema, themeSets } from "../../services/dataService.js";
 
 import ContainerMenu from "./ContainerMenu.jsx";
+import { ClientsDashboard } from "../Clients/ClientsDashboard.jsx";
 
 import classes from "../MainPortal/StickyMenu.module.css";
 
@@ -22,6 +23,7 @@ export default function StickyMenu({
     const [currentIndex, setCurrentIndex] = useState(0);
     const [itsHover, setItsHover] = useState(false);
     const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
+    const clientDashboardModal = useRef();
 
     useEffect(() => {
         const database = getDatabase();
@@ -75,6 +77,8 @@ export default function StickyMenu({
 
     return (
         <>
+            <ClientsDashboard refClientDashbord={clientDashboardModal} />
+
             <div className={classes.menu}>
                 <div className={classes.menuContainer}>
                     <div
@@ -113,7 +117,6 @@ export default function StickyMenu({
                             </div>
                         </div>
                     </div>
-
                     {activeComponent !== "menu" &&
                         activeComponent !== "container" && (
                             <button
@@ -188,11 +191,9 @@ export default function StickyMenu({
                             <div>
                                 <button
                                     className={` ${classes.inputsWrapper} ${classes.searchButton}`}
-                                >
-                                    Добави клиент
-                                </button>
-                                <button
-                                    className={` ${classes.inputsWrapper} ${classes.searchButton}`}
+                                    onClick={() => {
+                                        clientDashboardModal.current.open();
+                                    }}
                                 >
                                     Клиенти
                                 </button>
