@@ -100,10 +100,11 @@ export default function LastDocs({ activeDocsContent }) {
 
     return (
         <div className={styles.wrapper}>
-            <h1 className={styles.docshs}>Последни документи</h1>
             {activeDocsContent === "repairs" && (
                 <>
-                    <h2 className={styles.docshs}>Ремонти</h2>
+                    <h1 className={styles.docshs}>
+                        Последни документи ремонти
+                    </h1>
                     <table className={styles.tableDocs}>
                         <thead>
                             <tr>
@@ -130,9 +131,10 @@ export default function LastDocs({ activeDocsContent }) {
                                         <td>{repair.machineBrand}</td>
                                         <td>{repair.machineModel}</td>
                                         <td>{repair.machineSerial}</td>
-                                        <td>
-                                            {repair.prevention ? "✔️" : "X"}
-                                            {repair.profDate}
+                                        <td style={{ textAlign: "center" }}>
+                                            {repair.prevention
+                                                ? `✔️ ${repair.profDate}`
+                                                : "❌"}
                                         </td>
                                         <td>{repair.parts}</td>
                                     </tr>
@@ -157,7 +159,9 @@ export default function LastDocs({ activeDocsContent }) {
 
             {activeDocsContent === "movements" && (
                 <>
-                    <h2 className={styles.hs}>Движения</h2>
+                    <h1 className={styles.docshs}>
+                        Последни документи движения
+                    </h1>
                     <table className={styles.tableDocs}>
                         <thead>
                             <tr>

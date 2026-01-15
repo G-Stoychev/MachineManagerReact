@@ -71,7 +71,9 @@ export default function RepairModal({
             <div>
                 <button>{isEdit ? "Промени" : "Добави"}</button>
 
-                <button onClick={closeRepairModal}>Излез</button>
+                <button type="button" onClick={closeRepairModal}>
+                    Излез
+                </button>
             </div>
         </form>
     );

@@ -9,11 +9,28 @@
     transform: translate(-50%, -50%);
 }
 
+.clientBtn {
+    border: none;
+    box-shadow: unset;
+    padding: 7px 7px;
+    margin: 0;
+    transition: transform 0.3s ease;
+    background-color: unset;
+    font-size: clamp(0.6rem, 1vw, 0.9rem);
+}
+
+.closeBtn {
+    box-shadow: unset;
+    color: rgb(223, 6, 6);
+    background-color: unset;
+    font-weight: 800;
+}
+
 .newClientDialog {
-    width: 70%;
-    height: 70vh;
+    width: 50%;
+    height: 50vh;
     z-index: 1000;
-    background-color: rgb(255, 255, 255);
+    background-color: rgb(243, 235, 235);
     overflow: auto;
     position: absolute;
     top: 50%;
@@ -21,24 +38,6 @@
     transform: translate(-50%, -50%);
 }
 
-/* .hs {
-    padding-left: 20px;
-    padding: 2px;
-}
-
-.tableDocs {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 20px;
-
-    border-radius: 15px;
-}
-
-.tableDocs th,
-.tableDocs td {
-    border: 1px solid #ccc;
-    padding: 8px;
-} */
 .tableClients {
     width: 100%;
     margin: auto;
@@ -73,6 +72,11 @@
 .tableClients tbody tr:hover {
     background-color: rgba(255, 255, 255, 0.137);
     cursor: pointer;
+}
+
+.tableBtn {
+    background-color: transparent;
+    box-shadow: none;
 }
 
 .clientNav {
@@ -111,8 +115,10 @@
 .clientFormWrapper input {
     width: 60%;
     height: 1.4rem;
+    border-radius: 5px;
+    padding: 15px;
 }
 
 .clientFormWrapperBtn {
-    width: 100%;
+    width: 50%;
 }

@@ -1,14 +1,41 @@
 import { useRef, useImperativeHandle, useState, useEffect } from "react";
-import { addClient } from "../../services/dataService.js";
+import { addClient, onUpdateClient } from "../../services/dataService.js";
 
 import ErrorModal from "../ErrorModal/ErrorModal.jsx";
 
 import styles from "./ClientsDashboard.module.css";
 
-export default function NewClientForm({ refNewClientForm }) {
+export default function NewClientForm({ refNewClientForm, selectedClient }) {
     const newClientForm = useRef();
     const [error, setError] = useState(false);
     const errorModal = useRef();
+    const isEdit = selectedClient !== null;
+    const [clientInput, setClientInput] = useState({
+        eik: "",
+        name: "",
+        mol: "",
+        address: "",
+        phone: "",
+        object: "",
+        info: "",
+    });
+
+    useEffect(() => {
+        if (selectedClient) {
+            setClientInput(selectedClient);
+        } else {
+            setClientInput({
+                eik: "",
+                name: "",
+                mol: "",
+                address: "",
+                phone: "",
+                object: "",
+                info: "",
+            });
+        }
+    }, [selectedClient]);
+
     useEffect(() => {
         if (error && errorModal.current) {
             errorModal.current.open();
@@ -26,21 +53,31 @@ export default function NewClientForm({ refNewClientForm }) {
     const handleCloseModal = () => {
         newClientForm.current.close();
     };
-    const handleAddClient = (formData) => {
-        const client = {
-            eik: formData.get("eik"),
-            name: formData.get("name"),
-            mol: formData.get("mol"),
-            address: formData.get("address"),
-            phone: formData.get("phone"),
-            object: formData.get({}),
-            info: formData.get("info"),
-        };
-        if (Object.values(client).some((value) => value.trim() === "")) {
+
+    const handleChange = (e) => {
+        const { name, value } = e.target;
+        setClientInput((prev) => ({
+            ...prev,
+            [name]: value,
+        }));
+    };
+
+    const handleAddClient = (e) => {
+        e.preventDefault();
+
+        if (Object.values(clientInput).some((v) => v.trim() === "")) {
             setError(true);
             return;
         }
-        addClient(client);
+
+        if (isEdit) {
+            onUpdateClient(clientInput.id, clientInput);
+            handleCloseModal();
+            return;
+        }
+
+        addClient(clientInput);
+        handleCloseModal();
     };
 
     return (
@@ -54,9 +91,16 @@ export default function NewClientForm({ refNewClientForm }) {
                 />
             )}
             <dialog className={styles.newClientDialog} ref={newClientForm}>
-                <form action={handleAddClient} className={styles.formNewClient}>
+                <form
+                    onSubmit={handleAddClient}
+                    className={styles.formNewClient}
+                >
                     <div className={styles.navClientForm}>
-                        <h2>Добави нов клиент</h2>
+                        <h2>
+                            {isEdit
+                                ? `Промени данни за фирма - ${clientInput.name}`
+                                : "Добави нов клиент"}
+                        </h2>
                         <button type="button" onClick={handleCloseModal}>
                             X
                         </button>
@@ -64,51 +108,77 @@ export default function NewClientForm({ refNewClientForm }) {
 
                     <div className={styles.clientFormWrapper}>
                         <label>ЕИК</label>
-                        <input type="text " name="eik" placeholder="ЕИК" />
+                        <input
+                            type="text"
+                            name="eik"
+                            placeholder="ЕИК"
+                            value={clientInput.eik}
+                            onChange={handleChange}
+                        />
                     </div>
                     <div className={styles.clientFormWrapper}>
                         <label>Фирма/Клиент</label>
                         <input
-                            type="text "
+                            type="text"
                             name="name"
                             placeholder="Фирма/Клиент"
+                            value={clientInput.name}
+                            onChange={handleChange}
                         />
                     </div>
                     <div className={styles.clientFormWrapper}>
                         <label>М.О.Л</label>
-                        <input type="text " name="mol" placeholder="М.О.Л" />
+                        <input
+                            type="text"
+                            name="mol"
+                            placeholder="М.О.Л"
+                            value={clientInput.mol}
+                            onChange={handleChange}
+                        />
                     </div>
                     <div className={styles.clientFormWrapper}>
                         <label>Адрес</label>
                         <input
-                            type="text "
+                            type="text"
                             name="address"
                             placeholder="Адрес"
+                            value={clientInput.address}
+                            onChange={handleChange}
                         />
                     </div>
                     <div className={styles.clientFormWrapper}>
                         <label>Телефон</label>
                         <input
-                            type="text "
+                            type="text"
                             name="phone"
                             placeholder="Телефон"
+                            value={clientInput.phone}
+                            onChange={handleChange}
                         />
                     </div>
                     <div className={styles.clientFormWrapper}>
                         <label>Обект</label>
-                        <input type="text " name="object" placeholder="Обект" />
+                        <input
+                            type="text"
+                            name="object"
+                            placeholder="Обект"
+                            value={clientInput.object}
+                            onChange={handleChange}
+                        />
                     </div>
                     <div className={styles.clientFormWrapper}>
                         <label>Информация</label>
                         <input
-                            type="text "
+                            type="text"
                             name="info"
                             placeholder="Информация"
+                            value={clientInput.info}
+                            onChange={handleChange}
                         />
                     </div>
 
                     <button className={styles.clientFormWrapperBtn}>
-                        Добави
+                        {isEdit ? "Запази " : "Добави"}
                     </button>
                 </form>
             </dialog>

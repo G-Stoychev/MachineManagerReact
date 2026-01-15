@@ -9,6 +9,7 @@ import NewClientForm from "./NewClientForm.jsx";
 export function ClientsDashboard({ refClientDashbord }) {
     const clientDashboardModal = useRef();
     const newClientForm = useRef();
+    const [choosenClient, setChoosenClient] = useState(null);
 
     useImperativeHandle(refClientDashbord, () => {
         return {
@@ -50,7 +51,10 @@ export function ClientsDashboard({ refClientDashbord }) {
 
     return (
         <>
-            <NewClientForm refNewClientForm={newClientForm} />
+            <NewClientForm
+                refNewClientForm={newClientForm}
+                selectedClient={choosenClient}
+            />
 
             <dialog ref={clientDashboardModal} className={styles.wrapper}>
                 <div className={styles.clientNav}>
@@ -58,6 +62,7 @@ export function ClientsDashboard({ refClientDashbord }) {
                     <div>
                         <button
                             onClick={() => {
+                                setChoosenClient(null);
                                 newClientForm.current.open();
                             }}
                         >
@@ -89,16 +94,31 @@ export function ClientsDashboard({ refClientDashbord }) {
                                     <td>{client.mol}</td>
                                     <td>{client.address}</td>
                                     <td>{client.phone}</td>
-                                    <td>
+                                    <td>{client.object}</td>
+                                    {/* <td>
                                         {client.objects.map((obj, index) => (
                                             <p key={index}>{obj}</p>
                                         ))}
-                                    </td>
+                                    </td> */}
                                     <td>{client.info}</td>
                                     <td>
                                         <div>
-                                            <button>edit</button>
                                             <button
+                                                className={styles.tableBtn}
+                                                onClick={() => {
+                                                    const isConfirmed = confirm(
+                                                        "Сигурен ли си, че искаш да редактираш този клиент?"
+                                                    );
+
+                                                    if (!isConfirmed) return;
+                                                    setChoosenClient(client);
+                                                    newClientForm.current.open();
+                                                }}
+                                            >
+                                                <i className="fa-solid fa-pen-to-square"></i>
+                                            </button>
+                                            <button
+                                                className={styles.tableBtn}
                                                 onClick={() => {
                                                     const isConfirmed = confirm(
                                                         "Сигурен ли си, че искаш да изтриеш този клиент?"
@@ -111,7 +131,7 @@ export function ClientsDashboard({ refClientDashbord }) {
                                                     );
                                                 }}
                                             >
-                                                delete
+                                                <i className="fa-solid fa-trash"></i>
                                             </button>
                                         </div>
                                     </td>

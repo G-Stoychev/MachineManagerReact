@@ -189,3 +189,8 @@ export const deleteClient = async (clientId) => {
 
     return clientId;
 };
+
+export const onUpdateClient = (id, client) => {
+    const db = getDatabase();
+    set(ref(db, `clients/` + id), client);
+};

@@ -199,6 +199,12 @@ export default function StickyMenu({
                                 </button>
                                 <button
                                     className={` ${classes.inputsWrapper} ${classes.searchButton}`}
+                                    onClick={() => {}}
+                                >
+                                    Стока
+                                </button>
+                                <button
+                                    className={` ${classes.inputsWrapper} ${classes.searchButton}`}
                                 >
                                     Продажба
                                 </button>
