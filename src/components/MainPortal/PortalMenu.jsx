@@ -1,7 +1,9 @@
+import { useRef } from "react";
 import { useInput } from "../../store/InputContext.jsx";
 import classes from "../MainPortal/MainPortal.module.css";
 
 import ComponentCard from "./ComponentCard.jsx";
+import ClientsDashboard from "../Clients/ClientsDashboard.jsx";
 
 export default function PortalMenu({
     toggleCars,
@@ -18,9 +20,15 @@ export default function PortalMenu({
         handleToggleOrganizer();
         setASideIsOpen(true);
     };
+    const clientDashboardModal = useRef();
+
+    const handleOpenClients = () => {
+        clientDashboardModal.current.open();
+    };
 
     return (
         <>
+            <ClientsDashboard refClientDashbord={clientDashboardModal} />
             <div className={classes.wrapper}>
                 <ComponentCard
                     text={"Продажби"}
@@ -33,15 +41,22 @@ export default function PortalMenu({
                     click={toggleContainer}
                 />
                 <ComponentCard
-                    text={"Коли"}
-                    image={<i className="fa-solid fa-car-side"></i>}
-                    click={toggleCars}
+                    text={"Клиенти"}
+                    image={<i className="fa-solid fa-person"></i>}
+                    click={handleOpenClients}
                 />
+                <ComponentCard
+                    text={"Стоки"}
+                    image={<i className="fa-solid fa-box-open"></i>}
+                    click={handleOpenClients}
+                />
+
                 <ComponentCard
                     text={"Органайзер"}
                     image={<i className="fa-solid fa-calendar-days"></i>}
                     click={openOrganizer}
                 />
+
                 <ComponentCard
                     text={"Протокол"}
                     image={<i className="fa-solid fa-file-invoice"></i>}
@@ -57,7 +72,11 @@ export default function PortalMenu({
                     image={<i className="fa-solid fa-file-signature"></i>}
                     click={handleToggleContract}
                 />
-
+                <ComponentCard
+                    text={"Коли"}
+                    image={<i className="fa-solid fa-car-side"></i>}
+                    click={toggleCars}
+                />
                 <ComponentCard
                     text={"Последни документи"}
                     image={<i className="fa-solid fa-folder"></i>}

@@ -6,7 +6,7 @@ import styles from "./ClientsDashboard.module.css";
 import { deleteClient } from "../../services/dataService.js";
 import NewClientForm from "./NewClientForm.jsx";
 
-export function ClientsDashboard({ refClientDashbord }) {
+export default function ClientsDashboard({ refClientDashbord }) {
     const clientDashboardModal = useRef();
     const newClientForm = useRef();
     const [choosenClient, setChoosenClient] = useState(null);
@@ -61,6 +61,7 @@ export function ClientsDashboard({ refClientDashbord }) {
                     <h2>Клиенти</h2>
                     <div>
                         <button
+                            className={styles.addBtn}
                             onClick={() => {
                                 setChoosenClient(null);
                                 newClientForm.current.open();
@@ -68,7 +69,13 @@ export function ClientsDashboard({ refClientDashbord }) {
                         >
                             Добави
                         </button>
-                        <button onClick={handleCloseModal}> Затвори</button>
+                        <button
+                            className={styles.tableBtn}
+                            onClick={handleCloseModal}
+                        >
+                            {" "}
+                            ❌
+                        </button>
                     </div>
                 </div>
 

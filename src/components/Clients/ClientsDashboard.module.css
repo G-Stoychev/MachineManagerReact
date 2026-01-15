@@ -9,16 +9,6 @@
     transform: translate(-50%, -50%);
 }
 
-.clientBtn {
-    border: none;
-    box-shadow: unset;
-    padding: 7px 7px;
-    margin: 0;
-    transition: transform 0.3s ease;
-    background-color: unset;
-    font-size: clamp(0.6rem, 1vw, 0.9rem);
-}
-
 .closeBtn {
     box-shadow: unset;
     color: rgb(223, 6, 6);

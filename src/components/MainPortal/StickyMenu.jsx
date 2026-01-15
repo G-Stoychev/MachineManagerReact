@@ -4,7 +4,7 @@ import { getDatabase, ref, onValue } from "firebase/database";
 import { changeThema, themeSets } from "../../services/dataService.js";
 
 import ContainerMenu from "./ContainerMenu.jsx";
-import { ClientsDashboard } from "../Clients/ClientsDashboard.jsx";
+import ClientsDashboard from "../Clients/ClientsDashboard.jsx";
 
 import classes from "../MainPortal/StickyMenu.module.css";
 
