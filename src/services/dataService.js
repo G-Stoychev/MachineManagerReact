@@ -194,3 +194,34 @@ export const onUpdateClient = (id, client) => {
     const db = getDatabase();
     set(ref(db, `clients/` + id), client);
 };
+
+export const addGoods = async (goods) => {
+    const db = getDatabase();
+    const pushGoods = push(ref(db, `goods`));
+    const goodsKey = pushGoods.key;
+
+    await set(pushGoods, {
+        ...goods,
+        id: goodsKey,
+    });
+
+    return {
+        ...goods,
+        id: goodsKey,
+    };
+};
+
+export const deleteGoods = async (goodsId) => {
+    const db = getDatabase();
+
+    const goodsRef = ref(db, `goods/${goodsId}`);
+
+    await remove(goodsRef);
+
+    return goodsId;
+};
+
+export const onUpdateGoods = (id, goods) => {
+    const db = getDatabase();
+    set(ref(db, `goods/` + id), goods);
+};
