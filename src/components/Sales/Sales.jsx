@@ -1,5 +1,31 @@
 import styles from "../Sales/Sales.module.css";
 
+import { useState, useRef, useEffect } from "react";
+import { getDatabase, ref, onValue } from "firebase/database";
+
+// const [salesData, setSalesData] = useState([]);
+
+// useEffect(() => {
+//     const database = getDatabase();
+//     const salesRef = ref(database, "sales");
+//     const unsubscribe = onValue(
+//         salesRef,
+//         (snapshot) => {
+//             if (snapshot.exists()) {
+//                 const data = snapshot.val();
+//                 setSalesData(Object.values(data));
+//             } else {
+//                 setSalesData([]);
+//             }
+//         },
+//         {
+//             onlyOnce: false,
+//         },
+//     );
+
+//     return () => unsubscribe();
+// }, []);
+
 export default function Sales({ user, toggleSales }) {
     return (
         <>
@@ -36,44 +62,55 @@ export default function Sales({ user, toggleSales }) {
                         </tr>
                         <tr>
                             <th>Дата </th>
+                            <th>Номер продажба </th>
                             <th>Клиент</th>
                             <th>Oбект</th>
                             <th>Телефон</th>
                             <th>Сума</th>
+                            <th>Действие</th>
                         </tr>
                     </thead>
-                    {/* <tbody>
-                        {movementsWithMachineData &&
-                        movementsWithMachineData.length > 0 ? (
-                            movementsWithMachineData.map((move, index) => (
-                                <tr key={index}>
-                                    <td>
-                                        {new Date(move.date).toLocaleDateString(
-                                            "bg-BG"
-                                        )}
-                                    </td>
-                                    <td>{move.partner}</td>
-                                    <td>{move.machineBrand}</td>
-                                    <td>{move.machineModel}</td>
-                                    <td>{move.machineSerial}</td>
-                                    <td>{move.contact}</td>
-                                    <td>{move.object}</td>
-                                </tr>
-                            ))
-                        ) : (
-                            <tr>
-                                <td
-                                    colSpan="7"
-                                    style={{
-                                        textAlign: "center",
-                                        padding: "8px",
+
+                    <tbody>
+                        <tr>
+                            <td>{new Date().toLocaleDateString("bg-BG")}</td>
+                            <td>1000102</td>
+                            <td>Областна</td>
+                            <td>Областна</td>
+                            <td>0921321321321</td>
+                            <td>122е</td>
+                            <td>
+                                <button
+                                    className={styles.tableBtn}
+                                    onClick={() => {
+                                        const isConfirmed = confirm(
+                                            "Сигурен ли си, че искаш да редактираш стока?",
+                                        );
+
+                                        if (!isConfirmed) return;
+
+                                        console.log("Редактирам продажба");
                                     }}
                                 >
-                                    Няма налични ремонти
-                                </td>
-                            </tr>
-                        )}
-                    </tbody> */}
+                                    <i className="fa-solid fa-magnifying-glass"></i>
+                                </button>
+                                <button
+                                    className={styles.tableBtn}
+                                    onClick={() => {
+                                        const isConfirmed = confirm(
+                                            "Сигурен ли си, че искаш да редактираш стока?",
+                                        );
+
+                                        if (!isConfirmed) return;
+
+                                        console.log("Редактирам продажба");
+                                    }}
+                                >
+                                    <i className="fa-solid fa-print"></i>
+                                </button>
+                            </td>
+                        </tr>
+                    </tbody>
                 </table>
             </div>
         </>

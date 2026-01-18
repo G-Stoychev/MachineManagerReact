@@ -6,6 +6,7 @@ import { changeThema, themeSets } from "../../services/dataService.js";
 import ContainerMenu from "./ContainerMenu.jsx";
 import ClientsDashboard from "../Clients/ClientsDashboard.jsx";
 import ProductsDashboard from "../Products/ProductsDashboard.jsx";
+import NewSaleForm from "../Sales/NewSaleForm.jsx";
 
 import classes from "../MainPortal/StickyMenu.module.css";
 
@@ -26,6 +27,7 @@ export default function StickyMenu({
     const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
     const clientDashboardModal = useRef();
     const refProductsDashbord = useRef();
+    const refSeleForm = useRef();
 
     useEffect(() => {
         const database = getDatabase();
@@ -48,7 +50,7 @@ export default function StickyMenu({
     useEffect(() => {
         document.documentElement.style.setProperty(
             "--seasonColor",
-            `var(${thema.hoverColor})`
+            `var(${thema.hoverColor})`,
         );
         document.body.style.backgroundImage = thema.bgImg;
     }, [thema]);
@@ -81,6 +83,7 @@ export default function StickyMenu({
         <>
             <ClientsDashboard refClientDashbord={clientDashboardModal} />
             <ProductsDashboard refProductsDashbord={refProductsDashbord} />
+            <NewSaleForm refSeleForm={refSeleForm} />
 
             <div className={classes.menu}>
                 <div className={classes.menuContainer}>
@@ -203,13 +206,16 @@ export default function StickyMenu({
                                 <button
                                     className={` ${classes.inputsWrapper} ${classes.searchButton}`}
                                     onClick={() => {
-                                        refProductsDashbord.current.open()
+                                        refProductsDashbord.current.open();
                                     }}
                                 >
                                     Стока
                                 </button>
                                 <button
                                     className={` ${classes.inputsWrapper} ${classes.searchButton}`}
+                                    onClick={() => {
+                                        refSeleForm.current.open();
+                                    }}
                                 >
                                     Продажба
                                 </button>

@@ -8,6 +8,24 @@
     font-weight: bold;
     overflow: auto;
 }
+
+.wrapperSalesForm {
+    width: 70%;
+    height: 70vh;
+    background-color: rgb(255, 255, 255);
+    overflow: auto;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.salesNav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
 .tableDocs {
     width: 100%;
     margin: auto;
@@ -23,7 +41,7 @@
 }
 
 .tableDocs th {
-    padding-left: 10px;
+    padding-left: 5px;
     text-align: start;
 }
 
@@ -31,7 +49,7 @@
 .tableDocs tbody td {
     padding-top: 5px;
     text-align: start;
-    padding-left: 20px;
+    padding-left: 5px;
 }
 
 .tableDocs tbody tr {
@@ -51,4 +69,40 @@
     width: 100%;
     height: 30px;
     padding: 5px;
+}
+
+.tableBtn {
+    background-color: transparent;
+    box-shadow: none;
+}
+
+.saleNav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.form {
+    margin-top: 10px;
+}
+
+.productList {
+    list-style: none;
+    padding: 0;
+}
+.productItem {
+    display: grid;
+    grid-template-columns: 0.9fr 60px 80px 80px 30px; /* по-малки ширини */
+    gap: 4px;
+    align-items: center;
+    margin-bottom: 6px;
+    border-bottom: 1px solid black;
+}
+
+.productItem input {
+    padding: 4px;
+}
+
+.addProductBtn {
+    margin-top: 12px;
 }
