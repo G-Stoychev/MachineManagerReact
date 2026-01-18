@@ -5,7 +5,10 @@ import ErrorModal from "../ErrorModal/ErrorModal.jsx";
 
 import styles from "../Clients/ClientsDashboard.module.css";
 
-export default function NewProductForm({ refNewProductModal, selectedProduct }) {
+export default function NewProductForm({
+    refNewProductModal,
+    selectedProduct,
+}) {
     const refNewProductForm = useRef();
     const [error, setError] = useState(false);
     const errorModal = useRef();
@@ -25,13 +28,13 @@ export default function NewProductForm({ refNewProductModal, selectedProduct }) 
             setProductInput(selectedProduct);
         } else {
             setProductInput({
-        code: "",
-        name: "",
-        measure: "",
-        incomingPrice: "",
-        sellPrice: "",
-        lot: "",
-        info: "",
+                code: "",
+                name: "",
+                measure: "",
+                incomingPrice: "",
+                sellPrice: "",
+                lot: "",
+                info: "",
             });
         }
     }, [selectedProduct]);
@@ -62,6 +65,18 @@ export default function NewProductForm({ refNewProductModal, selectedProduct }) 
         }));
     };
 
+    const resetForm = () => {
+        setProductInput({
+            code: "",
+            name: "",
+            measure: "",
+            incomingPrice: "",
+            sellPrice: "",
+            lot: "",
+            info: "",
+        });
+    };
+
     const handleAddProduct = (e) => {
         e.preventDefault();
 
@@ -77,6 +92,7 @@ export default function NewProductForm({ refNewProductModal, selectedProduct }) 
         }
 
         addProduct(productInput);
+        resetForm();
         handleCloseModal();
     };
 
@@ -157,11 +173,11 @@ export default function NewProductForm({ refNewProductModal, selectedProduct }) 
                         />
                     </div>
                     <div className={styles.clientFormWrapper}>
-                        <label>Партиден Номер</label>
+                        <label>Доставчик</label>
                         <input
                             type="text"
                             name="lot"
-                            placeholder="Партиден Номер"
+                            placeholder="Доставчик"
                             value={productInput.lot}
                             onChange={handleChange}
                         />

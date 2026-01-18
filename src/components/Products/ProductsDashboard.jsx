@@ -83,7 +83,7 @@ export default function ClientsDashboard({ refProductsDashbord }) {
                             <th>Мярка</th>
                             <th>Доставна цена</th>
                             <th>Продажна Цена </th>
-                            <th>Партиден номер</th>
+                            <th>Доставчик</th>
                             <th>Информация</th>
                             <th>Действие</th>
                         </tr>
