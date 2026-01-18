@@ -62,17 +62,17 @@ export default function NewClientForm({ refNewClientForm, selectedClient }) {
         }));
     };
 
-        const resetForm = () => {
-    setProductInput({
-        eik: "",
-        name: "",
-        mol: "",
-        address: "",
-        phone: "",
-        object: "",
-        info: "",
-    });
-};
+    const resetForm = () => {
+        setProductInput({
+            eik: "",
+            name: "",
+            mol: "",
+            address: "",
+            phone: "",
+            object: "",
+            info: "",
+        });
+    };
     const handleAddClient = (e) => {
         e.preventDefault();
 
@@ -88,8 +88,9 @@ export default function NewClientForm({ refNewClientForm, selectedClient }) {
         }
 
         addClient(clientInput);
-        resetForm()
+
         handleCloseModal();
+        resetForm();
     };
 
     return (
