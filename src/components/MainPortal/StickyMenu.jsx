@@ -5,6 +5,7 @@ import { changeThema, themeSets } from "../../services/dataService.js";
 
 import ContainerMenu from "./ContainerMenu.jsx";
 import ClientsDashboard from "../Clients/ClientsDashboard.jsx";
+import ProductsDashboard from "../Products/ProductsDashboard.jsx";
 
 import classes from "../MainPortal/StickyMenu.module.css";
 
@@ -24,6 +25,7 @@ export default function StickyMenu({
     const [itsHover, setItsHover] = useState(false);
     const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
     const clientDashboardModal = useRef();
+    const refProductsDashbord = useRef();
 
     useEffect(() => {
         const database = getDatabase();
@@ -78,6 +80,7 @@ export default function StickyMenu({
     return (
         <>
             <ClientsDashboard refClientDashbord={clientDashboardModal} />
+            <ProductsDashboard refProductsDashbord={refProductsDashbord} />
 
             <div className={classes.menu}>
                 <div className={classes.menuContainer}>
@@ -199,7 +202,9 @@ export default function StickyMenu({
                                 </button>
                                 <button
                                     className={` ${classes.inputsWrapper} ${classes.searchButton}`}
-                                    onClick={() => {}}
+                                    onClick={() => {
+                                        refProductsDashbord.current.open()
+                                    }}
                                 >
                                     Стока
                                 </button>

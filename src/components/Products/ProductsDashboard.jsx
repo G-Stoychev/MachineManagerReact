@@ -1,14 +1,17 @@
 import { useImperativeHandle, useState, useRef, useEffect } from "react";
 import { getDatabase, ref, onValue } from "firebase/database";
+import { deleteProduct } from "../../services/dataService.js"
 
 import styles from "../Clients/ClientsDashboard.module.css";
 
-export default function ClientsDashboard({ refGoodDashbord }) {
-    const refGoodDashbordModal = useRef();
-    const refGoodsForm = useRef();
-    const [choosenGoods, setChoosenGoods] = useState(null);
+import NewProductForm from "./NewProductsForm.jsx"
 
-    useImperativeHandle(refGoodDashbord, () => {
+export default function ClientsDashboard({ refProductsDashbord }) {
+    const refGoodDashbordModal = useRef();
+    const refProductForm = useRef();
+    const [choosenProduct, setChoosenProducts] = useState(null);
+
+    useImperativeHandle(refProductsDashbord, () => {
         return {
             open() {
                 refGoodDashbordModal.current.showModal();
@@ -19,19 +22,19 @@ export default function ClientsDashboard({ refGoodDashbord }) {
         refGoodDashbordModal.current.close();
     };
 
-    const [goodsData, setGoodsData] = useState([]);
+    const [productsData, setproductsData] = useState([]);
 
     useEffect(() => {
         const database = getDatabase();
-        const clientRef = ref(database, "goods");
+        const productsRef = ref(database, "products");
         const unsubscribe = onValue(
-            clientRef,
+            productsRef,
             (snapshot) => {
                 if (snapshot.exists()) {
                     const data = snapshot.val();
-                    setGoodsData(Object.values(data));
+                    setproductsData(Object.values(data));
                 } else {
-                    setGoodsData([]);
+                    setproductsData([]);
                 }
             },
             {
@@ -42,12 +45,14 @@ export default function ClientsDashboard({ refGoodDashbord }) {
         return () => unsubscribe();
     }, []);
 
-    const handleremoveClient = (goodsId) => {
-        deleteClient(goodsId);
+    const handleRemoveProduct = (productId) => {
+        deleteProduct(productId);
     };
 
     return (
         <>
+            <NewProductForm refNewProductModal={refProductForm} selectedProduct={choosenProduct}/>
+
             <dialog ref={refGoodDashbordModal} className={styles.wrapper}>
                 <div className={styles.clientNav}>
                     <h2>Стоки (ТОЗИ МОДУЛ Е ТЕСТОВИ )</h2>
@@ -55,8 +60,8 @@ export default function ClientsDashboard({ refGoodDashbord }) {
                         <button
                             className={styles.addBtn}
                             onClick={() => {
-                                setChoosenGoods(null);
-                                newClientForm.current.open();
+                                setChoosenProducts(null);
+                                refProductForm.current.open();
                             }}
                         >
                             Добави
@@ -65,7 +70,6 @@ export default function ClientsDashboard({ refGoodDashbord }) {
                             className={styles.tableBtn}
                             onClick={handleCloseModal}
                         >
-                            {" "}
                             ❌
                         </button>
                     </div>
@@ -85,16 +89,16 @@ export default function ClientsDashboard({ refGoodDashbord }) {
                         </tr>
                     </thead>
                     <tbody>
-                        {goodsData.length !== 0 ? (
-                            goodsData.map((goods) => (
-                                <tr key={goods.id}>
-                                    <td>{goods.eik}</td>
-                                    <td>{goods.name}</td>
-                                    <td>{goods.mol}</td>
-                                    <td>{goods.address}</td>
-                                    <td>{goods.phone}</td>
-                                    <td>{goods.object}</td>
-                                    <td>{goods.info}</td>
+                        {productsData.length !== 0 ? (
+                            productsData.map((product) => (
+                                <tr key={product.id}>
+                                    <td>{product.code}</td>
+                                    <td>{product.name}</td>
+                                    <td>{product.measure}</td>
+                                    <td>Є {product.incomingPrice}</td>
+                                    <td>Є {product.sellPrice}</td>
+                                    <td>{product.lot}</td>
+                                    <td>{product.info}</td>
                                     <td>
                                         <div>
                                             <button
@@ -105,7 +109,8 @@ export default function ClientsDashboard({ refGoodDashbord }) {
                                                     );
 
                                                     if (!isConfirmed) return;
-                                                    setChoosenGoods(goods);
+                                                    setChoosenProducts(product);
+                                                    refProductForm.current.open();
                                                 }}
                                             >
                                                 <i className="fa-solid fa-pen-to-square"></i>
@@ -119,8 +124,8 @@ export default function ClientsDashboard({ refGoodDashbord }) {
 
                                                     if (!isConfirmed) return;
 
-                                                    handleremoveClient(
-                                                        goods.id
+                                                    handleRemoveProduct(
+                                                        product.id
                                                     );
                                                 }}
                                             >

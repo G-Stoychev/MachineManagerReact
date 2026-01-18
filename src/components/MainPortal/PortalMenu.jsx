@@ -4,7 +4,7 @@ import classes from "../MainPortal/MainPortal.module.css";
 
 import ComponentCard from "./ComponentCard.jsx";
 import ClientsDashboard from "../Clients/ClientsDashboard.jsx";
-import GoodsDashboard from "../Goods/GoogsDashboard.jsx";
+import ProductsDashboard from "../Products/ProductsDashboard.jsx";
 
 export default function PortalMenu({
     toggleCars,
@@ -22,19 +22,19 @@ export default function PortalMenu({
         setASideIsOpen(true);
     };
     const clientDashboardModal = useRef();
-    const refGoodDashbord = useRef();
+    const refProductsDashbord = useRef();
 
     const handleOpenClients = () => {
         clientDashboardModal.current.open();
     };
 
-    const handleOpenGoods = () => {
-        refGoodDashbord.current.open();
+    const handleOpenProducts = () => {
+        refProductsDashbord.current.open();
     };
     return (
         <>
             <ClientsDashboard refClientDashbord={clientDashboardModal} />
-            <GoodsDashboard refGoodDashbord={refGoodDashbord} />
+            <ProductsDashboard refProductsDashbord={refProductsDashbord} />
             <div className={classes.wrapper}>
                 <ComponentCard
                     text={"Продажби"}
@@ -54,7 +54,7 @@ export default function PortalMenu({
                 <ComponentCard
                     text={"Стоки"}
                     image={<i className="fa-solid fa-box-open"></i>}
-                    click={handleOpenGoods}
+                    click={handleOpenProducts}
                 />
 
                 <ComponentCard

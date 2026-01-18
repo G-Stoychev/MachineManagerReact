@@ -195,9 +195,9 @@ export const onUpdateClient = (id, client) => {
     set(ref(db, `clients/` + id), client);
 };
 
-export const addGoods = async (goods) => {
+export const addProduct = async (goods) => {
     const db = getDatabase();
-    const pushGoods = push(ref(db, `goods`));
+    const pushGoods = push(ref(db, `products`));
     const goodsKey = pushGoods.key;
 
     await set(pushGoods, {
@@ -211,17 +211,17 @@ export const addGoods = async (goods) => {
     };
 };
 
-export const deleteGoods = async (goodsId) => {
+export const deleteProduct = async (goodsId) => {
     const db = getDatabase();
 
-    const goodsRef = ref(db, `goods/${goodsId}`);
+    const goodsRef = ref(db, `products/${goodsId}`);
 
     await remove(goodsRef);
 
     return goodsId;
 };
 
-export const onUpdateGoods = (id, goods) => {
+export const onUpdateProduct = (id, goods) => {
     const db = getDatabase();
-    set(ref(db, `goods/` + id), goods);
+    set(ref(db, `products/` + id), goods);
 };

@@ -14,7 +14,7 @@ export default function Notifications({
                     {toDayTasks.length > 1 ? "и" : "а"} за днес {toDayDate}
                 </h2>
                 <button className={styles.closeBtn} onClick={close}>
-                    X
+                     ❌
                 </button>
             </div>
 

@@ -1,40 +1,40 @@
 import { useRef, useImperativeHandle, useState, useEffect } from "react";
-import { addClient, onUpdateClient } from "../../services/dataService.js";
+import { addProduct, onUpdateProduct } from "../../services/dataService.js";
 
 import ErrorModal from "../ErrorModal/ErrorModal.jsx";
 
-import styles from "./Clients/ClientsDashboard.module.css";
+import styles from "../Clients/ClientsDashboard.module.css";
 
-export default function NewClientForm({ refNewClientForm, selectedClient }) {
-    const newClientForm = useRef();
+export default function NewProductForm({ refNewProductModal, selectedProduct }) {
+    const refNewProductForm = useRef();
     const [error, setError] = useState(false);
     const errorModal = useRef();
-    const isEdit = selectedClient !== null;
-    const [clientInput, setClientInput] = useState({
-        eik: "",
+    const isEdit = selectedProduct !== null;
+    const [productInput, setProductInput] = useState({
+        code: "",
         name: "",
-        mol: "",
-        address: "",
-        phone: "",
-        object: "",
+        measure: "",
+        incomingPrice: "",
+        sellPrice: "",
+        lot: "",
         info: "",
     });
 
     useEffect(() => {
-        if (selectedClient) {
-            setClientInput(selectedClient);
+        if (selectedProduct) {
+            setProductInput(selectedProduct);
         } else {
-            setClientInput({
-                eik: "",
-                name: "",
-                mol: "",
-                address: "",
-                phone: "",
-                object: "",
-                info: "",
+            setProductInput({
+        code: "",
+        name: "",
+        measure: "",
+        incomingPrice: "",
+        sellPrice: "",
+        lot: "",
+        info: "",
             });
         }
-    }, [selectedClient]);
+    }, [selectedProduct]);
 
     useEffect(() => {
         if (error && errorModal.current) {
@@ -42,41 +42,41 @@ export default function NewClientForm({ refNewClientForm, selectedClient }) {
         }
     }, [error]);
 
-    useImperativeHandle(refNewClientForm, () => {
+    useImperativeHandle(refNewProductModal, () => {
         return {
             open() {
-                newClientForm.current.showModal();
+                refNewProductForm.current.showModal();
             },
         };
     });
 
     const handleCloseModal = () => {
-        newClientForm.current.close();
+        refNewProductForm.current.close();
     };
 
     const handleChange = (e) => {
         const { name, value } = e.target;
-        setClientInput((prev) => ({
+        setProductInput((prev) => ({
             ...prev,
             [name]: value,
         }));
     };
 
-    const handleAddClient = (e) => {
+    const handleAddProduct = (e) => {
         e.preventDefault();
 
-        if (Object.values(clientInput).some((v) => v.trim() === "")) {
+        if (Object.values(productInput).some((v) => v.trim() === "")) {
             setError(true);
             return;
         }
 
         if (isEdit) {
-            onUpdateClient(clientInput.id, clientInput);
+            onUpdateProduct(productInput.id, productInput);
             handleCloseModal();
             return;
         }
 
-        addClient(clientInput);
+        addProduct(productInput);
         handleCloseModal();
     };
 
@@ -90,16 +90,16 @@ export default function NewClientForm({ refNewClientForm, selectedClient }) {
                     ref={errorModal}
                 />
             )}
-            <dialog className={styles.newClientDialog} ref={newClientForm}>
+            <dialog className={styles.newClientDialog} ref={refNewProductForm}>
                 <form
-                    onSubmit={handleAddClient}
+                    onSubmit={handleAddProduct}
                     className={styles.formNewClient}
                 >
                     <div className={styles.navClientForm}>
                         <h2>
                             {isEdit
-                                ? `Промени данни за фирма - ${clientInput.name}`
-                                : "Добави нов клиент"}
+                                ? `Промени информация за продук  - ${productInput.name}`
+                                : "Добави нов продукт"}
                         </h2>
                         <button type="button" onClick={handleCloseModal}>
                             X
@@ -107,62 +107,62 @@ export default function NewClientForm({ refNewClientForm, selectedClient }) {
                     </div>
 
                     <div className={styles.clientFormWrapper}>
-                        <label>ЕИК</label>
+                        <label>Код</label>
                         <input
                             type="text"
-                            name="eik"
-                            placeholder="ЕИК"
-                            value={clientInput.eik}
+                            name="code"
+                            placeholder="Код"
+                            value={productInput.code}
                             onChange={handleChange}
                         />
                     </div>
                     <div className={styles.clientFormWrapper}>
-                        <label>Фирма/Клиент</label>
+                        <label>Наименование</label>
                         <input
                             type="text"
                             name="name"
-                            placeholder="Фирма/Клиент"
-                            value={clientInput.name}
+                            placeholder="Наименование"
+                            value={productInput.name}
                             onChange={handleChange}
                         />
                     </div>
                     <div className={styles.clientFormWrapper}>
-                        <label>М.О.Л</label>
+                        <label>Мярка</label>
                         <input
                             type="text"
-                            name="mol"
-                            placeholder="М.О.Л"
-                            value={clientInput.mol}
+                            name="measure"
+                            placeholder="Мярка"
+                            value={productInput.measure}
                             onChange={handleChange}
                         />
                     </div>
                     <div className={styles.clientFormWrapper}>
-                        <label>Адрес</label>
+                        <label>Доставна Цена</label>
                         <input
-                            type="text"
-                            name="address"
-                            placeholder="Адрес"
-                            value={clientInput.address}
+                            type="number"
+                            name="incomingPrice"
+                            placeholder="Доставна Цена"
+                            value={productInput.incomingPrice}
                             onChange={handleChange}
                         />
                     </div>
                     <div className={styles.clientFormWrapper}>
-                        <label>Телефон</label>
+                        <label>Продажна Цена</label>
                         <input
-                            type="text"
-                            name="phone"
-                            placeholder="Телефон"
-                            value={clientInput.phone}
+                            type="number"
+                            name="sellPrice"
+                            placeholder="Продажна Цена"
+                            value={productInput.sellPrice}
                             onChange={handleChange}
                         />
                     </div>
                     <div className={styles.clientFormWrapper}>
-                        <label>Обект</label>
+                        <label>Партиден Номер</label>
                         <input
                             type="text"
-                            name="object"
-                            placeholder="Обект"
-                            value={clientInput.object}
+                            name="lot"
+                            placeholder="Партиден Номер"
+                            value={productInput.lot}
                             onChange={handleChange}
                         />
                     </div>
@@ -172,7 +172,7 @@ export default function NewClientForm({ refNewClientForm, selectedClient }) {
                             type="text"
                             name="info"
                             placeholder="Информация"
-                            value={clientInput.info}
+                            value={productInput.info}
                             onChange={handleChange}
                         />
                     </div>
