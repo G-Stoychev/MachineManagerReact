@@ -1,5 +1,6 @@
-import { useEffect, useState } from "react";
-import Map from "./Map";
+import { useEffect, useState, lazy } from "react";
+
+const Map = lazy(() => import("./Map.jsx"));
 import { updateMachineCoords } from "../../services/dataService";
 
 export default function LocationPicker({ machine }) {
