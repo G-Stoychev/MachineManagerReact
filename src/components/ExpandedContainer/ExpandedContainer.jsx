@@ -9,12 +9,14 @@ import {
     addMoveData,
     changeRepairData,
 } from "../../services/dataService.js";
-import LocationPicker from "../LocationPicker/LocationPicker.jsx";
 
 const MachineInformation = lazy(() => import("./MachineInformation.jsx"));
 const ErrorModal = lazy(() => import("../ErrorModal/ErrorModal.jsx"));
 const RepairsInformation = lazy(() => import("./RepairsInformation.jsx"));
 const MovementsInformation = lazy(() => import("./MovementsInformation.jsx"));
+const LocationPicker = lazy(
+    () => import("../LocationPicker/LocationPicker.jsx"),
+);
 
 export default function ExpandedContainer({ machine, closeRow, company }) {
     const [error, setError] = useState(false);
