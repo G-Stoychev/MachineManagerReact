@@ -1,12 +1,14 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, lazy } from "react";
 
 import { getDatabase, ref, onValue } from "firebase/database";
 import { changeThema, themeSets } from "../../services/dataService.js";
 
 import ContainerMenu from "./ContainerMenu.jsx";
-import ClientsDashboard from "../Clients/ClientsDashboard.jsx";
-import ProductsDashboard from "../Products/ProductsDashboard.jsx";
-import NewSaleForm from "../Sales/NewSaleForm.jsx";
+const ClientsDashboard = lazy(() => import("../Clients/ClientsDashboard.jsx"));
+const ProductsDashboard = lazy(
+    () => import("../Products/ProductsDashboard.jsx"),
+);
+const NewSaleForm = lazy(() => import("../Sales/NewSaleForm.jsx"));
 
 import classes from "../MainPortal/StickyMenu.module.css";
 

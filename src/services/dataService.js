@@ -25,6 +25,11 @@ export const addMachineData = async (machine) => {
     };
 };
 
+export const updateMachineCoords = (id, coords) => {
+    const db = getDatabase();
+    update(ref(db, `machines/${id}`), { coords });
+};
+
 export const addRepairData = async (repair) => {
     const db = getDatabase();
     const pushRepair = push(ref(db, `repairs`));

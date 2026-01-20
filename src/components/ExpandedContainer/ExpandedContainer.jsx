@@ -9,6 +9,7 @@ import {
     addMoveData,
     changeRepairData,
 } from "../../services/dataService.js";
+import LocationPicker from "../LocationPicker/LocationPicker.jsx";
 
 const MachineInformation = lazy(() => import("./MachineInformation.jsx"));
 const ErrorModal = lazy(() => import("../ErrorModal/ErrorModal.jsx"));
@@ -55,14 +56,14 @@ export default function ExpandedContainer({ machine, closeRow, company }) {
                     const data = snapshot.val();
                     const repairsArray = Object.values(data);
                     const currentMachineRepairs = repairsArray.filter(
-                        (repair) => repair.machineId === machine.id
+                        (repair) => repair.machineId === machine.id,
                     );
                     setRepairsList(currentMachineRepairs);
                 }
             },
             {
                 onlyOnce: false,
-            }
+            },
         );
 
         return () => unsubscribe();
@@ -80,14 +81,14 @@ export default function ExpandedContainer({ machine, closeRow, company }) {
                     const currentMachineMove = movementsArray.filter((move) =>
                         Array.isArray(move.machineId)
                             ? move.machineId.includes(machine.id)
-                            : move.machineId === machine.id
+                            : move.machineId === machine.id,
                     );
                     setMovements(currentMachineMove);
                 }
             },
             {
                 onlyOnce: true,
-            }
+            },
         );
 
         return () => unsubscribe();
@@ -140,6 +141,7 @@ export default function ExpandedContainer({ machine, closeRow, company }) {
                     lastmove={lastmove}
                     machine={machine}
                 />
+
                 {content === "repairModal" ? (
                     <RepairModal
                         closeRepairModal={handleSetRepairs}
@@ -171,6 +173,18 @@ export default function ExpandedContainer({ machine, closeRow, company }) {
                             >
                                 Движения
                             </button>
+                            <button
+                                className={
+                                    content === "information"
+                                        ? classes.selectedBtn
+                                        : undefined
+                                }
+                                onClick={() => {
+                                    setContent("location");
+                                }}
+                            >
+                                Локация
+                            </button>
                         </div>
                     </div>
                 )}
@@ -186,6 +200,8 @@ export default function ExpandedContainer({ machine, closeRow, company }) {
                 {content === "information" && (
                     <MovementsInformation movements={movements} />
                 )}
+
+                {content === "location" && <LocationPicker machine={machine} />}
             </div>
         </>
     );
