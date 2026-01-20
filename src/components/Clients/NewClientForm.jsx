@@ -52,6 +52,7 @@ export default function NewClientForm({ refNewClientForm, selectedClient }) {
 
     const handleCloseModal = () => {
         newClientForm.current.close();
+        resetForm();
     };
 
     const handleChange = (e) => {
@@ -88,9 +89,7 @@ export default function NewClientForm({ refNewClientForm, selectedClient }) {
         }
 
         addClient(clientInput);
-
         handleCloseModal();
-        resetForm();
     };
 
     return (

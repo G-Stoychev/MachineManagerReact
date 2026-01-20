@@ -74,6 +74,7 @@
 .tableBtn {
     background-color: transparent;
     box-shadow: none;
+    padding: 5px;
 }
 
 .saleNav {
@@ -105,4 +106,31 @@
 
 .addProductBtn {
     margin-top: 12px;
+}
+
+.productModal {
+    width: 30%;
+    height: 50vh;
+    background-color: rgb(255, 255, 255);
+    overflow: auto;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.selected {
+    width: 100%;
+    background-color: rgba(255, 228, 196, 0.76);
+    overflow: auto;
+}
+
+.optSelect {
+    font-size: medium;
+    padding: 3px;
+}
+
+.optSelectF {
+    font-size: 14px;
+    padding: 3px;
 }

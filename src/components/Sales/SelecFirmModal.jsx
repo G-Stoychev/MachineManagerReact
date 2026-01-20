@@ -2,15 +2,15 @@ import { useRef, useImperativeHandle, useState } from "react";
 
 import styles from "./Sales.module.css";
 
-export default function SelectProductModal({
-    refSelectProductModal,
-    products,
-    handleAddProduct,
+export default function SelectFirmModal({
+    refSelectFirmModal,
+    firms,
+    handleAddFirm,
 }) {
     const dialogRef = useRef();
     const [selectedId, setSelectedId] = useState("");
 
-    useImperativeHandle(refSelectProductModal, () => ({
+    useImperativeHandle(refSelectFirmModal, () => ({
         open() {
             dialogRef.current.showModal();
         },
@@ -24,14 +24,10 @@ export default function SelectProductModal({
     };
 
     const handleConfirm = () => {
-        const selected = products.find((p) => p.id === String(selectedId));
+        const selected = firms.find((p) => p.id === String(selectedId));
 
         if (selected) {
-            handleAddProduct({
-                ...selected,
-                price: selected.sellPrice,
-                quantity: 1,
-            });
+            handleAddFirm(selected);
             dialogRef.current.close();
             setSelectedId("");
         }
@@ -39,7 +35,7 @@ export default function SelectProductModal({
 
     return (
         <dialog ref={dialogRef} className={styles.productModal}>
-            <h3>Избери продукт</h3>
+            <h3>Избери фирма</h3>
 
             <select
                 value={selectedId}
@@ -47,14 +43,14 @@ export default function SelectProductModal({
                 onChange={handleSelect}
                 className={styles.selected}
             >
-                <option></option>
-                {products.map((p) => (
+                <option> </option>
+                {firms.map((f) => (
                     <option
-                        key={p.id}
-                        value={p.id}
-                        className={styles.optSelect}
+                        key={f.id}
+                        value={f.id}
+                        className={styles.optSelectF}
                     >
-                        {p.name} – {p.sellPrice} €.
+                        {f.eik} - {f.name} – tel: {f.phone}.
                     </option>
                 ))}
             </select>

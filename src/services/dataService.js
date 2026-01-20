@@ -225,3 +225,19 @@ export const onUpdateProduct = (id, goods) => {
     const db = getDatabase();
     set(ref(db, `products/` + id), goods);
 };
+
+export const addNewSale = async (sale) => {
+    const db = getDatabase();
+    const pushSale = push(ref(db, `sales`));
+    const goodsKey = pushSale.key;
+
+    await set(pushSale, {
+        ...sale,
+        id: goodsKey,
+    });
+
+    return {
+        ...sale,
+        id: goodsKey,
+    };
+};
