@@ -8,18 +8,19 @@ import styles from "./MainPortal.module.css";
 import CarsComponent from "../CarsData/CarsComponent.jsx";
 import ErrorModal from "../ErrorModal/ErrorModal.jsx";
 import PortalMenu from "./PortalMenu.jsx";
-import StickyMenu from "./StickyMenu.jsx";
+const StickyMenu = lazy(() => import("./StickyMenu.jsx"));
 
 const Container = lazy(() => import("../Container/Container.jsx"));
 const ProtocolPlus = lazy(() => import("../ProtocolModal/ProtocolPlus.jsx"));
-const CompanyInfoModal = lazy(() =>
-    import("../CompanyInfoModal/CompanyInfoModal.jsx")
+const CompanyInfoModal = lazy(
+    () => import("../CompanyInfoModal/CompanyInfoModal.jsx"),
 );
+
 import ContractForm from "../ContractForm/ContractForm.jsx";
 import RepairList from "../RepairList/RepairList.jsx";
 import Organizer from "../Оrganizer/Оrganizer.jsx";
-import Sales from "../Sales/Sales.jsx";
-import LastDocs from "../LastDocs/LastDocs.jsx";
+const Sales = lazy(() => import("../Sales/Sales.jsx"));
+const LastDocs = lazy(() => import("../LastDocs/LastDocs.jsx"));
 
 import { InputProvider } from "../../store/InputContext.jsx";
 import { MachineProvider } from "../../store/MachineContext.jsx";
@@ -66,7 +67,7 @@ export default function MainPortal({ userInfo, logout }) {
             },
             {
                 onlyOnce: true,
-            }
+            },
         );
 
         return () => unsubscribe();
@@ -107,12 +108,12 @@ export default function MainPortal({ userInfo, logout }) {
                     const expirationDate = new Date(car[field]);
                     const timeDiff = expirationDate - today;
                     const daysLeft = Math.ceil(
-                        timeDiff / (1000 * 60 * 60 * 24)
+                        timeDiff / (1000 * 60 * 60 * 24),
                     );
 
                     if (daysLeft === 10 || (daysLeft < 10 && daysLeft >= 0)) {
                         expiringList.push(
-                            `🚗 ${car.title}: ${labels[field]} изтича след ${daysLeft} дни (${car[field]})`
+                            `🚗 ${car.title}: ${labels[field]} изтича след ${daysLeft} дни (${car[field]})`,
                         );
                     }
                 }
@@ -153,7 +154,7 @@ export default function MainPortal({ userInfo, logout }) {
 
     const handleToggleContainer = () => {
         setSelectedComponent((prev) =>
-            prev === "container" ? "menu" : "container"
+            prev === "container" ? "menu" : "container",
         );
     };
     const previousComponentRef = useRef("menu");
@@ -175,7 +176,7 @@ export default function MainPortal({ userInfo, logout }) {
 
     const handleToggleContract = () => {
         setSelectedComponent((prev) =>
-            prev === "contract" ? "menu" : "contract"
+            prev === "contract" ? "menu" : "contract",
         );
     };
 
@@ -188,13 +189,13 @@ export default function MainPortal({ userInfo, logout }) {
 
     const handleToggleOrganizer = () => {
         setSelectedComponent((prev) =>
-            prev === "organizer" ? "menu" : "organizer"
+            prev === "organizer" ? "menu" : "organizer",
         );
     };
 
     const handleToggleDocs = () => {
         setSelectedComponent((prev) =>
-            prev === "documents" ? "menu" : "documents"
+            prev === "documents" ? "menu" : "documents",
         );
     };
     const hanleTaskOpenFromNotification = (index) => {

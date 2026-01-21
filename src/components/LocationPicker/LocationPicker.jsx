@@ -73,14 +73,6 @@ export default function LocationPicker({ machine }) {
                 </button>
             </div>
 
-            {savedCoords && (
-                <div style={{ marginTop: 10 }}>
-                    <strong>Запазени координати:</strong>
-                    <div>Lat: {savedCoords.lat}</div>
-                    <div>Lng: {savedCoords.lng}</div>
-                </div>
-            )}
-
             {error && <p style={{ color: "red" }}>{error}</p>}
         </div>
     );

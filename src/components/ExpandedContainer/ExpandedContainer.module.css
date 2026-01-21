@@ -20,11 +20,11 @@
 .machineInformationTable {
     display: flex;
     justify-content: start;
-    gap: 200px;
+    gap: 250px;
 }
 
 .machineInformationTable .sectionWrapper {
-    margin: 20px 10px 10px;
+    margin: 5px;
     padding: 5px;
 }
 
