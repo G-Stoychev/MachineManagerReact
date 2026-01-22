@@ -74,7 +74,7 @@ export default function Sales({ user }) {
 
                     <tbody>
                         {salesData.map((sale) => (
-                            <tr>
+                            <tr key={sale.sId}>
                                 <td>{sale.createdAt}</td>
                                 <td>{sale.firmEik}</td>
                                 <td>{sale.firmName}</td>
@@ -90,8 +90,6 @@ export default function Sales({ user }) {
                                             );
 
                                             if (!isConfirmed) return;
-
-                                            console.log("Редактирам продажба");
                                         }}
                                     >
                                         <i className="fa-solid fa-magnifying-glass"></i>
@@ -104,8 +102,6 @@ export default function Sales({ user }) {
                                             );
 
                                             if (!isConfirmed) return;
-
-                                            console.log("Редактирам продажба");
                                         }}
                                     >
                                         <i className="fa-solid fa-print"></i>

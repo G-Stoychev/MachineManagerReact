@@ -135,11 +135,11 @@ export default function SaleForm({ refSeleForm }) {
                 price: p.price,
                 total: p.quantity * p.price,
             })),
-
+            sId: Date.now(),
             totalSum: totalSum,
             createdAt: new Date().toLocaleDateString("bg-BG"),
         };
-
+        console.log(newSale);
         addNewSale(newSale);
         setChosenProducts([]);
         setChosenFirm(null);
