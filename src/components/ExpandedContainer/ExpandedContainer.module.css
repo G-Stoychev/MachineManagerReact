@@ -124,8 +124,8 @@ form {
 @media only screen and (max-width: 780px) {
     .modal {
         position: absolute;
-        height: 99vh;
-        top: 7%;
+        height: 95vh;
+        top: 4%;
         height: 100vh;
         width: 100%;
     }
